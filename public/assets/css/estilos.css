@@ -1,0 +1,12 @@
+.card-img-top {
+    width: 100%;              /* Asegura que la imagen ocupe todo el ancho del card */
+    height: 200px;            /* O cualquier altura deseada */
+    object-fit: cover;        /* Cubre el espacio sin deformarse ni salirse */
+}
+
+
+.span-ip{
+    font-weight: bold !important;
+    font-size: 1.5em !important;
+    color: rgb(15, 1, 1);
+}
