@@ -2,28 +2,39 @@
   <div>
     <div class="row" v-for="(row, rowIndex) in chunkedCategorias" :key="'row-' + rowIndex">
       <div class="col-sm-6 col-xl-3" v-for="cat in row" :key="cat.id">
-        <div class="card">
-          <img class="card-img-top img-fluid" :src="cat.url" alt="Card image cap">
-          <div class="card-body">
-            <h4 class="card-title mb-2">{{ cat.nombre }}</h4>
-            <p class="card-text mb-0">{{ cat.descripcion }}</p>
-          </div>
-          <div class="card-footer">
-            <a v-if="cat.enlace"
-               class="btn btn-outline-success waves-effect waves-light"
-               :href="cat.enlace"
-               target="_blank">
-              Ingresar
-            </a> 
-            <button v-else
-                    class="btn btn-outline-success waves-effect waves-light"
-                    @click="abrirModal(cat)">
+        <div class="card custom-card">
+            <div class="image-container">
+                <img class="card-img-top img-fluid" :src="cat.url" alt="Card image cap">
+                <div class="overlay-button">
+                    <a v-if="cat.enlace"
+                        class="btn btn-outline-light waves-effect"
+                        :href="cat.enlace"
+                        target="_blank">
+                        Ingresar
+                    </a> 
+                <button v-else
+                        class="btn btn-outline-light waves-effect"
+                        @click="abrirModal(cat)">
                     Ingresar
-            </button>
-          </div>
-        </div>
+                </button>
+                </div>
+            </div>
+
+            <div class="card-body small-padding">
+                <h4 class="card-title">{{ cat.nombre }}</h4>
+                <p class="card-text mb-0">{{ cat.descripcion }}</p>
+            </div>
+            </div>
       </div>
     </div>
+
+    <!-- <div class="row">
+        <div class="col-sm-6 col-xl-3">
+            cardd
+        </div>
+    </div> -->
+
+
     <modalEnlacesComponent :enlaces="enlaces" ref="modalEnlaces"></modalEnlacesComponent>
   </div>
 </template>

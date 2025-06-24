@@ -99,7 +99,7 @@
                             <a href="apps-calendar.php" class="dropdown-item" data-key="t-calendar">Calendar</a>
                             <a href="apps-chat.php" class="dropdown-item" data-key="t-chat">Chat</a>
 
-                            <div class="dropdown">
+                            {{-- <div class="dropdown">
                                 <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-email" role="button">
                                     <span data-key="t-email">Email</span>
                                     <div class="arrow-down"></div>
@@ -108,9 +108,9 @@
                                     <a href="apps-email-inbox.php" class="dropdown-item" data-key="t-inbox">Inbox</a>
                                     <a href="apps-email-read.php" class="dropdown-item" data-key="t-read-email">Read_Email</a>
                                 </div>
-                            </div>
+                            </div> --}}
 
-                            <div class="dropdown">
+                            {{-- <div class="dropdown">
                                 <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-invoice" role="button">
                                     <span data-key="t-invoices">Invoices</span>
                                     <div class="arrow-down"></div>
@@ -119,8 +119,9 @@
                                     <a href="apps-invoices-list.php" class="dropdown-item" data-key="t-invoice-list">Invoice_List</a>
                                     <a href="apps-invoices-detail.php" class="dropdown-item" data-key="t-invoice-detail">Invoice_Detail</a>
                                 </div>
-                            </div>
-                            <div class="dropdown">
+                            </div> --}}
+                            
+                            {{-- <div class="dropdown">
                                 <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-contact" role="button">
                                     <span data-key="t-contacts">Contacts</span>
                                     <div class="arrow-down"></div>
@@ -130,7 +131,7 @@
                                     <a href="apps-contacts-list.php" class="dropdown-item" data-key="t-user-list">User_List</a>
                                     <a href="apps-contacts-profile.php" class="dropdown-item" data-key="t-profile">Profile</a>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </li>
                 </ul>

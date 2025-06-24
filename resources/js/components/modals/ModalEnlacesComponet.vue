@@ -8,27 +8,21 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                                <div class="row" v-for="(row, rowIndex) in chunkedEnlaces" :key="'row-' + rowIndex">
-                                    <div class="col-sm-6 col-xl-3" v-for="enlace in row" :key="enlace.id">
-                                        <!-- {{ enlace.url }} -->
-                                        <div class="card">
+                            <div class="row" v-for="(row, rowIndex) in chunkedEnlaces" :key="'row-' + rowIndex">
+                                <div class="col-sm-6 col-xl-3" v-for="enlace in row" :key="enlace.id">
+                                    <!-- {{ enlace.url }} -->
+                                    <div class="card">
                                         <img class="card-img-top img-fluid img_modal_enl" :src="enlace.url" alt="Card image cap">
                                         <div class="card-body">
                                             <h6 class="card-title title_enlaces">{{ enlace.nombre }}</h6>
-                                            <!-- <p class="card-text mb-0">{{ enlace.descripcion }}</p> -->
+                                            <p class="card-text mb-0">{{ enlace.descripcion }}</p>
                                         </div>
                                         <div class="card-footer">
-                                            <a v-if="enlace.enlace"
-                                            class="btn btn-outline-success waves-effect waves-light"
-                                            :href="enlace.enlace"
-                                            target="_blank">
-                                            Ingresar
-                                            </a>
-                                 
-                                        </div>
+                                            <a v-if="enlace.enlace" class="btn btn-outline-success waves-effect waves-light" :href="enlace.enlace" target="_blank">Ingresar</a>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                         </div>
                     </div>
                     <!-- /.modal-content -->
