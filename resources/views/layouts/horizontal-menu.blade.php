@@ -78,61 +78,28 @@
 <div class="topnav">
     <div class="container-fluid">
         <nav class="navbar navbar-light navbar-expand-lg topnav-menu">
-
             <div class="collapse navbar-collapse" id="topnav-menu-content">
                 <ul class="navbar-nav">
-
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle arrow-none" href="inicio" id="topnav-dashboard" role="button">
                             <i data-feather="home"></i><span data-key="t-dashboards">Dashboard</span>
                         </a>
                     </li>
-
-
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-pages" role="button">
                             <i data-feather="grid"></i><span data-key="t-apps">Cuenta San Juan de Dios</span>
                             <div class="arrow-down"></div>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="topnav-pages">
-
                             <a href="apps-calendar.php" class="dropdown-item" data-key="t-calendar">Calendar</a>
                             <a href="apps-chat.php" class="dropdown-item" data-key="t-chat">Chat</a>
-
-                            {{-- <div class="dropdown">
-                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-email" role="button">
-                                    <span data-key="t-email">Email</span>
-                                    <div class="arrow-down"></div>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="topnav-email">
-                                    <a href="apps-email-inbox.php" class="dropdown-item" data-key="t-inbox">Inbox</a>
-                                    <a href="apps-email-read.php" class="dropdown-item" data-key="t-read-email">Read_Email</a>
-                                </div>
-                            </div> --}}
-
-                            {{-- <div class="dropdown">
-                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-invoice" role="button">
-                                    <span data-key="t-invoices">Invoices</span>
-                                    <div class="arrow-down"></div>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="topnav-invoice">
-                                    <a href="apps-invoices-list.php" class="dropdown-item" data-key="t-invoice-list">Invoice_List</a>
-                                    <a href="apps-invoices-detail.php" class="dropdown-item" data-key="t-invoice-detail">Invoice_Detail</a>
-                                </div>
-                            </div> --}}
-                            
-                            {{-- <div class="dropdown">
-                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-contact" role="button">
-                                    <span data-key="t-contacts">Contacts</span>
-                                    <div class="arrow-down"></div>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="topnav-contact">
-                                    <a href="apps-contacts-grid.php" class="dropdown-item" data-key="t-user-grid">User_Grid</a>
-                                    <a href="apps-contacts-list.php" class="dropdown-item" data-key="t-user-list">User_List</a>
-                                    <a href="apps-contacts-profile.php" class="dropdown-item" data-key="t-profile">Profile</a>
-                                </div>
-                            </div> --}}
                         </div>
+                    </li>
+
+                    <li class="nav-item dropdown ">
+                        <a class="nav-link dropdown-toggle arrow-none" href="#" role="button" data-bs-toggle="modal" data-bs-target=".bs-example-modal-xl">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layout"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg><span data-key="t-horizontal">Soporte</span>
+                        </a>
                     </li>
                 </ul>
             </div>

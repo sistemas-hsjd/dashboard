@@ -15,17 +15,8 @@ use App\Http\Controllers\ApplicationController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('principal');
-// });
-
-// Route::get('/', [DashboardController::class, 'index']);
 Route::get('{view}', ApplicationController::class)->where('view', '^(?!api).*$');
-
-// Route::get('/inicio', function () {
-//         return view('contenido.contenido');
-// })->name('inicio');
-
- Route::prefix('api')->group(function () {
-     Route::post('/get-info', [DashboardController::class, 'getInfo']);
- });
+Route::prefix('api')->group(function () {
+    Route::post('/get-info', [DashboardController::class, 'getInfo']);
+    Route::post('/get-funcionarios', [DashboardController::class, 'getFuncionarios']);     
+});

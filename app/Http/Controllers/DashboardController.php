@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Categoria;
 use App\Models\Enlace;
+use App\Models\Funcionario;
 
 class DashboardController extends Controller
 {
     public function getInfo(Request $request){
         $ip = $this->getClientIP();
         $categorias = Categoria::with(['enlaces'])->where('estado', 1)->get();
-        
+
         return [
             "categorias" => $categorias,
             "ip" => $ip
@@ -27,6 +28,28 @@ class DashboardController extends Controller
         } else {
             return $_SERVER['REMOTE_ADDR'];
         }
+    }
+
+    public function getFuncionarios(Request $request){
+        $desarrolladores = Funcionario::with([
+            'sistemas'
+        ])
+        ->whereIn('tipo_id', [1,4,5])
+        ->orderBy('nombre')
+        ->get();
+
+        $tecnicos = Funcionario::with([
+            'sistemas'
+        ])
+        ->whereIn('tipo_id', [2,3])
+        ->orderBy('nombre')
+        ->get();
+
+        return [
+            'desarrolladores' => $desarrolladores,
+            'tecnicos' => $tecnicos
+        ];
+
     }
 
 }

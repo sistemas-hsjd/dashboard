@@ -34,17 +34,19 @@
         </div>
     </div> -->
 
-
     <modalEnlacesComponent :enlaces="enlaces" ref="modalEnlaces"></modalEnlacesComponent>
+    <modalSoporteComponent></modalSoporteComponent>
   </div>
 </template>
 
 <script>
 import modalEnlacesComponent from './modals/ModalEnlacesComponet.vue'
+import modalSoporteComponent from './modals/ModalSoporteComponent.vue'
 export default {
   name: 'CategoriasGrid',
     components: {
-        modalEnlacesComponent
+        modalEnlacesComponent,
+        modalSoporteComponent
     },
    data() {
         return {

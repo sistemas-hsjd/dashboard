@@ -25,34 +25,38 @@
 
     <!-- Begin page -->
     <div id="layout-wrapper">
-        @include('layouts.horizontal-menu') 
-        <!-- ============================================================== -->
-        <!-- Start right Content here -->
-        <!-- ============================================================== -->
-        <div class="main-content" id="app">
+        <div id="app">
+            @include('layouts.horizontal-menu') 
+            <!-- ============================================================== -->
+            <!-- Start right Content here -->
+            <!-- ============================================================== -->
+            <div class="main-content" >
 
-            <div class="page-content">
-                <div class="container-fluid">
+                <div class="page-content">
+                    <div class="container-fluid">
 
-                    <!-- start page title -->
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                                <h4 class="mb-sm-0 font-size-18">¡Bienvenido al portal de aplicativos del Hospital San Juan de Dios!</h4>
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                    <h4 class="mb-sm-0 font-size-18">¡Bienvenido al portal de aplicativos del Hospital San Juan de Dios!</h4>
 
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- end page title -->
-                    @yield('contenido')
+                        <!-- end page title -->
+                        @yield('contenido')
 
-                </div> 
-                <!-- container-fluid -->
+                    </div> 
+                    <!-- container-fluid -->
+                </div>
+                <!-- End Page-content -->
+                @include('layouts.footer')           
             </div>
-            <!-- End Page-content -->
-            @include('layouts.footer')           
-        </div>
             <!-- end main content-->
+        </div>
+   
+        
          
     </div>
     <!-- END layout-wrapper -->
