@@ -56,8 +56,7 @@
                                                         <div class="overflow-hidden w-100">
                                                             <div class="d-flex justify-content-between align-items-center">
                                                                 <h5 class="text-truncate font-size-14 mb-1">
-                                                                {{ desarrollador.nombre }} {{ desarrollador.apellido_paterno }} {{ desarrollador.apellido_materno }}
-                                                                {{ desarrollador.id }}
+                                                                    {{ desarrollador.nombre }} {{ desarrollador.apellido_paterno }} {{ desarrollador.apellido_materno }}
                                                                 </h5>
                                                                 <!-- <div class="alert alert-info alert-dismissible alert-outline fade show mb-0" role="alert">
                                                                     <strong>{{ desarrollador.email }}</strong>
