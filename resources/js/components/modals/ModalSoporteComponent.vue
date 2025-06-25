@@ -35,7 +35,7 @@
                                     <div class="chat-message-list" data-simplebar="init"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: -15px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: 100%; overflow: hidden scroll;"><div class="simplebar-content" style="padding: 0px;">
                                         <div class="pt-3">
                                             <div class="px-3">
-                                                <h5 class="font-size-14 mb-3">Recent</h5>
+                                                <h5 class="font-size-14 mb-3">Desarrolladores</h5>
                                             </div>
                                          <ul class="list-unstyled chat-list">
                                                 <li class="unread" v-for="desarrollador in desarrolladores" :key="desarrollador.id">
@@ -57,6 +57,7 @@
                                                             <div class="d-flex justify-content-between align-items-center">
                                                                 <h5 class="text-truncate font-size-14 mb-1">
                                                                 {{ desarrollador.nombre }} {{ desarrollador.apellido_paterno }} {{ desarrollador.apellido_materno }}
+                                                                {{ desarrollador.id }}
                                                                 </h5>
                                                                 <!-- <div class="alert alert-info alert-dismissible alert-outline fade show mb-0" role="alert">
                                                                     <strong>{{ desarrollador.email }}</strong>
@@ -68,6 +69,10 @@
 
                                                             <!-- Sistemas como badges -->
                                                             <div class="sistemas-list mt-1">
+                                                                <span v-if="desarrollador.id === 4 || desarrollador.id === 6">
+                                                                    {{ desarrollador.estamento  }}
+                                                                </span>
+
                                                                 <span v-for="sistema in desarrollador.sistemas" :key="sistema.id"
                                                                     class="font-size-13 badge bg-info rounded-pill me-1 mb-1">
                                                                     {{ sistema.nombre }}
@@ -101,30 +106,39 @@
                                     <div class="chat-message-list" data-simplebar="init"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: auto; overflow: hidden;"><div class="simplebar-content" style="padding: 0px;">
                                         <div class="pt-3">
                                             <div class="px-3">
-                                                <h5 class="font-size-14 mb-3">Groups</h5>
+                                                <h5 class="font-size-14 mb-3">Técnicos</h5>
                                             </div>
                                             <ul class="list-unstyled chat-list">
-                                                <li v-for="tec in tecnicos" :key="tec.id">
-                                                    <a href="#">
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="flex-shrink-0 avatar-sm me-3">
-                                                                <span class="avatar-title rounded-circle bg-soft-primary text-primary">
-                                                                    {{ tec.nombre.charAt(0) }}
-                                                                </span>
+                                                    <li v-for="tec in tecnicos" :key="tec.id">
+                                                        <a href="#" class="d-flex align-items-center p-2 text-decoration-none">
+                                                        <div class="flex-shrink-0 avatar-sm me-3">
+                                                            <span class="avatar-title rounded-circle bg-soft-primary text-primary">
+                                                            {{ tec.nombre.charAt(0) }}
+                                                            </span>
+                                                        </div>
+
+                                                        <!-- Este div crecerá y contendrá texto + iconos -->
+                                                        <div class="d-flex flex-grow-1 flex-column justify-content-center">
+                                                            <div class="d-flex align-items-center justify-content-between">
+                                                            <h5 class="font-size-14 mb-0">
+                                                                {{ tec.nombre }} {{ tec.apellido_paterno }} {{ tec.apellido_materno }}
+                                                            </h5>
+                                                            <!-- Aquí podrías agregar un icono de estado si quisieras -->
                                                             </div>
 
-                                                            <div class="flex-grow-1">
-                                                                <h5 class="font-size-14 mb-0">{{ tec.nombre }} {{ tec.apellido_paterno }} {{ tec.apellido_materno }}</h5>
-                                                                  <i class="bx bxs-envelope"></i>
-                                                                <h5 class="font-size-14 mb-0">{{ tec.email }}</h5>
-                                                                 <i class="bx bx-phone-call"></i>
-                                                                <h5 class="font-size-14 mb-0">{{ tec.telefono }}</h5>
+                                                            <div class="d-flex align-items-center mt-1">
+                                                            <i class="bx bxs-envelope me-2"></i>
+                                                            <span class="font-size-14">{{ tec.email }}</span>
                                                             </div>
-                                                      
+
+                                                            <div class="d-flex align-items-center mt-1">
+                                                            <i class="bx bx-phone-call me-2"></i>
+                                                            <span class="font-size-14">{{ tec.telefono }}</span>
+                                                            </div>
                                                         </div>
-                                                    </a>
-                                                </li>
-                                            </ul>
+                                                        </a>
+                                                    </li>
+                                                </ul>
                                         </div>
                                     </div></div></div></div><div class="simplebar-placeholder" style="width: 0px; height: 0px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="transform: translate3d(0px, 0px, 0px); display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: hidden;"><div class="simplebar-scrollbar" style="transform: translate3d(0px, 0px, 0px); display: none;"></div></div></div>
                                 </div>
