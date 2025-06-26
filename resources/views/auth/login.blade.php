@@ -119,8 +119,7 @@
     <!-- end container fluid -->
 </div>
 <!-- JAVASCRIPT -->
-    @vite([
-        'resources/assets/libs/jquery/jquery.min.js'
-    ])
+  <script src="{{ asset('assets/libs/jquery/jquery.min.js') }}"></script>
+
 </body>
 </html>
