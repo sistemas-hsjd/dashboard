@@ -35,6 +35,7 @@ class DashboardController extends Controller
             'sistemas'
         ])
         ->whereIn('tipo_id', [1,4,5])
+        ->where('estado', 1)
         ->orderBy('nombre')
         ->get();
 
@@ -42,6 +43,7 @@ class DashboardController extends Controller
             'sistemas'
         ])
         ->whereIn('tipo_id', [2,3])
+        ->where('estado', 1)
         ->orderBy('nombre')
         ->get();
 

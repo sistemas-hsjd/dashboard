@@ -44,12 +44,12 @@
                                                     <div class="d-flex align-items-start w-100">
                                                         <!-- Avatar -->
                                                         <div class="flex-shrink-0 user-img online align-self-center me-3">
-                                                        <div class="avatar-sm align-self-center">
-                                                            <span class="avatar-title rounded-circle bg-soft-primary text-primary">
-                                                            {{ desarrollador.nombre.charAt(0) }}
-                                                            </span>
-                                                        </div>
-                                                        <span class="user-status"></span>
+                                                            <div class="avatar-sm align-self-center">
+                                                                <span class="avatar-title rounded-circle bg-soft-primary text-primary">
+                                                                {{ desarrollador.nombre.charAt(0)}}
+                                                                </span>
+                                                            </div>
+                                                            <span class="user-status"></span>
                                                         </div>
 
                                                         <!-- Info -->
@@ -58,25 +58,25 @@
                                                                 <h5 class="text-truncate font-size-14 mb-1">
                                                                     {{ desarrollador.nombre }} {{ desarrollador.apellido_paterno }} {{ desarrollador.apellido_materno }}
                                                                 </h5>
-                                                                <!-- <div class="alert alert-info alert-dismissible alert-outline fade show mb-0" role="alert">
-                                                                    <strong>{{ desarrollador.email }}</strong>
-                                                                   
-                                                                </div> -->
-                                   
-                                                                <span class="badge bg-success rounded-pill">disponible</span>
+                                                                <span class="badge bg-success rounded-pill">08:00 a 17:00 | viernes 08:00 a 16:00</span>
                                                             </div>
 
                                                             <!-- Sistemas como badges -->
-                                                            <div class="sistemas-list mt-1">
-                                                                <span v-if="desarrollador.id === 4 || desarrollador.id === 6">
-                                                                    {{ desarrollador.estamento  }}
-                                                                </span>
+                                                             <div class="row">
+                                                                <div class="col-sm-4">
+                                                                    <div class="sistemas-list mt-1">
+                                                                        <span v-if="desarrollador.id === 4">
+                                                                            {{ desarrollador.estamento  }}
+                                                                        </span>
 
-                                                                <span v-for="sistema in desarrollador.sistemas" :key="sistema.id"
-                                                                    class="font-size-13 badge bg-info rounded-pill me-1 mb-1">
-                                                                    {{ sistema.nombre }}
-                                                                </span>
-                                                            </div>
+                                                                        <span v-for="sistema in desarrollador.sistemas" :key="sistema.id"
+                                                                            class="font-size-13 badge bg-info rounded-pill me-1 mb-1">
+                                                                            {{ sistema.nombre }}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                             </div>
+                                                            
                                                         </div>
                                                     </div>
                                                     </a>
@@ -84,9 +84,10 @@
                                                     <!-- Datos de contacto -->
                                                     <div class="d-flex justify-content-center mt-1 px-2 small font-size-13 datos_contact">
                                                         <div class="d-flex flex-column">
-                                                            <div class="ms-1">
-                                                                <i class="bx bxs-envelope"></i>
-                                                                <span class="info-des ms-3">{{ desarrollador.email }}</span>
+                                                            <div class="d-flex">
+                                                                <i class="mt-1 bx bxs-envelope"></i>
+                                                                <a class="info-email-dev ms-3" :href="`mailto:${desarrollador.email}`">{{ desarrollador.email }}</a>
+                                                              
                                                             </div>
                                                             <div>
                                                                 <i class="bx bx-phone-call"></i>
@@ -125,9 +126,10 @@
                                                             <!-- Aquí podrías agregar un icono de estado si quisieras -->
                                                             </div>
 
-                                                            <div class="d-flex align-items-center mt-1">
-                                                            <i class="bx bxs-envelope me-2"></i>
-                                                            <span class="font-size-14">{{ tec.email }}</span>
+                                                            <div class="d-flex align-items-center">
+                                                                <i class="bx bxs-envelope"></i>
+                                                                <a class="info-email" :href="`mailto:${tec.email}`">{{ tec.email }}</a>
+                                                    
                                                             </div>
 
                                                             <div class="d-flex align-items-center mt-1">
@@ -218,5 +220,21 @@ export default {
     font-size: 1.5em;
     position: relative;
     top:-50px
+}
+.info-email{
+  padding-top: .3em;
+  padding-bottom: .1em;
+  border: none;
+}
+
+.info-email-dev{
+  padding: 0;
+  border: none;
+}
+
+.chat-leftsidebar .chat-leftsidebar-nav .nav .nav-link.active
+{
+    background-color: #dfdfdf;
+    color: #7a7fdc;
 }
 </style>
