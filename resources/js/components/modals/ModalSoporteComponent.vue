@@ -234,7 +234,7 @@ export default {
 
 .chat-leftsidebar .chat-leftsidebar-nav .nav .nav-link.active
 {
-    background-color: #dfdfdf;
+    background-color: #dfd4d4;
     color: #7a7fdc;
 }
 </style>
