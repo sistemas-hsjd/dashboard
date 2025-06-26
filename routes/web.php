@@ -15,6 +15,12 @@ use App\Http\Controllers\ApplicationController;
 |
 */
 
+//Route::get('/', [AuthController::class, 'showLoginForm'])->name('inicio');
+
+Route::get('/', function () {
+    return view('auth.login');
+})->name('login');
+
 Route::get('{view}', ApplicationController::class)->where('view', '^(?!api).*$');
 Route::prefix('api')->group(function () {
     Route::post('/get-info', [DashboardController::class, 'getInfo']);

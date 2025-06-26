@@ -123,7 +123,6 @@
                                                             <h5 class="font-size-14 mb-0">
                                                                 {{ tec.nombre }} {{ tec.apellido_paterno }} {{ tec.apellido_materno }}
                                                             </h5>
-                                                            <!-- Aquí podrías agregar un icono de estado si quisieras -->
                                                             </div>
 
                                                             <div class="d-flex align-items-center">

@@ -85,4 +85,39 @@
     padding-bottom: 0;
 }
 
+.card-login {
+    opacity: 0.95;
+    /* margin-left:100px; */
+    margin-top: 100px; 
+    width: 500px !important;
+    z-index: 100000;
+}
 
+/* --- ESTILOS PARA LA IMAGEN REAL (el logo con latido) --- */
+.image-wrapper img.ht-100 {
+  display: flex !important;
+  justify-content: center !important;
+  width: 150px;
+  height: auto;
+  display: block;
+  transform-origin: center center;
+
+  /* Sobrescribe posibles estilos de framework */
+  max-width: none !important;
+  max-height: none !important;
+  margin: 0 !important;
+  float: none !important;
+  position: static !important;
+
+  /* Animación de latido */
+  animation: heartBeat 2.5s infinite ease-in-out;
+}
+
+/*  Definición de la animación */
+@keyframes heartBeat {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.2); }
+  50% { transform: scale(1); }
+  75% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
