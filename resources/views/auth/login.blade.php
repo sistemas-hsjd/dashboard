@@ -47,10 +47,10 @@
                                 <div class="card-body">
                                     <div class="auth-content my-auto">
                                         <div class="text-center">
-                                            <h5 class="mb-0">¡Bienvenidos!</h5>
+                                            <h5 class="mb-0">¡Bienvenido!</h5>
                                             <p class="text-muted mt-2">Iniciar sesión para continuar.</p>
                                         </div>
-                                        <form  method="POST" action="{{ route('login')}}" class="custom-form mt-4 pt-2">
+                                        <form  method="POST" action="{{ route('iniciarSesion')}}" class="custom-form mt-4 pt-2">
                                             {{ csrf_field() }}
                                             <div class="mb-3">
                                                 <label class="form-label">RUN</label>
@@ -73,17 +73,7 @@
                                                     <button class="btn btn-light ms-0" type="button" id="password-addon"><i class="mdi mdi-eye-outline"></i></button>
                                                 </div>
                                             </div>
-                                            {{-- <div class="row mb-4">
-                                                <div class="col">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" id="remember-check">
-                                                        <label class="form-check-label" for="remember-check">
-                                                            Remember me
-                                                        </label>
-                                                    </div>
-                                                </div>
-
-                                            </div> --}}
+                        
                                             <div class="mb-3">
                                                 <button class="btn btn-primary w-100 waves-effect waves-light" type="submit">Ingresar</button>
                                             </div>
@@ -92,7 +82,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     <div class="gradient_login bg-primary"></div>
@@ -108,8 +97,7 @@
                         <li></li>
                         <li></li>
                     </ul>
-                    <!-- end bubble effect -->
-                  
+                    <!-- end bubble effect -->      
                 </div>
             </div>
             <!-- end col -->
@@ -119,7 +107,6 @@
     <!-- end container fluid -->
 </div>
 <!-- JAVASCRIPT -->
-  <script src="{{ asset('assets/libs/jquery/jquery.min.js') }}"></script>
-
+<script src="{{ asset('assets/libs/jquery/jquery.min.js') }}"></script>
 </body>
 </html>

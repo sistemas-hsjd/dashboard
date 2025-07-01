@@ -3,7 +3,7 @@
         <div class="d-flex">
             <!-- LOGO -->
             <div class="navbar-brand-box">
-                <a href="index.php" class="logo logo-dark">
+                <a href="/" class="logo logo-dark">
                     <span class="logo-sm">
                         <img src="assets/images/small/logo.jpg" alt="" height="24">
                     </span>
@@ -12,7 +12,7 @@
                     </span>
                 </a>
 
-                <a href="index.php" class="logo logo-light">
+                <a href="/" class="logo logo-light">
                     <span class="logo-sm">
                         <img src="assets/images/small/logo.jpg" alt="" height="24">
                     </span>
@@ -57,18 +57,23 @@
 
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item bg-soft-light border-start border-end" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    
-                    <span class="d-none d-xl-inline-block ms-1 fw-medium span-ip">Tú IP es: {{ $ip }}</span>
-                     
-                    {{-- <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i> --}}
+                    <span class="d-none d-xl-inline-block ms-1 fw-medium span-ip">
+                        @if (Auth::user())
+                            {{ Auth::user()->nombre }}
+                             <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+                        @else
+                           Tú IP es: {{ $ip }}
+                        @endif
+                    </span>
                 </button>
-                {{-- <div class="dropdown-menu dropdown-menu-end">
-                    <!-- item-->
-                    <a class="dropdown-item" href="apps-contacts-profile.php"><i class="mdi mdi-face-profile font-size-16 align-middle me-1"></i> Profile</a>
-                   <a class="dropdown-item" href="auth-lock-screen.php"><i class="mdi mdi-lock font-size-16 align-middle me-1"></i> Lock_screen</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="logout.php"><i class="mdi mdi-logout font-size-16 align-middle me-1"></i> Logout</a>
-                </div> --}}
+                    @if (Auth::user())
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <a class="dropdown-item" id="enlace_logout" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="mdi mdi-logout font-size-16 align-middle me-1"></i> Cerrar sesión</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
+                    </div>
+                    @endif
             </div>
 
         </div>
@@ -91,8 +96,8 @@
                             <div class="arrow-down"></div>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="topnav-pages">
-                            <a href="apps-calendar.php" class="dropdown-item" data-key="t-calendar">Calendar</a>
-                            <a href="apps-chat.php" class="dropdown-item" data-key="t-chat">Chat</a>
+                            <a href="#" class="dropdown-item" data-key="t-calendar"  data-bs-toggle="modal" data-bs-target="#modalCrearCuenta">Crear Cuenta</a>
+                            {{-- <a href="apps-chat.php" class="dropdown-item" data-key="t-chat">Chat</a> --}}
                         </div>
                     </li>
 

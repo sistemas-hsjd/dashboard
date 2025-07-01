@@ -89,7 +89,7 @@
     opacity: 0.95;
     /* margin-left:100px; */
     margin-top: 100px; 
-    width: 500px !important;
+    width: 450px !important;
     z-index: 100000;
 }
 
@@ -121,3 +121,8 @@
   75% { transform: scale(1.1); }
   100% { transform: scale(1); }
 }
+
+.mensaje-error{
+    color:red;
+    font-size: .8em;
+} 

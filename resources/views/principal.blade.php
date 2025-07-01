@@ -4,7 +4,7 @@
     <title>Portal de Aplicativos </title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description"/>
+    <meta content="Portal San Juan de Dios" name="description"/>
     <meta content="Themesbrand" name="author"/>
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/small/favicon.ico') }}">
@@ -39,7 +39,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                                    <h4 class="mb-sm-0 font-size-18">¡Bienvenido al portal de aplicativos del Hospital San Juan de Dios!</h4>
+                                    <h4 class="mb-sm-0 font-size-18">Tú Ip es: <strong>{{ $ip }}</strong></h4>
 
                                 </div>
                             </div>
@@ -55,9 +55,6 @@
             </div>
             <!-- end main content-->
         </div>
-   
-        
-         
     </div>
     <!-- END layout-wrapper -->
     <!-- Right Sidebar -->
@@ -83,9 +80,7 @@
     <script src="{{ asset('assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-world-mill-en.js') }}"></script>
     <!-- dashboard init --> 
     <script src="{{ asset('assets/js/pages/dashboard.init.js') }}"></script>
-
     <script src="{{ asset('assets/js/app.js') }}"></script>
-
     @vite('resources/js/app.js')
 </body>
 

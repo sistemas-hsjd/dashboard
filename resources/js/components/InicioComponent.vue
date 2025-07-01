@@ -27,21 +27,19 @@
             </div>
       </div>
     </div>
-    
-    <modalEnlacesComponent :enlaces="enlaces" ref="modalEnlaces"></modalEnlacesComponent>
+ 
     <modalCrearCuentaComponent></modalCrearCuentaComponent>
     <modalSoporteComponent></modalSoporteComponent>
   </div>
 </template>
 
 <script>
-import modalEnlacesComponent from './modals/ModalEnlacesComponet.vue'
+
 import modalSoporteComponent from './modals/ModalSoporteComponent.vue'
 import modalCrearCuentaComponent from './modals/ModalCrearCuentaComponent.vue'
 export default {
-  name: 'CategoriasGrid',
+  name: 'MisSistemasGrid',
     components: {
-        modalEnlacesComponent,
         modalSoporteComponent,
         modalCrearCuentaComponent
     },

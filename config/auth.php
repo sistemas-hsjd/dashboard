@@ -14,8 +14,8 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
-        'passwords' => 'users',
+        'guard' => 'generales',
+        'passwords' => 'userportals',
     ],
 
     /*
@@ -40,6 +40,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'generales' => [ // nuevo guard
+            'driver' => 'session',
+            'provider' => 'userportals',
+        ]
     ],
 
     /*
@@ -63,6 +68,11 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+
+        'userportals' => [ // nuevo provider
+            'driver' => 'eloquent',
+            'model' => App\Models\UserPortal::class,
         ],
 
         // 'users' => [

@@ -6,9 +6,12 @@ use Illuminate\Http\Request;
 use App\Models\Categoria;
 use App\Models\Enlace;
 use App\Models\Funcionario;
+use App\Http\Controllers\ApplicationController;
 
 class DashboardController extends Controller
 {
+    
+
     public function getInfo(Request $request){
         $ip = $this->getClientIP();
         $categorias = Categoria::with(['enlaces'])->where('estado', 1)->get();
@@ -28,6 +31,11 @@ class DashboardController extends Controller
         } else {
             return $_SERVER['REMOTE_ADDR'];
         }
+    }
+
+    public function solicitarCuentas(Request $request){
+        return $cuentas = json_decode($request->input('cuentas'), true);
+        return $request;
     }
 
     public function getFuncionarios(Request $request){
@@ -52,6 +60,12 @@ class DashboardController extends Controller
             'tecnicos' => $tecnicos
         ];
 
+    }
+
+    public function showSistemas(Request $request){
+        $aplication = new ApplicationController();
+        $ip = $aplication->getClientIP();
+        return view('contenido.contenido', compact('ip'));
     }
 
 }
