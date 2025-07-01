@@ -39,7 +39,7 @@ class UserPortal extends Authenticatable
 
     public function misSistemas(){
         return $this->belongsToMany(GenSistema::class, 'gen_user_sistemas', 'id_user', 'id_sistema')
-        ->where('sistema_local', 1);
+        ->where('sistema_local', 1)->withPivot('favorito');
     }
 }
 

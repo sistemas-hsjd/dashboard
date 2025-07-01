@@ -6,17 +6,17 @@
             <div class="image-container">
                 <img class="card-img-top img-fluid" :src="`assets/images//img-portal/${sistema.tx_imagen}`" alt="Card image cap">
                 <div class="overlay-button">
-                    <a v-if="sistema.enlace"
+                    <a v-if="sistema.tx_direccion"
                         class="btn btn-outline-light waves-effect"
-                        :href="sistema.enlace"
+                        :href="sistema.url_final"
                         target="_blank">
                         Ingresar
                     </a> 
-                <button v-else
-                        class="btn btn-outline-light waves-effect"
-                        @click="abrirModal(sistema)">
-                    Ingresar
-                </button>
+                    <button v-else
+                            class="btn btn-outline-light waves-effect"
+                            @click="abrirModal(sistema.tx_direccion)">
+                        Ingresar
+                    </button>
                 </div>
             </div>
 
@@ -24,9 +24,7 @@
                 <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
                 <p class="card-text mb-0">{{ sistema.descripcion }}</p>
             </div>
-            </div>
-
-           
+          </div>
       </div>
     </div>
  
