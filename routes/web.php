@@ -33,6 +33,8 @@ Route::prefix('api')->group(function () {
     Route::post('/get-funcionarios', [DashboardController::class, 'getFuncionarios']);   
     Route::post('/get-persona', [GeneralController::class, 'getPersona']);
     Route::post('/data-inicial', [GeneralController::class, 'getInfoInicial']);
+
+    Route::post('/get-mis-sistemas', [DashboardController::class, 'getMisSistemas']); 
 });
 
 // 🌐 Catch-all para rutas frontend SPA (Vue/React), después de todas las rutas importantes

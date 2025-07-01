@@ -36,5 +36,10 @@ class UserPortal extends Authenticatable
 
     protected $hidden = ['password'];
     protected $dates = ['deleted_at'];
+
+    public function misSistemas(){
+        return $this->belongsToMany(GenSistema::class, 'gen_user_sistemas', 'id_user', 'id_sistema')
+        ->where('sistema_local', 1);
+    }
 }
 

@@ -6,11 +6,13 @@ use Illuminate\Http\Request;
 use App\Models\Categoria;
 use App\Models\Enlace;
 use App\Models\Funcionario;
+use App\Models\UserPortal;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ApplicationController;
 
 class DashboardController extends Controller
 {
-    
+
 
     public function getInfo(Request $request){
         $ip = $this->getClientIP();
@@ -68,4 +70,10 @@ class DashboardController extends Controller
         return view('contenido.contenido', compact('ip'));
     }
 
+    public function getMisSistemas(Request $request){
+         return $sistemas = UserPortal::with([
+            'misSistemas'
+        ])
+        ->find(Auth::user()->id);
+    }
 }

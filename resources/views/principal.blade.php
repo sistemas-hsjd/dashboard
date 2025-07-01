@@ -5,7 +5,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Portal San Juan de Dios" name="description"/>
-    <meta content="Themesbrand" name="author"/>
+    <meta content="Nelson Fredy Serrano Herrera" name="author"/>
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/small/favicon.ico') }}">
     <!-- plugin css -->
