@@ -41,5 +41,15 @@ class UserPortal extends Authenticatable
         return $this->belongsToMany(GenSistema::class, 'gen_user_sistemas', 'id_user', 'id_sistema')
         ->where('sistema_local', 1)->withPivot('favorito');
     }
+
+    public function jefatura(){
+        return $this->belongsToMany(GenServicio::class, 'gen_jefaturas', 'user_id', 'servicio_id');
+    }
+
+    public function tutor()
+    {
+        return $this->hasOne(UserPortal::class, 'id', 'id_tutor');
+    }
+
 }
 

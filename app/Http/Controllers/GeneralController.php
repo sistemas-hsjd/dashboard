@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Freshwork\ChileanBundle\Rut;
 use App\Models\Unidad;
+use App\Models\GenServicio;
 use App\Models\Estamento;
+use App\Models\GenSistema;
 use Illuminate\Support\Facades\Auth;
 
 class GeneralController extends Controller
@@ -69,8 +71,9 @@ class GeneralController extends Controller
     
     public function getInfoInicial(Request $request){
         return [
-            'unidades' => Unidad::where('bo_estado', 1)->orderBy('tx_descripcion', 'asc')->get(),
+            'servicios' => GenServicio::where('bo_estado', 1)->orderBy('tx_descripcion', 'asc')->get(),
             'estamentos' => Estamento::where('bo_estado', 1)->orderBy('tx_descripcion', 'asc')->get(),
+            'sistemas' => GenSistema::where('sistema_local', 1)->orderBy('tx_descripcion', 'asc')->get(),
         ];
     }
 

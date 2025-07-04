@@ -106,7 +106,7 @@
                                     <div class="chat-message-list" data-simplebar="init"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: auto; overflow: hidden;"><div class="simplebar-content" style="padding: 0px;">
                                         <div class="pt-3">
                                             <div class="px-3">
-                                                <h5 class="font-size-14 mb-3">Técnicos</h5>
+                                                <h5 class="font-size-14 mb-3">Mantenimiento, reparación y configurar de computadores, redes y dispositivos externos</h5>
                                             </div>
                                             <ul class="list-unstyled chat-list">
                                                     <li v-for="tec in tecnicos" :key="tec.id">
@@ -136,6 +136,7 @@
                                                             <span class="font-size-14">{{ tec.telefono }}</span>
                                                             </div>
                                                         </div>
+                                                           <span v-if="tec.id==10" class="badge bg-success rounded-pill">Lunes a Domingo 24/7</span>
                                                         </a>
                                                     </li>
                                                 </ul>

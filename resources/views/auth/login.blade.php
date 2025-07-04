@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="es_cl">
 <head>
-   <title>Iniciar Sesión | NEA</title>
+   <title>Iniciar Sesión Ficha clínica</title>
    <meta charset="utf-8"/>
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <meta content="NEA Notificación de elementos ADV" name="description"/>
@@ -16,7 +16,7 @@
      <!-- App Css-->
     <link href="{{ asset('assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
     
- <link href="{{ asset('assets/css/estilos.css') }}" id="app-style" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/estilos.css') }}" id="app-style" rel="stylesheet" type="text/css" />
 
 </head>
 

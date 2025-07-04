@@ -7,13 +7,16 @@ use App\Models\Categoria;
 use App\Models\Enlace;
 use App\Models\Funcionario;
 use App\Models\UserPortal;
+use App\Models\Unidad;
+use App\Models\GenServicio;
+use App\Models\Estamento;
 use Illuminate\Support\Facades\Auth;
+use Freshwork\ChileanBundle\Rut;
 use App\Http\Controllers\ApplicationController;
+use Mail;
 
 class DashboardController extends Controller
 {
-
-
     public function getInfo(Request $request){
         $ip = $this->getClientIP();
         $categorias = Categoria::with(['enlaces'])->where('estado', 1)->get();
@@ -36,8 +39,98 @@ class DashboardController extends Controller
     }
 
     public function solicitarCuentas(Request $request){
-        return $cuentas = json_decode($request->input('cuentas'), true);
-        return $request;
+        
+        $data = json_decode($request->input('cuentas'), true);
+        $sistemas = json_decode($request->input('sistemas'), true);
+        $servicio = GenServicio::with('jefaturas.usuario', 'jefaturas.estamento')->find($request->servicio);
+        $estamentoFuncionario = Estamento::find($request->estamento);
+        $medico = [1, 6, 32, 36, 39, 40, 45];
+        $enfermera = [3, 4, 14, 15, 16, 17, 18, 19, 20, 21];
+        $matronas = [5];
+
+        $estamento = (int) $request->estamento;
+        if (in_array($estamento, $medico)) {
+            $tipo = 'MEDICO';
+        } elseif (in_array($estamento, $enfermera)) {
+            $tipo = 'ENFERMERA';
+        } elseif (in_array($estamento, $matronas)) {
+            $tipo = 'MATRONA';
+        } else {
+            $tipo = 'otro';
+        }
+
+        $jefes = [];
+        foreach ($servicio->jefaturas as $key => $value) {
+            $estamentoDescripcion = $value->estamento->tx_descripcion;
+            $email = $value->usuario->email_recuperacion;
+            
+           if (str_contains($estamentoDescripcion, strtoupper($tipo))) {
+                $jefes[] = $value;
+            }
+        }
+        //return $jefes;
+        //49
+        //user 44
+        $email1 = null;
+        $email2 = null;
+        if(Auth::user()){
+            $user = Auth::user(); 
+            if ($user->jefatura()->exists()) {
+                $email1 = config('app.EMAIL_CREAR_CUENTA');
+                $mensaje = 'Estimado Paolo, Se ha enviado una notificación para la creación de las siguientes cuentas San Juan autorizado por: ' . Auth::user()->nombre;
+            }
+        }else{
+            foreach ($jefes as $jefatura) {
+                $email = $jefatura['usuario']['email_recuperacion'] ?? null;
+
+                if ($jefatura['tipo_jefatura_id'] == 1 && $email) {
+                    $email1 = $email;
+                }
+
+                if ($jefatura['tipo_jefatura_id'] == 2 && $email) {
+                    $email2 = $email;
+                }
+            }
+         
+            $mensaje = 'Estimado(a), Se ha enviado una notificación para su autorización de cuenta San Juan, para el siguiente funcionario(a)';
+        }
+
+        foreach ($data as $key => $value) {
+            $data[$key]['nombre_unidad'] = $servicio->tx_descripcion;
+            $data[$key]['estamento'] = $estamentoFuncionario->tx_descripcion;
+            $data[$key]['sistemas'] = implode(",", $sistemas);
+            if($request->estamento == 39 || $request->estamento == 45){
+                $data[$key]['RUN_tutor'] = $request->RUN_tutor; 
+                $data[$key]['inicio_rotacion'] = $request->inicio_rotacion;
+                $data[$key]['fin_rotacion'] = $request->fin_rotacion;
+            }
+        }
+
+        $template_path = 'email.email_template';
+        Mail::send(['html'=> $template_path ],     [
+            'data' => $data,       
+            'mensaje' => $mensaje
+        ],  function($message) use($email1, $email2){
+            if (!empty($email1) && filter_var($email1, FILTER_VALIDATE_EMAIL)) {
+                $message->to($email1, 'User')->subject('Notificación de creacíon San Juan');
+            }
+            
+            if (!empty($email2) && filter_var($email2, FILTER_VALIDATE_EMAIL)) {
+                $message->cc($email2);
+            }
+            $message->from('sistemas.ssmoc@appminsal.cl','Cuenta San Juan');
+        });
+
+        return "El correo ha sido enviado";
+    }
+
+    public function getTutor(Request $request){
+        if(isset($request->rut)){
+            if(Rut::parse($request->rut)->validate()){
+                $rut = Rut::parse($request->rut)->format(Rut::FORMAT_WITH_DASH);
+                 return UserPortal::with(['tutor'])->where('rut', $rut)->first();
+            }
+        }
     }
 
     public function getFuncionarios(Request $request){
@@ -61,7 +154,6 @@ class DashboardController extends Controller
             'desarrolladores' => $desarrolladores,
             'tecnicos' => $tecnicos
         ];
-
     }
 
     public function showSistemas(Request $request){
@@ -73,23 +165,15 @@ class DashboardController extends Controller
     public function getMisSistemas(Request $request)
     {
         $user = Auth::user();
-
-        //return $user->token;
-        // Cargar el usuario con sus sistemas relacionados
         $usuarioConSistemas = UserPortal::with('misSistemas')->find($user->id);
 
-
-
-        // Validación por si no encuentra usuario
         if (!$usuarioConSistemas) {
             return response()->json(['error' => 'Usuario no encontrado'], 404);
         }
 
-        // Token del portal del usuario
         $rut = $user->rut;
         $token = $user->token ?? '';
 
-        // Procesamos cada sistema
         $sistemas = $usuarioConSistemas->misSistemas->map(function ($sistema) use ($rut, $token) {
             $urlSistema = $sistema->tx_direccion;
 
@@ -98,22 +182,19 @@ class DashboardController extends Controller
                 $urlSistema = str_replace('$tokenPortal', $token, $urlSistema);
                 $urlSistema = preg_replace("/\r|\n/", "", $urlSistema); // limpia saltos de línea
             }
-
-            // Agregamos el campo ya listo
             $sistema->url_final = $urlSistema;
-
             return $sistema;
         });
 
-        // Retornamos los sistemas con URL reemplazada
         return response()->json([
             'mis_sistemas' => $sistemas,
             'rut' => $rut,
             'token' => $token,
+            'user' => $user
         ]);
     }
 
-    // arrreglar esta funcion para agregaer 
+    // arrreglar esta funcion para agregar
     private function changePasswordSistemas($request){
         $url_prev = url()->previous();
         if(strpos($url_prev, 'edit') && $request->password){

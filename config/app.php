@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
 
 return [
-
+    'EMAIL_CREAR_CUENTA' => env('EMAIL_CREAR_CUENTA', 'paolo.vilches@redsalud.gob.cl'),
     /*
     |--------------------------------------------------------------------------
     | Application Name
