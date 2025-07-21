@@ -197,8 +197,6 @@ class DashboardController extends Controller
 
     public function getDefault(Request $request){
         return $defaultSistemas = GenSistema::whereIn('id', [22,24,20,21,19])
-        // ->where('estado', 1)
-        // ->orderBy('nombre')
         ->get();
     }
 
