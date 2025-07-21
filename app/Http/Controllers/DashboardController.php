@@ -187,6 +187,11 @@ class DashboardController extends Controller
             return $sistema;
         });
 
+
+        $defaultSistemas = GenSistema::whereIn('id', [22,24,20,21,19])->get()->toArray();
+        $sistemas = array_merge($sistemas->toArray(), $defaultSistemas);
+
+
         return response()->json([
             'mis_sistemas' => $sistemas,
             'rut' => $rut,
