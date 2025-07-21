@@ -27,6 +27,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::prefix('api')->group(function () {
+    Route::get('/get-default', [DashboardController::class, 'getDefault']);
     Route::post('/get-info', [DashboardController::class, 'getInfo']);
     Route::post('/solicitar-cuenta', [DashboardController::class, 'solicitarCuentas']);
     Route::post('/get-funcionarios', [DashboardController::class, 'getFuncionarios']);   

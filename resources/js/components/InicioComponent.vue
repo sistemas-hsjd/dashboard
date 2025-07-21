@@ -27,6 +27,34 @@
           </div>
       </div>
     </div>
+
+    <div class="row" v-for="(row, rowIndex) in chunkedSistemasDefaults" :key="'row-' + rowIndex">
+      <div class="col-sm-6 col-xl-3" v-for="sistema in row" :key="sistema.id">
+        <div class="card custom-card">
+            <div class="image-container">
+                <img class="card-img-top img-fluid" :src="`assets/images/img-portal/${sistema.tx_imagen}`" alt="Card image cap">
+                <div class="overlay-button">
+                    <a v-if="sistema.tx_direccion"
+                        class="btn btn-outline-light waves-effect"
+                        :href="sistema.tx_direccion"
+                        target="_blank">
+                        Ingresar
+                    </a> 
+                    <button v-else
+                            class="btn btn-outline-light waves-effect"
+                            @click="abrirModal(sistema.tx_direccion)">
+                        Ingresar
+                    </button>
+                </div>
+            </div>
+
+            <div class="card-body small-padding">
+                <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
+                <p class="card-text mb-0">{{ sistema.descripcion }}</p>
+            </div>
+          </div>
+      </div>
+    </div>
  
     <modalCrearCuentaComponent></modalCrearCuentaComponent>
     <modalSoporteComponent></modalSoporteComponent>
@@ -46,16 +74,26 @@ export default {
    data() {
         return {
            sistemas :[],
-           enlaces:[]
+           enlaces:[],
+           sistemasDefaults:[]
         }
     },
   computed: {
     chunkedSistemas() {
-      // Divide el array en grupos de 4 elementos
       const chunkSize = 4;
       const chunks = [];
       for (let i = 0; i < this.sistemas.length; i += chunkSize) {
         chunks.push(this.sistemas.slice(i, i + chunkSize));
+      }
+      return chunks;
+    },
+
+    chunkedSistemasDefaults() {
+  
+      const chunkSize = 4;
+      const chunks = [];
+      for (let i = 0; i < this.sistemasDefaults.length; i += chunkSize) {
+        chunks.push(this.sistemasDefaults.slice(i, i + chunkSize));
       }
       return chunks;
     }
@@ -64,9 +102,17 @@ export default {
     getSistemas(){
         axios.post('api/get-mis-sistemas')
         .then(response => {
-            console.log(response.data); 
             this.sistemas = response.data.mis_sistemas
-     
+        })
+        .catch(error => {
+            console.error('Error: ', error);
+        });
+    },
+    getSistemasDefault(){
+        axios.get('api/get-default')
+        .then(response => {
+            console.log(response.data); 
+            this.sistemasDefaults = response.data
         })
         .catch(error => {
             console.error('Error: ', error);
@@ -81,6 +127,7 @@ export default {
   }, 
   mounted(){
     this.getSistemas()
+    this.getSistemasDefault()
   }
 }
 </script>

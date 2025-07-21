@@ -9,6 +9,7 @@ use App\Models\Funcionario;
 use App\Models\UserPortal;
 use App\Models\Unidad;
 use App\Models\GenServicio;
+use App\Models\GenSistema;
 use App\Models\Estamento;
 use Illuminate\Support\Facades\Auth;
 use Freshwork\ChileanBundle\Rut;
@@ -192,6 +193,13 @@ class DashboardController extends Controller
             'token' => $token,
             'user' => $user
         ]);
+    }
+
+    public function getDefault(Request $request){
+        return $defaultSistemas = GenSistema::whereIn('id', [22,24,20,21,19])
+        // ->where('estado', 1)
+        // ->orderBy('nombre')
+        ->get();
     }
 
     // arrreglar esta funcion para agregar
