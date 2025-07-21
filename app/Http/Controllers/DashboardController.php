@@ -187,10 +187,8 @@ class DashboardController extends Controller
             return $sistema;
         });
 
-
-        $defaultSistemas = GenSistema::whereIn('id', [22,24,20,21,19])->get()->toArray();
+        $defaultSistemas = GenSistema::whereIn('id', [22,24,20,21,19,25])->get()->toArray();
         $sistemas = array_merge($sistemas->toArray(), $defaultSistemas);
-
 
         return response()->json([
             'mis_sistemas' => $sistemas,
@@ -201,7 +199,7 @@ class DashboardController extends Controller
     }
 
     public function getDefault(Request $request){
-        return $defaultSistemas = GenSistema::whereIn('id', [22,24,20,21,19])
+        return $defaultSistemas = GenSistema::whereIn('id', [22,24,20,21,19,25])
         ->get();
     }
 
