@@ -4,7 +4,7 @@
       <div class="col-sm-6 col-xl-3" v-for="sistema in row" :key="sistema.id">
         <div class="card custom-card">
             <div class="image-container">
-                <img class="card-img-top img-fluid" :src="`assets/images/img-portal/${sistema.tx_imagen}`" alt="Card image cap">
+                 <img class="card-img-top img-fluid" :src="`assets/images/img-portal/${sistema.img}`" :alt="`${sistema.img}`">
                 <div class="overlay-button">
                   <template v-if="sistema.id == 22 || sistema.id == 22 || sistema.id == 24 || sistema.id == 20 || sistema.id == 21 || sistema.id == 19">
                     <a v-if="sistema.tx_direccion"
@@ -91,7 +91,6 @@ export default {
             console.error('Error: ', error);
         });
     },
-
     abrirModal(cat) {
         this.enlaces = []
         this.enlaces = cat.enlaces
