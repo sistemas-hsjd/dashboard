@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="card border border-success">
-      <div class="card-header bg-transparent border-success">
+      <div class="card-header bg-transparent border-success card-header_sistemas">
         <h5 class="my-0 text-success"><i class="mdi mdi-check-all me-3"></i>Sistemas Locales</h5>
       </div>
       <div class="card-body">
@@ -47,7 +47,7 @@
     </div>
     
     <div class="card border border-primary">
-      <div class="card-header bg-transparent border-primary">
+      <div class="card-header bg-transparent border-primary card-header_sistemas">
         <h5 class="my-0 text-primary"><i class="mdi mdi-bullseye-arrow me-3"></i>Accesos Directos</h5>
       </div>
       <div class="card-body">
@@ -141,3 +141,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .card-header_sistemas{
+      padding: .5em !important;
+  }
+</style>
