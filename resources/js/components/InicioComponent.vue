@@ -36,7 +36,7 @@
                       </div>
                   </div>
 
-                  <div class="card-body small-padding">
+                  <div class="card-body small-padding card-header_sistemas">
                       <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
                       <p class="card-text mb-0">{{ sistema.descripcion }}</p>
                   </div>
@@ -66,7 +66,7 @@
                     </div>
                 </div>
 
-                <div class="card-body small-padding">
+                <div class="card-body small-padding card-header_sistemas">
                     <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
                     <p class="card-text mb-0">{{ sistema.descripcion }}</p>
                 </div>
