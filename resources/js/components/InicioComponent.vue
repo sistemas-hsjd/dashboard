@@ -48,7 +48,7 @@
     
     <div class="card border border-primary">
       <div class="card-header bg-transparent border-primary card-header_sistemas">
-        <h5 class="my-0 text-primary"><i class="mdi mdi-bullseye-arrow me-3"></i>Accesos Directos</h5>
+        <h5 class="my-0 text-primary"><i class="mdi mdi-bullseye-arrow me-3"></i>Plataformas de apoyo</h5>
       </div>
       <div class="card-body">
        <div class="row" v-for="(row, rowIndex) in chunkedSistemasDefaults" :key="'row-' + rowIndex">
