@@ -41,14 +41,22 @@
                                             </div>
                                         </div>
                                     </div>
-                                  
                                 </div>
             
                                 <div class="card-body">
                                     <div class="auth-content my-auto">
                                         <div class="text-center">
                                             <h5 class="mb-0">¡Bienvenido!</h5>
-                                            <p class="text-muted mt-2">Iniciar sesión para continuar.</p>
+                                            <p class="text-muted mt-1">Iniciar sesión para continuar.</p>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12 info-cuentas">
+                                                <div  class="alert alert-info alert-top-border alert-dismissible fade show mb-0 mt-3 w-100 p-2" role="alert">
+                                                    <i class="mdi mdi-alert-circle-outline text-info align-middle me-3"></i><strong>¡Importante!</strong>
+                                                    Les informamos que las cuentas son <strong>personales e intransferibles.</strong> El mal uso de las mismas, <strong>afecta directamente la protección de los datos del paciente.</strong> 
+                                                </div>
+                                            </div>
                                         </div>
                                         <form  method="POST" action="{{ route('iniciarSesion')}}" class="custom-form mt-4 pt-2">
                                             {{ csrf_field() }}
