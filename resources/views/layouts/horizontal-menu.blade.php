@@ -87,7 +87,7 @@
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle arrow-none" href="inicio" id="topnav-dashboard" role="button">
-                            <i data-feather="home"></i><span data-key="t-dashboards">Dashboard</span>
+                            <i data-feather="home"></i><span data-key="t-dashboards">Inicio</span>
                         </a>
                     </li>
                     
