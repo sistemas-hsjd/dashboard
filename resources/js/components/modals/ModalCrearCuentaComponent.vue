@@ -11,6 +11,17 @@
                     <div class="container">
                         <div class="row d-flex justify-content-center">
                             <div class="col-md-10">
+                                <div v-if="mensaje=='registrado' || mensaje=='rut falso'" class="alert alert-danger alert-dismissible alert-label-icon label-arrow fade show" role="alert">
+                                    <template v-if="mensaje=='registrado'">
+                                        <i class="mdi mdi-block-helper label-icon"></i><strong>Usuario Registrado</strong> -  El usuario ya se encuentra registrado
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </template>
+                                    <template v-if="mensaje=='rut falso'">
+                                        <i class="mdi mdi-block-helper label-icon"></i><strong>Rut Invalido</strong> -  ¡El RUN ingresado es incorrecto!
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </template>
+                                </div>
+
                                 <div v-if="authenticated">
                                     <div v-if="!estadoSolicitud" class="alert alert-info alert-top-border alert-dismissible fade show mb-0 mb-3" role="alert">
                                         <i class="mdi mdi-alert-circle-outline text-info align-middle me-3"></i>
@@ -219,7 +230,8 @@ export default {
         user:[],
         jefatura:[],
         btnAddDel:false,
-        estadoSolicitud: false
+        estadoSolicitud: false,
+        mensaje:''
     };
   },
   methods: {
@@ -252,48 +264,50 @@ export default {
         });
     },
     getPersona(){
+        this.mensaje = ''
         var data = new FormData();
         data.append('run', this.run)
         axios.post('api/get-persona', data)
         .then(response => {
             console.log(response.data);
             // this.mapearParametros(response.data)
-
-            if (response.data !== 'no hay rut') {
+            if (response.data !== 'no hay rut' && response.data !== 'usuario registrado') {
                 if (this.jefatura) {
-                    const persona = response.data;
-
-                    // Verificamos si el RUN ya existe en this.usuarios
-                    const existe = this.usuarios.some(u => u.run === persona.run);
-                    
-                    if (!existe) {
-                        // Buscar un índice vacío (sin run)
-                        const indexToFill = this.usuarios.findIndex(u => !u.run);
-                        if (indexToFill !== -1) {
-                            this.usuarios[indexToFill] = {
-                                run: persona.run || '',
-                                nombre_completo: persona.nombre_completo || '',
-                                telefono: persona.telefono || '',
-                                email: persona.email || ''
-                            };
+                        const persona = response.data;
+                        // Verificamos si el RUN ya existe en this.usuarios
+                        const existe = this.usuarios.some(u => u.run === persona.run);
+                        if (!existe) {
+                            // Buscar un índice vacío (sin run)
+                            const indexToFill = this.usuarios.findIndex(u => !u.run);
+                            if (indexToFill !== -1) {
+                                this.usuarios[indexToFill] = {
+                                    run: persona.run || '',
+                                    nombre_completo: persona.nombre_completo || '',
+                                    telefono: persona.telefono || '',
+                                    email: persona.email || ''
+                                };
+                            } else {
+                                // Si no hay objeto vacío, agregamos uno nuevo
+                                this.usuarios.push({
+                                    run: persona.run || '',
+                                    nombre_completo: persona.nombre_completo || '',
+                                    telefono: persona.telefono || '',
+                                    email: persona.email || ''
+                                });
+                            }
                         } else {
-                            // Si no hay objeto vacío, agregamos uno nuevo
-                            this.usuarios.push({
-                                run: persona.run || '',
-                                nombre_completo: persona.nombre_completo || '',
-                                telefono: persona.telefono || '',
-                                email: persona.email || ''
-                            });
+                            console.warn(`La persona con RUN ${persona.run} ya está en la lista.`);
                         }
                     } else {
-                        console.warn(`La persona con RUN ${persona.run} ya está en la lista.`);
-                        // Aquí puedes mostrar un mensaje al usuario si es necesario
+                        this.mapearParametros(response.data);
                     }
-                } else {
-                    this.mapearParametros(response.data);
-                }
-            this.run = '';
-        }
+                this.run = '';
+            }else if(response.data == 'usuario registrado'){
+                console.log('usuario registrado es una alerta')
+                this.mensaje = 'registrado'
+            }else if(response.data=='rut falso'){
+                this.mensaje = 'rut falso'
+            }
             
         })
         .catch(error => {
@@ -312,7 +326,6 @@ export default {
         this.RUN_tutor = ''
         this.inicio_rotacion = ''
         this.fin_rotacion = ''
-        //this.usuarios[0].email = ''
     },
     solicitarCuenta(){
         if(this.validarErrores()){

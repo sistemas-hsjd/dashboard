@@ -8,6 +8,7 @@ use App\Models\Unidad;
 use App\Models\GenServicio;
 use App\Models\Estamento;
 use App\Models\GenSistema;
+use App\Models\UserPortal;
 use Illuminate\Support\Facades\Auth;
 
 class GeneralController extends Controller
@@ -18,22 +19,27 @@ class GeneralController extends Controller
                 $rut = Rut::parse($request->run)->format(Rut::FORMAT_WITH_DASH);
                 $rut = explode("-", $rut);
                 $rut = $rut[0].'-'.$rut[1];
-        
-                $datos = json_decode($this->obtenerFonasa($rut), true);
-                $id_sexo = 0; 
-                if($datos[0]['sexo']=='Masculino'){
-                    $id_sexo = 1;
-                }else if($datos[0]['sexo']=='Femenino'){
-                    $id_sexo = 2;
+
+                $user = UserPortal::where('rut', $rut)->first();
+                if (!$user) {
+                    $datos = json_decode($this->obtenerFonasa($rut), true);
+                    $id_sexo = 0; 
+                    if($datos[0]['sexo']=='Masculino'){
+                        $id_sexo = 1;
+                    }else if($datos[0]['sexo']=='Femenino'){
+                        $id_sexo = 2;
+                    }
+            
+                    return $data = [
+                        "run" => $rut,
+                        "nombre_completo" => $datos[0]['nombres'].' '.$datos[0]['paterno'].' '.$datos[0]['materno'],
+                        "fc_nacimiento" => $datos[0]['fechaNacimiento'],
+                        "sexo" => $id_sexo,
+                        "telefono" => $datos[0]['telefono']
+                    ];
+                }else{
+                    return 'usuario registrado';
                 }
-        
-                return $data = [
-                    "run" => $rut,
-                    "nombre_completo" => $datos[0]['nombres'].' '.$datos[0]['paterno'].' '.$datos[0]['materno'],
-                    "fc_nacimiento" => $datos[0]['fechaNacimiento'],
-                    "sexo" => $id_sexo,
-                    "telefono" => $datos[0]['telefono']
-                ];
             }else{
                 echo 'rut falso';
             }
