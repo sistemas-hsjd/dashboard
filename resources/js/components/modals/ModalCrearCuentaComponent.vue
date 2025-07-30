@@ -385,7 +385,8 @@ export default {
         this.RUN_tutor = ''
         this.inicio_rotacion = ''
         this.fin_rotacion = ''
-        this.sistemasSolicitados = []
+        this.sistemasSolicitados = [],
+        this.mensaje = ''
       
     },
     changeEstado(){
