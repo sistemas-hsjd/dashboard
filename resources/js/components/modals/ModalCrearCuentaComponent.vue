@@ -13,7 +13,9 @@
                             <div class="col-md-10">
                                 <div v-if="authenticated">
                                     <div v-if="!estadoSolicitud" class="alert alert-info alert-top-border alert-dismissible fade show mb-0 mb-3" role="alert">
-                                        <i class="mdi mdi-alert-circle-outline text-info align-middle me-3"></i><strong>Importante</strong> - Para las cuentas de <strong>San Juan de Dios y Plataformas de Apoyo</strong>,
+                                        <i class="mdi mdi-alert-circle-outline text-info align-middle me-3"></i>
+                                        <strong>Importante</strong> - 
+                                        Para las cuentas de <strong>San Juan de Dios y Plataformas de Apoyo</strong>,
                                         es fundamental que cada solicitud corresponda a un solo estamento
                                     </div>
                                     <div v-if="estadoSolicitud" class="alert alert-success alert-top-border alert-dismissible fade show" role="alert">
@@ -215,6 +217,7 @@ export default {
         telefono:'',
         email:'',
         user:[],
+        jefatura:[],
         btnAddDel:false,
         estadoSolicitud: false
     };
@@ -253,31 +256,45 @@ export default {
         data.append('run', this.run)
         axios.post('api/get-persona', data)
         .then(response => {
-            // console.log(response.data);
+            console.log(response.data);
             // this.mapearParametros(response.data)
-            if(this.user.jefatura){
-                const persona = response.data;
-                const indexToFill = this.usuarios.findIndex(u => !u.run);
-                if (indexToFill !== -1) {
-                    this.usuarios[indexToFill] = {
-                        run: persona.run || '',
-                        nombre_completo: persona.nombre_completo || '',
-                        telefono: persona.telefono || '',
-                        email: persona.email || ''
-                    };
+
+            if (response.data !== 'no hay rut') {
+                if (this.jefatura) {
+                    const persona = response.data;
+
+                    // Verificamos si el RUN ya existe en this.usuarios
+                    const existe = this.usuarios.some(u => u.run === persona.run);
+                    
+                    if (!existe) {
+                        // Buscar un índice vacío (sin run)
+                        const indexToFill = this.usuarios.findIndex(u => !u.run);
+                        if (indexToFill !== -1) {
+                            this.usuarios[indexToFill] = {
+                                run: persona.run || '',
+                                nombre_completo: persona.nombre_completo || '',
+                                telefono: persona.telefono || '',
+                                email: persona.email || ''
+                            };
+                        } else {
+                            // Si no hay objeto vacío, agregamos uno nuevo
+                            this.usuarios.push({
+                                run: persona.run || '',
+                                nombre_completo: persona.nombre_completo || '',
+                                telefono: persona.telefono || '',
+                                email: persona.email || ''
+                            });
+                        }
+                    } else {
+                        console.warn(`La persona con RUN ${persona.run} ya está en la lista.`);
+                        // Aquí puedes mostrar un mensaje al usuario si es necesario
+                    }
                 } else {
-                    // Si no hay objeto vacío, agregamos uno nuevo
-                    this.usuarios.push({
-                        run: persona.run || '',
-                        nombre_completo: persona.nombre_completo || '',
-                        telefono: persona.telefono || '',
-                        email: persona.email || ''
-                    });
+                    this.mapearParametros(response.data);
                 }
-            }else{
-                this.mapearParametros(response.data)
-            }
-            this.run = ''
+            this.run = '';
+        }
+            
         })
         .catch(error => {
             console.error('Error: ', error);
@@ -431,8 +448,8 @@ export default {
             const { user, jefatura, authenticated } = response.data
 
             this.authenticated = authenticated
-
-            console.log(authenticated)
+            this.jefatura = jefatura
+            console.log(this.jefatura)
             this.user = user
 
             if(jefatura){
