@@ -13,7 +13,8 @@
                             <div class="col-md-10">
                                 <div v-if="authenticated">
                                     <div v-if="!estadoSolicitud" class="alert alert-info alert-top-border alert-dismissible fade show mb-0 mb-3" role="alert">
-                                        <i class="mdi mdi-alert-circle-outline text-info align-middle me-3"></i><strong>Importante</strong> - Las solicitudes de cuentas <strong>San Juan de Dios</strong>, deben ser solamente para un estamento en común.
+                                        <i class="mdi mdi-alert-circle-outline text-info align-middle me-3"></i><strong>Importante</strong> - Para las cuentas de <strong>San Juan de Dios y Plataformas de Apoyo</strong>,
+                                        es fundamental que cada solicitud corresponda a un solo estamento
                                     </div>
                                     <div v-if="estadoSolicitud" class="alert alert-success alert-top-border alert-dismissible fade show" role="alert">
                                         <i class="mdi mdi-check-all me-3 align-middle text-success"></i><strong>Solicitud enviada</strong> - Su solicitud fue enviada correctamente, se notificará por email al Jefe de la unidad solicitante.
