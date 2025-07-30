@@ -41,7 +41,7 @@
                                                         <div class="card border border-primary">
                                                             <div class="card-header bg-transparent border-primary header-card-cuenta d-flex justify-content-between">
                                                                 <h5 class="my-0 text-primary"><i class="mdi mdi-bullseye-arrow me-3"></i>Datos Generales</h5>
-                                                                <a v-if="btnAddDel" class="btn btn-outline-secondary btn-sm" title="Añadir Fila" @click="addUser()"><i class="fas fa-plus" title="Agregar"></i></a>
+                                                                <!-- <a v-if="btnAddDel" class="btn btn-outline-secondary btn-sm" title="Añadir Fila" @click="addUser()"><i class="fas fa-plus" title="Agregar"></i></a> -->
                                                             </div>
                                                             <div class="card-body">
                                                                 <div class="row" v-for="(user, index) in usuarios" :key="index">
