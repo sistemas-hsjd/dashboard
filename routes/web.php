@@ -41,11 +41,20 @@ Route::get('{view}', ApplicationController::class)
 ->where('view', '^(?!api|login|iniciar-sesion|logout|inicio).*$');
 
 Route::post('/data-auth', function() {
-    return response()->json([
-        'user' => Auth::user(),
-        'jefatura' => Auth::user()->jefatura
-    ]);
+    $user = Auth::user();
+
+    if ($user) {
+        return response()->json([
+            'authenticated' => true,
+            'user' => Auth::user(),
+            'jefatura' => Auth::user()->jefatura
+        ]);
+    } else {
+        return response()->json([
+            'authenticated' => false,
+            'user' => null,
+            'jefatura' => null
+        ]);
+    }
 });
-
-
 

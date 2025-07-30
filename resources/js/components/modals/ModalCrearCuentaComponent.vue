@@ -11,14 +11,16 @@
                     <div class="container">
                         <div class="row d-flex justify-content-center">
                             <div class="col-md-10">
-                                <div v-if="!estadoSolicitud" class="alert alert-info alert-top-border alert-dismissible fade show mb-0 mb-3" role="alert">
-                                    <i class="mdi mdi-alert-circle-outline text-info align-middle me-3"></i><strong>Importante</strong> - Las solicitudes de cuentas <strong>San Juan de Dios</strong>, deben ser solamente para un estamento en común.
-                                    <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
+                                <div v-if="authenticated">
+                                    <div v-if="!estadoSolicitud" class="alert alert-info alert-top-border alert-dismissible fade show mb-0 mb-3" role="alert">
+                                        <i class="mdi mdi-alert-circle-outline text-info align-middle me-3"></i><strong>Importante</strong> - Las solicitudes de cuentas <strong>San Juan de Dios</strong>, deben ser solamente para un estamento en común.
+                                    </div>
+                                    <div v-if="estadoSolicitud" class="alert alert-success alert-top-border alert-dismissible fade show" role="alert">
+                                        <i class="mdi mdi-check-all me-3 align-middle text-success"></i><strong>Solicitud enviada</strong> - Su solicitud fue enviada correctamente, se notificará por email al Jefe de la unidad solicitante.
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
                                 </div>
-                                <div v-if="estadoSolicitud" class="alert alert-success alert-top-border alert-dismissible fade show" role="alert">
-                                    <i class="mdi mdi-check-all me-3 align-middle text-success"></i><strong>Solicitud enviada</strong> - Su solicitud fue enviada correctamente, se notificará por email al Jefe de la unidad solicitante.
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div>
+                              
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-center">
@@ -189,6 +191,7 @@ export default {
     },
   data() {
     return {
+        authenticated:'',
         errors:{},
         run:'',
         servicios:[],
@@ -424,10 +427,14 @@ export default {
         axios.post('data-auth')
         .then(response => {
             console.log(response.data);
-            const { user } = response.data
+            const { user, jefatura, authenticated } = response.data
+
+            this.authenticated = authenticated
+
+            console.log(authenticated)
             this.user = user
 
-            if(this.user.jefatura){
+            if(jefatura){
                 this.btnAddDel = true
             }
 

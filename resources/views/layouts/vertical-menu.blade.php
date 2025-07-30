@@ -108,8 +108,6 @@
                                 <span data-key="t-apps">Registros incidencias</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
-
-                        
                                 <li>
                                     <a href="eventos">
                                         <span data-key="t-chat">Eventos</span>
