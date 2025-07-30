@@ -271,7 +271,7 @@ export default {
         .then(response => {
             console.log(response.data);
             // this.mapearParametros(response.data)
-            if (response.data !== 'no hay rut' && response.data !== 'usuario registrado') {
+            if (response.data !== 'no hay rut' && response.data !== 'usuario registrado' &&  response.data !== 'rut falso') {
                 if (this.jefatura) {
                         const persona = response.data;
                         // Verificamos si el RUN ya existe en this.usuarios
