@@ -174,7 +174,12 @@
                                                 </div>
                                             </div>
                                             <!-- end row -->
-                                        <a class="btn btn-primary" @click="solicitarCuenta()">Solicitar Cuenta</a>
+                                        <a v-if="!estadoRegistro" class="btn btn-primary" @click="solicitarCuenta()">Solicitar Cuenta</a>
+
+                                         <button v-if="estadoRegistro" type="button" class="btn btn-primary waves-effect">
+                                            <i class="bx bx-hourglass bx-spin font-size-16 align-middle me-2"></i> 
+                                            Enviando...
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -206,6 +211,7 @@ export default {
     },
   data() {
     return {
+        estadoRegistro:false,
         authenticated:'',
         errors:{},
         run:'',
@@ -329,6 +335,7 @@ export default {
     },
     solicitarCuenta(){
         if(this.validarErrores()){
+            this.estadoRegistro = true
             var data = new FormData()
             data.append('cuentas', JSON.stringify(this.usuarios))
             data.append('sistemas', JSON.stringify(this.sistemasSolicitados))
@@ -342,6 +349,7 @@ export default {
             }
             axios.post('api/solicitar-cuenta', data)
             .then(response => {
+                this.estadoRegistro = false
                 console.log(response.data)
                 if(response.data=='El correo ha sido enviado'){
                     this.estadoSolicitud = true
