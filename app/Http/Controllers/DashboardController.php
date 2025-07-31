@@ -11,6 +11,7 @@ use App\Models\Unidad;
 use App\Models\GenServicio;
 use App\Models\GenSistema;
 use App\Models\Estamento;
+use App\Models\GenPlataformaApoyo;
 use Illuminate\Support\Facades\Auth;
 use Freshwork\ChileanBundle\Rut;
 use App\Http\Controllers\ApplicationController;
@@ -42,14 +43,16 @@ class DashboardController extends Controller
     public function solicitarCuentas(Request $request){
         
         $data = json_decode($request->input('cuentas'), true);
-        $sistemas = json_decode($request->input('sistemas'), true);
+        // $platsistemasaformasApoyo = GenPlataformaApoyo::with('sistema')->get();
+        $sistemasIds = json_decode($request->input('sistemas'), true);
+    
         $servicio = GenServicio::with('jefaturas.usuario', 'jefaturas.estamento')->find($request->servicio);
         $estamentoFuncionario = Estamento::find($request->estamento);
         $medico = [1, 6, 32, 36, 39, 40, 45];
         $enfermera = [3, 4, 14, 15, 16, 17, 18, 19, 20, 21];
         $matronas = [5];
 
-        $estamento = (int) $request->estamento;
+        $estamento = (int)$request->estamento;
         if (in_array($estamento, $medico)) {
             $tipo = 'MEDICO';
         } elseif (in_array($estamento, $enfermera)) {
@@ -59,6 +62,32 @@ class DashboardController extends Controller
         } else {
             $tipo = 'otro';
         }
+
+        // se envia si hay sistemas de apoyo
+        $plataformasApoyo = [];
+        foreach ($sistemasIds as $key => $value) {
+            $plataforma = $this->getSistemaApoyo($value);
+            if($plataforma){
+                $plataformasApoyo[] = $plataforma;
+            }
+        }
+
+        if (count($plataformasApoyo) > 0) {
+            foreach ($plataformasApoyo as $value) {
+                $pos = array_search($value->sistema->id, $sistemasIds);
+                if ($pos !== false) {
+                    unset($sistemasIds[$pos]);
+                }
+            }
+            // Reindexar un array
+            $sistemasIds = array_values($sistemasIds);
+            if($this->sendEmailPlataformaApoyo($data, $plataformasApoyo, $estamentoFuncionario, $servicio, $request)!=='ok'){
+                return 'error plataformas';
+            }
+        }
+      
+        $sistemas = GenSistema::whereIn('id', $sistemasIds)->get();
+        $sistemas = $sistemas->pluck('tx_descripcion')->toArray();
 
         $jefes = [];
         foreach ($servicio->jefaturas as $key => $value) {
@@ -108,10 +137,7 @@ class DashboardController extends Controller
         }
 
         $template_path = 'email.email_template';
-        Mail::send(['html'=> $template_path ],     [
-            'data' => $data,       
-            'mensaje' => $mensaje
-        ],  function($message) use($email1, $email2){
+        Mail::send(['html'=> $template_path ],['data' => $data, 'mensaje' => $mensaje], function($message) use($email1, $email2){
             if (!empty($email1) && filter_var($email1, FILTER_VALIDATE_EMAIL)) {
                 $message->to($email1, 'User')->subject('Notificación de creacíon San Juan');
             }
@@ -123,6 +149,59 @@ class DashboardController extends Controller
         });
 
         return "El correo ha sido enviado";
+    }
+
+    public function sendEmailPlataformaApoyo($data, $plataformasApoyo, $estamentoFuncionario, $servicio, $request){
+
+        $email = '';
+
+        foreach ($data as $key => $value) {
+            $data[$key]['nombre_unidad'] =  $servicio->tx_descripcion;
+            $data[$key]['estamento'] = $estamentoFuncionario->tx_descripcion;
+
+            if ($request->estamento == 39 || $request->estamento == 45) {
+                $data[$key]['RUN_tutor'] = $request->RUN_tutor; 
+                $data[$key]['inicio_rotacion'] = $request->inicio_rotacion;
+                $data[$key]['fin_rotacion'] = $request->fin_rotacion;
+            }
+        }
+
+        foreach ($plataformasApoyo as $key => $value) {
+            $sistema = $value->sistema->tx_descripcion;
+            $email = $value->email;
+            $mensaje = 'Estimado(a) '.$value->encargado. ' se ha solicitado acceso a la plataforma '.$sistema;
+
+            foreach ($data as $k => $v) {
+                $data[$k]['sistema'] = $sistema;
+            }
+
+            try {
+                $template_path = 'email.email-plataforma';
+                Mail::send(['html' => $template_path], ['data' => $data, 'mensaje' => $mensaje], function ($message) use ($email, $sistema) {
+                    if (!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                        $message->to($email, 'User')->subject('Solicitud de acceso a plataforma '.$sistema);
+                    }
+
+                    $message->from('sistemas.ssmoc@appminsal.cl', 'Solicitud de acceso a : '.$sistema);
+                });
+            } catch (\Exception $e) {
+                return 'error';
+            }
+        }
+
+        return 'ok';
+    }
+
+    private function getSistemaApoyo($id){
+        return $plataformasApoyo = GenPlataformaApoyo::with('sistema')->whereHas('sistema', function($query) use ($id) {
+            $query->where('sistema_id', $id);
+        })->first();
+    }
+
+    private function getSistema($nombre){
+        return $plataformasApoyo = GenPlataformaApoyo::whereHas('sistema', function($query) use ($nombre) {
+            $query->where('tx_descripcion', $nombre);
+        })->first();
     }
 
     public function getTutor(Request $request){

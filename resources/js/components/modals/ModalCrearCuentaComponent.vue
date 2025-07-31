@@ -17,7 +17,7 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     </template>
                                     <template v-if="mensaje=='rut falso'">
-                                        <i class="mdi mdi-block-helper label-icon"></i><strong>Rut Invalido</strong> -  ¡El RUN ingresado es incorrecto!
+                                        <i class="mdi mdi-block-helper label-icon"></i><strong>Rut Inválido</strong> - ¡El RUN ingresado es incorrecto!
                                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     </template>
                                 </div>
@@ -29,10 +29,11 @@
                                         Para las cuentas de <strong>San Juan de Dios y Plataformas de Apoyo</strong>,
                                         es fundamental que cada solicitud corresponda a un solo estamento
                                     </div>
-                                    <div v-if="estadoSolicitud" class="alert alert-success alert-top-border alert-dismissible fade show" role="alert">
-                                        <i class="mdi mdi-check-all me-3 align-middle text-success"></i><strong>Solicitud enviada</strong> - Su solicitud fue enviada correctamente, se notificará por email al Jefe de la unidad solicitante.
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                    </div>
+                                </div>
+
+                                <div v-if="estadoSolicitud" class="alert alert-success alert-top-border alert-dismissible fade show" role="alert">
+                                    <i class="mdi mdi-check-all me-3 align-middle text-success"></i><strong>Solicitud enviada</strong> - Su solicitud fue enviada correctamente, se notificará por email al Jefe de la unidad solicitante.
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
                               
                                 <div class="card">
@@ -159,7 +160,7 @@
                                                                 <div class="row">
                                                                     <div class="col-md-6">
                                                                         <label for="example-text-input" class="form-label">Sistemas</label>
-                                                                        <v-select multiple v-model="sistemasSolicitados" :reduce="sistema => sistema.tx_descripcion" :options="sistemas" label="tx_descripcion" id="sistema_users" placeholder="Seleccione..."></v-select>
+                                                                        <v-select multiple v-model="sistemasSolicitados" :reduce="sistema => sistema.id" :options="sistemas" label="tx_descripcion" id="sistema_users" placeholder="Seleccione..."></v-select>
                                                                         <span v-if="errors[`sistemasSolicitados`]" class="mensaje-error">
                                                                             Los Sistemas solicitados es obligatorio.
                                                                         </span>
@@ -270,14 +271,13 @@ export default {
         axios.post('api/get-persona', data)
         .then(response => {
             console.log(response.data);
-            // this.mapearParametros(response.data)
+
             if (response.data !== 'no hay rut' && response.data !== 'usuario registrado' &&  response.data !== 'rut falso') {
                 if (this.jefatura) {
                         const persona = response.data;
-                        // Verificamos si el RUN ya existe en this.usuarios
+                        
                         const existe = this.usuarios.some(u => u.run === persona.run);
                         if (!existe) {
-                            // Buscar un índice vacío (sin run)
                             const indexToFill = this.usuarios.findIndex(u => !u.run);
                             if (indexToFill !== -1) {
                                 this.usuarios[indexToFill] = {

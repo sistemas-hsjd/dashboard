@@ -129,3 +129,12 @@
 .info-cuentas{
   margin-bottom: -25px;
 }
+
+.topnav .navbar-nav .dropdown-item {
+    color: #010510;
+    font-weight: 800;
+}
+
+.topnav .navbar-nav .dropdown-item:hover {
+    color: #007bff; 
+}
