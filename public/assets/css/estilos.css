@@ -138,3 +138,7 @@
 .topnav .navbar-nav .dropdown-item:hover {
     color: #007bff; 
 }
+
+::placeholder {
+  font-size: .8em;
+}
