@@ -18,7 +18,7 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/iniciar-sesion', [AuthController::class, 'login'])->name('iniciarSesion');
     Route::get('/mail', [MailController::class, 'index']);
     Route::get('/get-jefatura', [DashboardController::class, 'getJefatura']); 
-   
+  
 });
 
 Route::middleware(['auth'])->group(function () {
@@ -28,14 +28,15 @@ Route::middleware(['auth'])->group(function () {
 
 Route::prefix('api')->group(function () {
     // Route::get('/get-default', [DashboardController::class, 'getDefault']);
+    Route::get('/abrir-excel', [DashboardController::class, 'abrirExcel']);
     Route::post('/get-info', [DashboardController::class, 'getInfo']);
     Route::post('/solicitar-cuenta', [DashboardController::class, 'solicitarCuentas']);
     Route::post('/get-funcionarios', [DashboardController::class, 'getFuncionarios']);   
     Route::post('/get-persona', [GeneralController::class, 'getPersona']);
     Route::post('/data-inicial', [GeneralController::class, 'getInfoInicial']);
     Route::post('/get-mis-sistemas', [DashboardController::class, 'getMisSistemas']); 
-    Route::post('/get-tutor', [DashboardController::class, 'getTutor']);
-});
+    Route::post('/get-tutor', [DashboardController::class, 'getTutor']);    
+}); 
 
 Route::get('{view}', ApplicationController::class)
 ->where('view', '^(?!api|login|iniciar-sesion|logout|inicio).*$');

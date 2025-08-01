@@ -15,10 +15,26 @@ use App\Models\GenPlataformaApoyo;
 use Illuminate\Support\Facades\Auth;
 use Freshwork\ChileanBundle\Rut;
 use App\Http\Controllers\ApplicationController;
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 use Mail;
 
 class DashboardController extends Controller
 {
+
+    public function abrirExcel()
+    {
+        // Comando para abrir Excel
+        $process = new Process(['cmd', '/c', 'start excel']);
+        $process->run();
+
+        if (!$process->isSuccessful()) {
+            throw new ProcessFailedException($process);
+        }
+
+        return response('Excel fue abierto (si estás en entorno local).');
+    }
+
     public function getInfo(Request $request){
         $ip = $this->getClientIP();
         $categorias = Categoria::with(['enlaces'])->where('estado', 1)->get();

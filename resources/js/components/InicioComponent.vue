@@ -3,6 +3,8 @@
     <div class="card border border-success">
       <div class="card-header bg-transparent border-success card-header_sistemas">
         <h5 class="my-0 text-success"><i class="mdi mdi-check-all me-3"></i>Sistemas Locales</h5>
+
+        <button type="button" class="btn btn-primary waves-effect waves-light" @click="abrirExcel">Abrir excel</button>
       </div>
       <div class="card-body">
           <div class="row" v-for="(row, rowIndex) in chunkedSistemas" :key="'row-' + rowIndex">
@@ -107,7 +109,7 @@ export default {
       }
       return chunks;
     },
-
+ 
     chunkedSistemasDefaults() {
   
       const chunkSize = 4;
@@ -119,6 +121,17 @@ export default {
     }
   },
   methods: {
+      
+    abrirExcel(){
+      console.log('desde abrir ')
+        axios.get('/api/abrir-excel')
+        .then(response => {
+            console.log(response.data)
+        })
+        .catch(error => {
+            console.error('Error: ', error);
+        });
+    },
     getSistemas(){
         axios.post('api/get-mis-sistemas')
         .then(response => {
