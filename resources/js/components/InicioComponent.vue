@@ -124,7 +124,7 @@ export default {
       
     abrirExcel(){
       console.log('desde abrir ')
-        axios.get('/api/abrir-excel')
+        axios.post('/api/abrir-excel')
         .then(response => {
             console.log(response.data)
         })

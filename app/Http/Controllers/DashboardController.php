@@ -23,7 +23,7 @@ use Mail;
 class DashboardController extends Controller
 {
 
-    public function abrirExcel()
+    public function abrirMsaccess()
     {
         $ip = $this->getClientIP();
         $url = 'http://'.$this->getClientIP().':5000/open-excel';
