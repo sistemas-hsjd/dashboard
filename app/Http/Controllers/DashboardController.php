@@ -17,6 +17,7 @@ use Freshwork\ChileanBundle\Rut;
 use App\Http\Controllers\ApplicationController;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
+use Illuminate\Support\Facades\Http;
 use Mail;
 
 class DashboardController extends Controller
@@ -24,15 +25,12 @@ class DashboardController extends Controller
 
     public function abrirExcel()
     {
-        // Comando para abrir Excel
-        $process = new Process(['cmd', '/c', 'start excel']);
-        $process->run();
+        $response = Http::get('http://10.6.3.191:5000/open-excel');
 
-        if (!$process->isSuccessful()) {
-            throw new ProcessFailedException($process);
-        }
-
-        return response('Excel fue abierto (si estás en entorno local).');
+        return response()->json([
+            'status' => $response->status(),
+            'mensaje' => $response->body(),
+        ]);
     }
 
     public function getInfo(Request $request){
