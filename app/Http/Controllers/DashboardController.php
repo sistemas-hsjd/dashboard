@@ -25,8 +25,9 @@ class DashboardController extends Controller
 
     public function abrirExcel()
     {
-        $response = Http::get('http://10.6.3.191:5000/open-excel');
-
+        $ip = $this->getClientIP();
+        $url = 'http://'.$this->getClientIP().':5000/open-excel';
+        $response = Http::get($url );
         return response()->json([
             'status' => $response->status(),
             'mensaje' => $response->body(),
