@@ -26,8 +26,8 @@ class DashboardController extends Controller
     public function abrirMsaccess()
     {
         $ip = $this->getClientIP();
-        $url = 'http://'.$this->getClientIP().':5000/open-excel';
-        $response = Http::get($url );
+        $url = 'http://'.$this->getClientIP().':5000/open-access';
+        $response = Http::get($url);
         return response()->json([
             'status' => $response->status(),
             'mensaje' => $response->body(),
