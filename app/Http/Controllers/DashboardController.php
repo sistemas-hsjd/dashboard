@@ -259,6 +259,7 @@ class DashboardController extends Controller
 
     public function getMisSistemas(Request $request)
     {
+        
         $user = Auth::user();
         $usuarioConSistemas = UserPortal::with('misSistemas')->find($user->id);
 
@@ -280,7 +281,21 @@ class DashboardController extends Controller
             $sistema->url_final = $urlSistema;
             return $sistema;
         });
+        
+        $nuevo = [
+            "id" => 10000000,
+            "tx_descripcion" => "Registros de UPC adulto",
+            "tx_direccion" => "",
+            "tx_imagen" => "UPC.jpeg",
+            "img" => "UPC.jpeg",
+            "nr_orden" => 24,
+            "tx_info" => "Access",
+            "sistema_local" => 1
+        ];
 
+        // Agregar el nuevo sistema a la colección
+        $sistemas->push((object) $nuevo);
+    
         $defaultSistemas = GenSistema::whereIn('id', [22,24,20,23,19,25])->get()->toArray();
         // $sistemas = array_merge($sistemas->toArray(), $defaultSistemas);
 

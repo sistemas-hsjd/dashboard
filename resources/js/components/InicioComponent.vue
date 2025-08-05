@@ -4,7 +4,7 @@
       <div class="card-header bg-transparent border-success card-header_sistemas">
         <h5 class="my-0 text-success"><i class="mdi mdi-check-all me-3"></i>Sistemas Locales</h5>
 
-        <button type="button" class="btn btn-primary waves-effect waves-light" @click="abrirAcess()">Abrir Access</button>
+       
       </div>
       <div class="card-body">
           <div class="row" v-for="(row, rowIndex) in chunkedSistemas" :key="'row-' + rowIndex">
@@ -21,6 +21,13 @@
                               Ingresar
                           </a> 
                         </template>
+                        <template v-else-if="sistema.id === 10000000">
+                            <button
+                              class="btn btn-outline-light waves-effect"
+                              @click="abrirAcess()">
+                              Ingresar
+                            </button>
+                        </template>
                         <template v-else>
                           <a v-if="sistema.tx_direccion"
                               class="btn btn-outline-light waves-effect"
@@ -28,6 +35,7 @@
                               target="_blank">
                               Ingresar
                           </a> 
+                          
                           <button v-else
                                   class="btn btn-outline-light waves-effect"
                                   @click="abrirModal(sistema.tx_direccion)">
