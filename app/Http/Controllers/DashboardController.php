@@ -284,7 +284,7 @@ class DashboardController extends Controller
         
         $nuevo = [
             "id" => 10000000,
-            "tx_descripcion" => "Registros de UPC adulto",
+            "tx_descripcion" => "Registro Médico UPC adulto",
             "tx_direccion" => "",
             "tx_imagen" => "UPC.jpeg",
             "img" => "UPC.jpeg",
