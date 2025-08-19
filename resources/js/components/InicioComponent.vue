@@ -3,8 +3,6 @@
     <div class="card border border-success">
       <div class="card-header bg-transparent border-success card-header_sistemas">
         <h5 class="my-0 text-success"><i class="mdi mdi-check-all me-3"></i>Sistemas Locales</h5>
-
-       
       </div>
       <div class="card-body">
           <div class="row" v-for="(row, rowIndex) in chunkedSistemas" :key="'row-' + rowIndex">
@@ -87,6 +85,7 @@
     </div>
   
     <modalCrearCuentaComponent></modalCrearCuentaComponent>
+    <modalEstadosEnlacesComponent></modalEstadosEnlacesComponent>
     <modalSoporteComponent></modalSoporteComponent>
   </div>
 </template>
@@ -95,11 +94,14 @@
 
 import modalSoporteComponent from './modals/ModalSoporteComponent.vue'
 import modalCrearCuentaComponent from './modals/ModalCrearCuentaComponent.vue'
+import ModalEstadosEnlacesComponent from './modals/ModalEstadosEnlacesComponent.vue';
+
 export default {
   name: 'MisSistemasGrid',
     components: {
         modalSoporteComponent,
-        modalCrearCuentaComponent
+        modalCrearCuentaComponent,
+        ModalEstadosEnlacesComponent
     },
    data() {
         return {

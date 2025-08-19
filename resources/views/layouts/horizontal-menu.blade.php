@@ -102,6 +102,15 @@
                                     <a href="#" class="dropdown-item" data-key="t-calendar"  data-bs-toggle="modal" data-bs-target="#modalCrearCuenta">Solicitar Cuenta</a>
                                 </div>
                             </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-pages" role="button">
+                                    <i data-feather="grid"></i><span data-key="t-apps">Mantenedores</span>
+                                    <div class="arrow-down"></div>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="topnav-pages">
+                                    <a href="#" class="dropdown-item" data-key="t-calendar"  data-bs-toggle="modal" data-bs-target="#modalEditEnlaces">Enlaces</a>
+                                </div>
+                            </li>
                         @endif
                     @else
                      <li class="nav-item dropdown">

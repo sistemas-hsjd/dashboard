@@ -367,4 +367,61 @@ class DashboardController extends Controller
         }
     }
 
+    public function getALLEnlaces(Request $request){
+        return $enlaces = Enlace::with(['categoria'])->get(); 
+    }
+
+    public function desactivarEnlaces(Request $request){
+        // return $request;
+        $enlace = Enlace::with('categoria')->find($request->id);
+        if($request->cat=='No'){
+
+            $categoria = $enlace->categoria;
+            $categoria->estado = 0;
+            $categoria->save();
+            Enlace::where('categoria_id', $categoria->id)->update(['estado' => 0]);
+
+        }else{
+            $categoria = $enlace->categoria;
+            $categoria->estado = 1;
+            $categoria->save();
+
+            if($request->enlace=='Sí'){
+                $enlace->estado = 1;
+                $enlace->save();
+            }else{
+                $enlace->estado = 0;
+                $enlace->save();
+            }
+
+        }
+
+        // if (isset($request->enlace)) {
+        //     $estado = ($request->enlace === 'No') ? 0 : 1;
+        //     $enlace->estado = $estado;
+        //     $enlace->save();
+        // }
+        
+
+        // if ($enlace && $enlace->categoria) {
+        //     $estado = ($request->cat === 'Sí') ? 1 : 0;
+
+        //     $categoria = $enlace->categoria;
+        //     $categoria->estado = $estado;
+        //     $categoria->save();
+
+        //     if($estado==0){
+        //        // Actualiza todos los enlaces de esa categoría en una sola consulta
+                
+        //     }else{
+        //          Enlace::where('categoria_id', $categoria->id)->update(['estado' => 1]);
+        //     }
+        // }
+        return 'ok';
+        // return $enlace = Enlace::whereHas('sistema', function($query) use ($nombre) {
+        //     $query->where('tx_descripcion', $nombre);
+        // })->first();
+
+    }
+
 }
