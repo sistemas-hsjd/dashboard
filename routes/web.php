@@ -29,9 +29,15 @@ Route::middleware(['auth'])->group(function () {
 Route::prefix('api')->group(function () {
     // Route::get('/get-default', [DashboardController::class, 'getDefault']);
     Route::post('/abrir-access', [DashboardController::class, 'abrirMsaccess']);
+
+    Route::post('/desactivar-enlaces', [DashboardController::class, 'desactivarEnlaces']);
+
     Route::post('/get-info', [DashboardController::class, 'getInfo']);
     Route::post('/solicitar-cuenta', [DashboardController::class, 'solicitarCuentas']);
     Route::post('/get-funcionarios', [DashboardController::class, 'getFuncionarios']);   
+    
+    Route::get('/get-enlaces', [DashboardController::class, 'getALLEnlaces']);   
+
     Route::post('/get-persona', [GeneralController::class, 'getPersona']);
     Route::post('/data-inicial', [GeneralController::class, 'getInfoInicial']);
     Route::post('/get-mis-sistemas', [DashboardController::class, 'getMisSistemas']); 
