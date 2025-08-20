@@ -191,7 +191,7 @@ export default {
                                             `;
                                         }else{
                                              html += `
-                                                <input type="checkbox" class="editarCategoria" id="switchCat${row.id}" switch="dark"/>
+                                                <input type="checkbox" class="editarCategoria" id="switchCat${row.id}" switch="dark" />
                                                 <label for="switchCat${row.id}" data-on-label="Sí" data-off-label="No"></label>                                               
                                             `;
                                         }
@@ -201,10 +201,18 @@ export default {
                                                 <label for="switchEnlace${row.id}" data-on-label="Sí" data-off-label="No"></label>
                                             `;
                                         }else{
-                                            html += `
-                                                <input type="checkbox" class="editarEnlace" id="switchEnlace${row.id}" switch="bool"/>
-                                                <label for="switchEnlace${row.id}" data-on-label="Sí" data-off-label="No"></label>
-                                            `;
+                                            if(row.categoria.estado==0){
+                                                html += `
+                                                    <input type="checkbox" class="editarEnlace" id="switchEnlace${row.id}" switch="bool" disabled/>
+                                                    <label for="switchEnlace${row.id}" data-on-label="Sí" data-off-label="No"></label>
+                                                `;
+                                            }else{
+                                                 html += `
+                                                    <input type="checkbox" class="editarEnlace" id="switchEnlace${row.id}" switch="bool"/>
+                                                    <label for="switchEnlace${row.id}" data-on-label="Sí" data-off-label="No"></label>
+                                                `;
+                                            }
+                                          
                                         }
                                         
                                         return html;
