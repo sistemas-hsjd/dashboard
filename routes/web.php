@@ -30,6 +30,8 @@ Route::prefix('api')->group(function () {
     // Route::get('/get-default', [DashboardController::class, 'getDefault']);
     Route::post('/abrir-access', [DashboardController::class, 'abrirMsaccess']);
 
+    Route::get('/leer-excel', [GeneralController::class, 'leerExcel']);
+
     Route::post('/desactivar-enlaces', [DashboardController::class, 'desactivarEnlaces']);
 
     Route::post('/get-info', [DashboardController::class, 'getInfo']);

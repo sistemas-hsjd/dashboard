@@ -113,7 +113,7 @@ export default {
 
             axios.get('api/get-enlaces', { params: params })
             .then(response => {
-                console.log('desde la tabla',response.data)
+                console.log('desde la tabla de enlaces: ',response.data)
                 $('#tabla_enlaces').DataTable({
                     "responsive": true,
                     "autoWidth": false, 

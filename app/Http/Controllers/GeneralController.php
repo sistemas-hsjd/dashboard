@@ -9,6 +9,9 @@ use App\Models\GenServicio;
 use App\Models\Estamento;
 use App\Models\GenSistema;
 use App\Models\UserPortal;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Illuminate\Support\Facades\Auth;
 
 class GeneralController extends Controller
@@ -81,6 +84,69 @@ class GeneralController extends Controller
             'estamentos' => Estamento::where('bo_estado', 1)->where('cuenta_usuario', 1)->orderBy('tx_descripcion', 'asc')->get(),
             'sistemas' => GenSistema::where('sistema_local', 1)->orderBy('tx_descripcion', 'asc')->get(),
         ];
+    }
+
+    public function leerExcel(Request $request)
+    {
+        $archivo = 'C:/Users/Nelson/Desktop/ucic-users.xlsx';
+        try {
+            $spreadsheet = IOFactory::load($archivo);
+            $hoja = $spreadsheet->getActiveSheet();
+
+            $encabezados = [];
+            $datos = [];
+
+            foreach ($hoja->getRowIterator() as $index => $fila) {
+                $celdas = [];
+                $cellIterator = $fila->getCellIterator();
+                $cellIterator->setIterateOnlyExistingCells(false);
+
+                foreach ($cellIterator as $celda) {
+                    $celdas[] = trim($celda->getValue());
+                }
+
+                if ($index == 1) {
+                    // Guardamos los encabezados
+                    $encabezados = str_replace([' ', '°', '/'], '_', $celdas); 
+                } else {
+                    // Creamos array asociativo
+                    $filaAsociativa = array_combine($encabezados, $celdas);
+                    if ($filaAsociativa) {
+                        $datos[] = $filaAsociativa;
+                    }
+                }
+
+
+                foreach ($datos as $key) {
+                    $rut = $key['RUT'];
+                    try {
+                        $rut = Rut::parse($rut);
+                        if (!$rut->validate()) {
+                            \Log::warning("RUN inválido para el usuario: " . $rut . ' / ' . ($key['email'] ?? 'sin email'));
+                            continue;
+                        }
+
+                        // Formato limpio con guión
+                        $rutFormateado = $rut->format(Rut::FORMAT_WITH_DASH);
+
+                    } catch (\Exception $e) {
+                        \Log::error("Error al procesar RUN: " . $rut . ' → ' . $e->getMessage());
+                        continue;
+                    }
+
+                    $rut = Rut::parse($rut)->format(Rut::FORMAT_WITH_DASH);
+                    $usuario = UserPortal::where('rut', '=',  $rut )->first();
+                    if($usuario){
+                        $usuario->uci = 1;
+                        $usuario->save();
+                    }
+                }
+
+            }
+            return 'ok';
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error al leer el archivo: ' . $e->getMessage()], 500);
+        }
     }
 
 }

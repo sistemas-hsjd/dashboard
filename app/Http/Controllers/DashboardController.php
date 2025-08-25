@@ -36,7 +36,9 @@ class DashboardController extends Controller
 
     public function getInfo(Request $request){
         $ip = $this->getClientIP();
-        $categorias = Categoria::with(['enlaces'])->where('estado', 1)->get();
+        $categorias = Categoria::with(['enlaces' => function ($query) {
+            $query->where('estado', 1);
+        }])->where('estado', 1)->get();
 
         return [
             "categorias" => $categorias,
@@ -259,7 +261,6 @@ class DashboardController extends Controller
 
     public function getMisSistemas(Request $request)
     {
-        
         $user = Auth::user();
         $usuarioConSistemas = UserPortal::with('misSistemas')->find($user->id);
 
@@ -276,7 +277,7 @@ class DashboardController extends Controller
             if ($urlSistema) {
                 $urlSistema = str_replace('$rUser', $rut, $urlSistema);
                 $urlSistema = str_replace('$tokenPortal', $token, $urlSistema);
-                $urlSistema = preg_replace("/\r|\n/", "", $urlSistema); // limpia saltos de línea
+                $urlSistema = preg_replace("/\r|\n/", "", $urlSistema);
             }
             $sistema->url_final = $urlSistema;
             return $sistema;
@@ -296,7 +297,8 @@ class DashboardController extends Controller
         // Agregar el nuevo sistema a la colección
         $sistemas->push((object) $nuevo);
     
-        $defaultSistemas = GenSistema::whereIn('id', [22,24,20,23,19,25])->get()->toArray();
+        $defaultSistemas = GenSistema::whereIn('id', [22,24,20,23,19,25])->where('estado', 1)->get()->toArray();
+
         // $sistemas = array_merge($sistemas->toArray(), $defaultSistemas);
 
         return response()->json([
@@ -396,31 +398,7 @@ class DashboardController extends Controller
 
         }
 
-        // if (isset($request->enlace)) {
-        //     $estado = ($request->enlace === 'No') ? 0 : 1;
-        //     $enlace->estado = $estado;
-        //     $enlace->save();
-        // }
-        
-
-        // if ($enlace && $enlace->categoria) {
-        //     $estado = ($request->cat === 'Sí') ? 1 : 0;
-
-        //     $categoria = $enlace->categoria;
-        //     $categoria->estado = $estado;
-        //     $categoria->save();
-
-        //     if($estado==0){
-        //        // Actualiza todos los enlaces de esa categoría en una sola consulta
-                
-        //     }else{
-        //          Enlace::where('categoria_id', $categoria->id)->update(['estado' => 1]);
-        //     }
-        // }
         return 'ok';
-        // return $enlace = Enlace::whereHas('sistema', function($query) use ($nombre) {
-        //     $query->where('tx_descripcion', $nombre);
-        // })->first();
 
     }
 
