@@ -282,25 +282,24 @@ class DashboardController extends Controller
             $sistema->url_final = $urlSistema;
             return $sistema;
         });
-        
-        $nuevo = [
-            "id" => 10000000,
-            "tx_descripcion" => "Registro Médico UPC adulto",
-            "tx_direccion" => "",
-            "tx_imagen" => "UPC.jpeg",
-            "img" => "UPC.jpeg",
-            "nr_orden" => 24,
-            "tx_info" => "Access",
-            "sistema_local" => 1
-        ];
-
-        // Agregar el nuevo sistema a la colección
-        $sistemas->push((object) $nuevo);
+    
+        if($user->uci===1){
+             $nuevo = [
+                "id" => 10000000,
+                "tx_descripcion" => "Registro Médico UPC adulto",
+                "tx_direccion" => "",
+                "tx_imagen" => "UPC.jpeg",
+                "img" => "UPC.jpeg",
+                "nr_orden" => 24,
+                "tx_info" => "Access",
+                "sistema_local" => 1
+            ];
+            // Agregar el nuevo sistema a la colección
+            $sistemas->push((object) $nuevo);
+        }
     
         $defaultSistemas = GenSistema::whereIn('id', [22,24,20,23,19,25])->where('estado', 1)->get()->toArray();
-
         // $sistemas = array_merge($sistemas->toArray(), $defaultSistemas);
-
         return response()->json([
             'mis_sistemas' => $sistemas,
             'defaultSistemas' => $defaultSistemas,

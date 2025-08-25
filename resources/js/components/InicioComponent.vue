@@ -11,7 +11,7 @@
                   <div class="image-container">
                       <img class="card-img-top img-fluid" :src="`assets/images/img-portal/${sistema.img}`" :alt="`${sistema.img}`">
                       <div class="overlay-button">
-                        <template v-if="sistema.id == 22 || sistema.id == 22 || sistema.id == 24 || sistema.id == 20 || sistema.id == 21 || sistema.id == 19">
+                        <template v-if="sistema.id == 22 || sistema.id == 24 || sistema.id == 20 || sistema.id == 21 || sistema.id == 19">
                           <a v-if="sistema.tx_direccion"
                               class="btn btn-outline-light waves-effect"
                               :href="sistema.tx_direccion"
@@ -23,7 +23,7 @@
                             <button
                               class="btn btn-outline-light waves-effect"
                               @click="abrirAcess()">
-                              Ingresar
+                              Ingresar        
                             </button>
                         </template>
                         <template v-else>
@@ -107,7 +107,8 @@ export default {
         return {
            sistemas :[],
            enlaces:[],
-           sistemasDefaults:[]
+           sistemasDefaults:[],
+           user:[]
         }
     },
   computed: {
@@ -157,10 +158,25 @@ export default {
         this.enlaces = cat.enlaces
         // Aquí puedes manejar lógica adicional, como cargar un iframe
         $('#modalEnlaces').modal('show')
-    }
+    },
+    getAuthUser(){
+        axios.post('data-auth')
+        .then(response => {
+            console.log(response.data);
+            const { user, jefatura, authenticated } = response.data
+            // this.authenticated = authenticated
+            // this.jefatura = jefatura
+            this.user = user
+            console.log(this.user)
+        })
+        .catch(error => {
+            console.error('Error: ', error);
+        });
+    },
   }, 
   mounted(){
     this.getSistemas()
+    this.getAuthUser()
   }
 }
 </script>
