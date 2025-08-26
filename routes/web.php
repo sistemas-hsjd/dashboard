@@ -34,7 +34,11 @@ Route::prefix('api')->group(function () {
 
     Route::post('/desactivar-enlaces', [DashboardController::class, 'desactivarEnlaces']);
 
+     Route::post('/desactivar-sistema', [DashboardController::class, 'desactivarSistema']);
+
     Route::post('/get-info', [DashboardController::class, 'getInfo']);
+    Route::get('/get-sistemas', [DashboardController::class, 'getSistemas']);
+
     Route::post('/solicitar-cuenta', [DashboardController::class, 'solicitarCuentas']);
     Route::post('/get-funcionarios', [DashboardController::class, 'getFuncionarios']);   
     

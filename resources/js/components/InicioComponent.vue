@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="card border border-success">
+    <div class="card border">
       <div class="card-header bg-transparent border-success card-header_sistemas">
         <h5 class="my-0 text-success"><i class="mdi mdi-check-all me-3"></i>Sistemas Locales</h5>
       </div>
@@ -54,32 +54,52 @@
       </div>
     </div>
     
-    <div class="card border border-primary">
+    <div class="card border">
       <div class="card-header bg-transparent border-primary card-header_sistemas">
         <h5 class="my-0 text-primary"><i class="mdi mdi-bullseye-arrow me-3"></i>Plataformas de apoyo</h5>
       </div>
       <div class="card-body">
        <div class="row" v-for="(row, rowIndex) in chunkedSistemasDefaults" :key="'row-' + rowIndex">
+          
           <div class="col-sm-6 col-xl-3" v-for="sistema in row" :key="sistema.id">
+            
             <div class="card custom-card">
                 <div class="image-container">
                     <img class="card-img-top img-fluid" :src="`assets/images/img-portal/${sistema.img}`" :alt="`${sistema.img}`">
                     <div class="overlay-button">
+                      <template v-if="sistema.estado == 0 && sistema.id === 24">
                         <a v-if="sistema.tx_direccion"
+                            class="btn btn-outline-light waves-effect"
+                            :href="sistema.tx_direccion_contingencia"
+                            target="_blank">
+                            Ingresar
+                        </a> 
+                      </template>
+                      <template v-else>
+                         <a v-if="sistema.tx_direccion"
                             class="btn btn-outline-light waves-effect"
                             :href="sistema.tx_direccion"
                             target="_blank">
                             Ingresar
-                        </a>     
+                        </a> 
+                      </template>
+                            
                     </div>
                 </div>
 
                 <div class="card-body small-padding card-header_sistemas">
-                    <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
-                    <p class="card-text mb-0">{{ sistema.descripcion }}</p>
+                    <template v-if="sistema.estado == 0 && sistema.id === 24">
+                      <h4 class="card-title">TracKare de Contingencia</h4>
+                    </template>
+                    <template v-else>
+                      <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
+                      <p class="card-text mb-0">{{ sistema.descripcion }}</p>
+                    </template>
                 </div>
               </div>
+
           </div>
+
         </div>
       </div>
     </div>

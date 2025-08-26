@@ -46,6 +46,11 @@ class DashboardController extends Controller
         ];
     }
 
+    public function getSistemas(Request $request){
+        $sistemas = GenSistema::where('id', '!=', 26)->get();
+        return $sistemas;
+    }
+
     public function getClientIP() {
         if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
             return $_SERVER['HTTP_CLIENT_IP'];
@@ -115,9 +120,7 @@ class DashboardController extends Controller
                 $jefes[] = $value;
             }
         }
-        //return $jefes;
-        //49
-        //user 44
+
         $email1 = null;
         $email2 = null;
         if(Auth::user()){
@@ -298,7 +301,7 @@ class DashboardController extends Controller
             $sistemas->push((object) $nuevo);
         }
     
-        $defaultSistemas = GenSistema::whereIn('id', [22,24,20,23,19,25])->where('estado', 1)->get()->toArray();
+        $defaultSistemas = GenSistema::whereIn('id', [22,24,20,23,19,25])->get()->toArray();
         // $sistemas = array_merge($sistemas->toArray(), $defaultSistemas);
         return response()->json([
             'mis_sistemas' => $sistemas,
@@ -370,6 +373,18 @@ class DashboardController extends Controller
 
     public function getALLEnlaces(Request $request){
         return $enlaces = Enlace::with(['categoria'])->get(); 
+    }
+
+    public function desactivarSistema(Request $request){
+        $sistema = GenSistema::find($request->id);
+        if($request->sistema=='No'){
+            $sistema->estado = 0;
+           
+        }else{
+            $sistema->estado = 1;
+        }
+        $sistema->save();
+        return 'ok';
     }
 
     public function desactivarEnlaces(Request $request){

@@ -8,44 +8,103 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="changeEstado()"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12">
-                                
-                            </div>
-                        </div>
-                        <div class="row d-flex justify-content-center">
-                            <div class="col-md-12">
-                                <div class="card">
-                                    <div class="card-body">
+
+                    <div class="container-fluid">
+                        <div class="card-body">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-bs-toggle="tab" href="#sistema" role="tab">
+                                            <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                                            <span class="d-none d-sm-block">Sistemas</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-bs-toggle="tab" href="#enlaces" role="tab">
+                                            <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                                            <span class="d-none d-sm-block">Enlaces</span>
+                                        </a>
+                                    </li>
+                                   
+                                </ul>
+
+                                <!-- Tab panes -->
+                                <div class="tab-content p-3 text-muted">
+                                    <div class="tab-pane active" id="sistema" role="tabpanel">
+                                              <div class="row d-flex justify-content-center">
+                                                <div class="col-md-12">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <div class="row d-flex justify-content-center">
+                                                            
+                                                            </div>
+                                                            <div class="table-responsive">
+                                                                <table class="table" id="tabla_sistemas" style="width: 100%; font-size: .9em;">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th width="5%">ID</th>
+                                                                            <th width="3%">
+                                                                                <input type="checkbox" class="form-check-input checkbox-grande" id="check-all">
+                                                                            </th>
+                                                                            <th width="10%">Descripción</th>
+                                                                            <th>img</th>
+                                                                            <th>Estado</th>
+                                                                            <th style="width: 200px;">Opciones</th>
+                                                                       
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                        
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- end col -->
+                                            </div>
+                                    </div>
+                                    <div class="tab-pane" id="enlaces" role="tabpanel">
                                         <div class="row d-flex justify-content-center">
-                                           
-                                        </div>
-                                         <div class="table-responsive">
-                                            <table class="table" id="tabla_enlaces" style="width: 100%; font-size: .9em;">
-                                                <thead>
-                                                    <tr>
-                                                        <th width="5%">ID</th>
-                                                        <th width="3%">
-                                                            <input type="checkbox" class="form-check-input checkbox-grande" id="check-all">
-                                                        </th>
-                                                        <th width="10%">Categoría</th>
-                                                        <th>Nombre</th>
-                                                        <th>Enlace</th>
-                                                        <th style="width: 200px;">Categoría / Enlace</th>
-                                                        <!-- <th style="width: 200px;">Desactivar Categoría</th> -->
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                    
-                                                </tbody>
-                                            </table>
+                                            <div class="col-md-12">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="row d-flex justify-content-center">
+                                                        
+                                                        </div>
+                                                        <div class="table-responsive">
+                                                            <table class="table" id="tabla_enlaces" style="width: 100%; font-size: .9em;">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th width="5%">ID</th>
+                                                                        <th width="3%">
+                                                                            <input type="checkbox" class="form-check-input checkbox-grande" id="check-all">
+                                                                        </th>
+                                                                        <th width="10%">Categoría</th>
+                                                                        <th>Nombre</th>
+                                                                        <th>Enlace</th>
+                                                                        <th style="width: 200px;">Categoría / Enlace</th>
+                                                                        <!-- <th style="width: 200px;">Desactivar Categoría</th> -->
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                    
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- end col -->
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- end col -->
-                        </div>
+                    </div>
+
+                    <div class="container">
+                   
+                        
                     </div>
                 </div>
                 <!-- <div class="modal-footer">
@@ -103,10 +162,11 @@ export default {
                 "next": "Siguiente"
             }
         },
+        categorias:[]
     };
   },
   methods: {
-      initFiltros() {
+    initFiltrosEnlaces() {
             var params = {
                 meses: '',
             };
@@ -226,6 +286,100 @@ export default {
                 console.error('Error: ', error);
             });
     },
+    initFiltrosSistemas() {
+            var params = {
+                meses: '',
+            };
+            axios.get('api/get-sistemas', { params: params })
+            .then(response => {
+                console.log('desde la tabla de sistemas: ',response.data)
+                $('#tabla_sistemas').DataTable({
+                    "responsive": true,
+                    "autoWidth": false, 
+                    "pageLength": 10,
+                    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+                    "order": [[0, "desc"]],
+                    "processing": true,
+                    "destroy": true,
+                    "data": response.data,
+                    "responsive": true,
+                    language: this.lenguaje,
+                    "drawCallback": function(settings) {
+                        // Aquí va el código que deseas ejecutar cada vez que la tabla se dibuja
+                        $('#check-all').off('click').on('click', function() {
+                            const isChecked = $(this).is(':checked');
+                            $('.checkbox-tabla').prop('checked', isChecked);
+                        });
+
+                        $('#tabla_sistemas tbody').off('change', '.checkbox-tabla').on('change', '.checkbox-tabla', function() {
+                            if (!$(this).is(':checked')) {
+                                $('#check-all').prop('checked', false);
+                            } else {
+                                const allChecked = $('.checkbox-tabla').length === $('.checkbox-tabla:checked').length;
+                                $('#check-all').prop('checked', allChecked);
+                            }
+                        });
+                    },
+                    "columns": [
+                                {
+                                    "data": "id",
+                                    "render": function(data, type, row, meta) {
+                                        return `${row.id}`;
+                                    }
+                                },
+                                {        
+                                    "data": "id",
+                                    "orderable": false,
+                                    "render": function(data, type, row, meta) {
+                                        return ` <input class="form-check-input checkbox-tabla" type="checkbox" id="${row.id}">`;
+                                    }
+                                },
+                               
+                                {
+                                    "data": "tx_descripcion",
+                                    "render": function(data, type, row, meta) {
+                                        return `${row.tx_descripcion}`;
+                                    }
+                                },
+                                {
+                                    "data": "img",
+                                    "render": function(data, type, row, meta) {
+                                        return ` <div class="badge badge-soft-info font-size-12">${row.img}</div>`;
+                                    }
+                                },
+                                {
+                                    "data": "enlace",
+                                    "render": function(data, type, row, meta) {
+                                        return `<a>${row.tx_direccion}</a>`;                                       
+                                    }
+                                },
+                                {
+                                    "data": "id",
+                                    "sortable": false,
+                                    "render": function(data, type, row, meta) {
+                                        let html = ``
+                                        if(row.estado==1){
+                                            html += `
+                                                <input type="checkbox" class="editarSistema" id="switchSistema${row.id}" switch="bool" checked/>
+                                                <label for="switchSistema${row.id}" data-on-label="Sí" data-off-label="No"></label>
+                                            `;
+                                        }else{
+                                          html += `
+                                                    <input type="checkbox" class="editarSistema" id="switchSistema${row.id}" switch="bool"/>
+                                                    <label for="switchSistema${row.id}" data-on-label="Sí" data-off-label="No"></label>
+                                                `;
+                                        }
+                                        return html;
+                                    }
+                                }
+                    ]
+                });
+          
+            })
+            .catch(error => {
+                console.error('Error: ', error);
+            });
+    },
     changeEstado(id, cat, enlace){
         var data = new FormData()  
         data.append('id', id)
@@ -236,7 +390,7 @@ export default {
             //this.estadoRegistro = false
             console.log(response.data)
             if(response.data == 'ok'){
-                this.initFiltros()    
+                this.initFiltrosEnlaces()    
             }
           
         })
@@ -244,10 +398,28 @@ export default {
             console.error('Error: ', error);
         });
     },
+    changeEstadoSistema(id, sistema){
+        var data = new FormData()  
+        data.append('id', id)
+        data.append('sistema', sistema)
+        axios.post('api/desactivar-sistema', data)
+        .then(response => {
+            //this.estadoRegistro = false
+            console.log(response.data)
+            if(response.data == 'ok'){
+                this.initFiltrosSistemas()
+            }
+          
+        })
+        .catch(error => {
+            console.error('Error: ', error)
+        });
+    }
   },
   mounted() {
     const vm = this;
-    vm.initFiltros()    
+    vm.initFiltrosEnlaces()  
+    vm.initFiltrosSistemas()
     $('#tabla_enlaces tbody').on('click', '.editarEnlace, .editarCategoria', function(event) {
         event.stopPropagation();
 
@@ -263,6 +435,23 @@ export default {
         vm.changeEstado(id, catTexto, enlaceTexto)
        
     });
+
+    $('#tabla_sistemas tbody').on('click', '.editarSistema', function(event) {
+        event.stopPropagation();
+
+        var $fila = $(this).closest('tr');
+        var id = $(this).closest('tr').find('td').eq(0).text().trim();
+
+        // Estado del switch editarEnlace
+        var enlaceSeleccionado = $fila.find('.editarSistema').is(':checked');
+        var sistemaTexto = enlaceSeleccionado ? 'Sí' : 'No';
+
+
+        console.log(sistemaTexto)
+        vm.changeEstadoSistema(id, sistemaTexto)
+       
+    });
+
   }
 };
 </script>
