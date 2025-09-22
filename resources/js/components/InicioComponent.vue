@@ -67,7 +67,7 @@
                 <div class="image-container">
                     <img class="card-img-top img-fluid" :src="`assets/images/img-portal/${sistema.img}`" :alt="`${sistema.img}`">
                     <div class="overlay-button">
-                      <template v-if="sistema.estado == 0 && sistema.id === 24">
+                      <template v-if="(sistema.estado == 0 && sistema.id === 24) || (sistema.estado == 0 && sistema.id === 20)">
                         <a v-if="sistema.tx_direccion"
                             class="btn btn-outline-light waves-effect"
                             :href="sistema.tx_direccion_contingencia"
@@ -88,8 +88,11 @@
                 </div>
 
                 <div class="card-body small-padding card-header_sistemas">
-                    <template v-if="sistema.estado == 0 && sistema.id === 24">
+                   <template v-if="sistema.estado == 0 && sistema.id === 24">
                       <h4 class="card-title">TracKare de Contingencia</h4>
+                    </template>
+                    <template v-else-if="sistema.estado == 0 && sistema.id === 20">
+                      <h4 class="card-title">Laboratorio Clínico Contingencia <br>User:LABO Pass: Labo1234</h4>
                     </template>
                     <template v-else>
                       <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
