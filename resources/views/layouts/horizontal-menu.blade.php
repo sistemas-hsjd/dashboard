@@ -86,9 +86,16 @@
             <div class="collapse navbar-collapse" id="topnav-menu-content">
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle arrow-none" href="inicio" id="topnav-dashboard" role="button">
-                            <i data-feather="home"></i><span data-key="t-dashboards">Inicio</span>
-                        </a>
+                        @if (Auth::user())
+                            <a class="nav-link dropdown-toggle arrow-none" href="inicio" id="topnav-dashboard" role="button">
+                                <i data-feather="home"></i><span data-key="t-dashboards">Inicio</span>
+                            </a>
+                        @else
+                            <a class="nav-link dropdown-toggle arrow-none" href="/" id="topnav-dashboard" role="button">
+                                <i data-feather="home"></i><span data-key="t-dashboards">Inicio</span>
+                            </a>
+                        @endif
+                       
                     </li>
                     
                     @if (Auth::user())
