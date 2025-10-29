@@ -13,7 +13,6 @@ class UserPabellon extends Model
     protected $table = 'cb_usuario';
     public $guarded = [];
 
-
     public function setGlClaveAttribute($value){
         $this->attributes['gl_clave'] = sha1(intval($value));
     }

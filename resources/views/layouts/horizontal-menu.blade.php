@@ -95,12 +95,11 @@
                                 <i data-feather="home"></i><span data-key="t-dashboards">Inicio</span>
                             </a>
                         @endif
-                       
                     </li>
                     
                     @if (Auth::user())
                         @if (COUNT(Auth::user()->jefatura)>0)
-                          <li class="nav-item dropdown">
+                            <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-pages" role="button">
                                     <i data-feather="grid"></i><span data-key="t-apps">Cuenta San Juan de Dios</span>
                                     <div class="arrow-down"></div>
@@ -109,7 +108,6 @@
                                     <a href="#" class="dropdown-item" data-key="t-calendar"  data-bs-toggle="modal" data-bs-target="#modalCrearCuenta">Solicitar Cuenta</a>
                                 </div>
                             </li>
-                          
                         @endif
                     @else
                      <li class="nav-item dropdown">

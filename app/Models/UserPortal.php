@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class UserPortal extends Authenticatable
@@ -31,11 +32,21 @@ class UserPortal extends Authenticatable
         'id_identificacion',   
         'fecha_inicio_vigencia',  
         'fecha_termino_vigencia',  
-        'id_tutor'
+        'id_tutor',
+        'update_password',
+        'codigo'
     ];
 
     protected $hidden = ['password'];
     protected $dates = ['deleted_at'];
+
+    public function setNombreAttribute($value){
+        $this->attributes['nombre'] = ucfirst($value);
+    }
+
+    public function setPasswordAttribute($value){
+        $this->attributes['password'] = bcrypt($value);
+    }
 
     public function misSistemas(){
         return $this->belongsToMany(GenSistema::class, 'gen_user_sistemas', 'id_user', 'id_sistema')

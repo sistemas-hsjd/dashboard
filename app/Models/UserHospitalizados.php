@@ -9,7 +9,7 @@ class UserHospitalizados extends Model
 {
     use HasFactory;
 
-    // protected $connection = 'mysql3';
+    protected $connection = 'mysql2';
     protected $table = 'hospitalizacion.users';
     public $guarded = [];
 
@@ -18,7 +18,7 @@ class UserHospitalizados extends Model
     }
 
     public function setPasswordAttribute($value){
-        $this->attributes['password'] = bcrypt(intval($value));
+        $this->attributes['password'] = bcrypt($value);
     }
 
     public function servicios()

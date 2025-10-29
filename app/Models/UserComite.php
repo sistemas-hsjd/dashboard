@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Hash;
 
 class UserComite extends Model
 {
@@ -14,11 +15,11 @@ class UserComite extends Model
     public $timestamps = false;
 
     public function setPswdAttribute($value){
-        $this->attributes['pswd'] = sha1(intval($value));
+        $this->attributes['pswd'] = sha1($value);
     }
 
     public function setPasswordAttribute($value){
-        $this->attributes['password'] = bcrypt(intval($value));
+        $this->attributes['password'] = bcrypt($value);
     }
     
     public function grupo()

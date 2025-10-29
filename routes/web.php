@@ -17,19 +17,28 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
     Route::post('/iniciar-sesion', [AuthController::class, 'login'])->name('iniciarSesion');
     Route::get('/mail', [MailController::class, 'index']);
-    Route::get('/get-jefatura', [DashboardController::class, 'getJefatura']); 
+    Route::get('/get-jefatura', [DashboardController::class, 'getJefatura']);
+    Route::get('/recuperar-contrasena', function () {
+        return view('contrasena.recuperar_contrasena');
+    })->name('recuperarContrasena'); 
   
 });
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/inicio', [DashboardController::class, 'showSistemas'])->name('misSistemas');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/cambiar-contrasena', function () {
+        return view('contrasena.cambiar_contrasena');
+    })->name('cambiarContrasena');
 });
 
 Route::prefix('api')->group(function () {
     // Route::get('/get-default', [DashboardController::class, 'getDefault']);
     Route::post('/abrir-access', [DashboardController::class, 'abrirMsaccess']);
-
+    
+    Route::post('/cambiar-contrasena', [AuthController::class, 'changePasswordSistemas']);
+    Route::post('/enviar-codigo', [AuthController::class, 'recuperarContrasena']);
+    
     Route::get('/leer-excel', [GeneralController::class, 'leerExcel']);
 
     Route::post('/desactivar-enlaces', [DashboardController::class, 'desactivarEnlaces']);

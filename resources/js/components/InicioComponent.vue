@@ -155,7 +155,7 @@ export default {
     }
   },
   methods: {
-      
+
     abrirAcess(){
       console.log('desde abrir ')
         axios.post('/api/abrir-access')

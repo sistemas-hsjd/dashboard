@@ -71,7 +71,7 @@
                                                     </div>
                                                     <div class="flex-shrink-0">
                                                         <div class="">
-                                                            {{-- <a href="auth-recoverpw.php" class="text-muted">¿recuperar password?</a> --}}
+                                                            <a href="{{ route('recuperarContrasena')}}" class="text-muted">¿Recuperar contraseña?</a>
                                                         </div>
                                                     </div>
                                                 </div>
