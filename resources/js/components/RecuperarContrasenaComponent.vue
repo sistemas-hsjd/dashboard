@@ -5,10 +5,15 @@
                    
                     <div class="mb-5">
                         <a href="#">
-                            <img src="" alt="" height="30" class="me-1"><span class="logo-txt text-white font-size-22">¡Bienvenido/a!</span>
+                            <img src="" alt="" height="30" class="me-1"><span class="logo-txt text-white font-size-22">Recuperación de contraseña</span>
                         </a>
                     </div>
-                    <h3 class="text-white mt-5">Para recuperar la contraseña, ingrese su correo electrónico y se le enviará un código de verificación.</h3>
+                    
+                    <h3 class="text-white mt-5">
+                        Para restablecer su contraseña, 
+                        por favor ingrese la dirección de correo electrónico asociada a su cuenta.
+                        Se enviará un clave de acceso temporal a su correo,  para continuar con el proceso de recuperación.
+                    </h3>
                     
                     <div class="mb-3">
                         <div class="row d-flex justify-content-center">
@@ -17,12 +22,13 @@
                                     <label class="form-label text-white font-size-16">Email</label>
                                     <input type="email" v-model="email_recuperacion" class="form-control" id="email_recuperacion" name="email_recuperacion" placeholder="Ingrese email">
                                     <span v-if="errores.email_recuperacion" class="text-white font-size-13">* {{ errores.email_recuperacion }}</span>
+                                    <span v-if="respuesta.respuesta" class="text-white font-size-15">* {{ respuesta.respuesta }}</span>
                                 </div>
                                 <div class="mt-3">
-                                    <button v-if="!estadoRegistro" class="btn btn-primary w-100 waves-effect waves-light" @click="solicitarCodigo">Solicitar código</button>
+                                    <button v-if="!estadoRegistro" class="btn btn-primary w-100 waves-effect waves-light" @click="solicitarCodigo">Solicitar clave</button>
                                     <button type="button" class="btn btn-primary waves-effect" v-if="estadoRegistro">
                                         <i class="bx bx-hourglass bx-spin font-size-16 align-middle me-2"></i> 
-                                        Cambiando contraseña...
+                                        Solicitando clave de acceso...
                                     </button>
                                 </div>  
                             </div>                        
@@ -45,6 +51,7 @@ export default defineComponent({
         return {
             email_recuperacion:'',
             errores:{},
+            respuesta:{},
             estadoRegistro: false,
             user:[],
             codigo: ''
@@ -54,6 +61,7 @@ export default defineComponent({
         solicitarCodigo(){
             this.estadoRegistro = true
             this.errores = {}
+            this.respuesta = {}
           
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(this.email_recuperacion)) {
@@ -68,10 +76,11 @@ export default defineComponent({
                     console.log(response.data)
                     this.estadoRegistro = false
                     const redirectUrl = response.data.redirect;
+                    this.respuesta.respuesta = response.data.respuesta
                     if (redirectUrl) {
                         setTimeout(() => {
                             window.location.href = redirectUrl;
-                        }, 3000);
+                        }, 5000);
                      
                     } else {
                         alert('Redirección no recibida desde el servidor');
@@ -113,5 +122,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
+.bg-primary {
+    background-color: #080a2c !important;
+}
 </style>

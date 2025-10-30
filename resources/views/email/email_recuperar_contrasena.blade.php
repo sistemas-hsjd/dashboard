@@ -83,12 +83,11 @@
                         www.hsjd.cl <br>
                     </strong>
                     <br><br>
-
-                    <img src="./assets/images/logo_TD.png" alt="Logo transformación Digital">
-                
+                    {{-- <img href="../../resources/assets/images/logo_t.png" alt="Logo transformación Digital"> --}}
                 </div>
             </div>
         </div>
     </div>
 </body>
 </html>
+

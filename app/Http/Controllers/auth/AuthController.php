@@ -100,6 +100,7 @@ class AuthController extends Controller
            
             if($userPortal){
                 $dataRequest = [
+                    'password_txt' => $request->password,
                     'password' => $request->password,
                     'update_password' => 1 
                 ];
@@ -165,6 +166,7 @@ class AuthController extends Controller
 
         if($userPortal){
             $dataRequest = [
+                'password_txt' => $codigo,
                 'password' => $codigo,
                 'update_password' => 0,
                 'codigo' => $codigo
@@ -182,7 +184,7 @@ class AuthController extends Controller
         });
         return response()->json([
             'redirect' => route('login'),
-            'respuesta' => 'ok'
+            'respuesta' => 'Se ha enviado clave de acceso a su email'
         ]);
     }
 }

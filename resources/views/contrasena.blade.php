@@ -33,7 +33,7 @@
 <!-- preview bg -->
 
 <div class="coming-content min-vh-100 py-4 px-3 py-sm-5">
-    <div class="bg-overlay bg-primary"></div>
+    <div class="bg-overlay"></div>
     <div class="container">
          <div id="app">
             @yield('contenido')
