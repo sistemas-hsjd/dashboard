@@ -82,6 +82,9 @@
                         Red MINSAL: 242234<br>
                         www.hsjd.cl <br>
                     </strong>
+                    <br><br>
+
+                    <img src="./assets/images/logo_TD.png" alt="Logo transformación Digital">
                 
                 </div>
             </div>
