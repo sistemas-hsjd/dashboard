@@ -63,17 +63,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Notificación NEA</title>
+    <title>Notificación SJDigital</title>
 </head>
 <body style="background-color: #f8f9fa; font-family: Arial, sans-serif;">
     <div class="container">
         <div class="content">
-                <div id="saludo">Estimado/a, <br>
-                    Hemos recibido una solicitud para restablecer la contraseña de su cuenta. <br>
-                    Su código de verificación es: <strong><?php echo $data['codigo']; ?></strong><br><br>
-                    Ingrese este código en la página de recuperación para continuar con el proceso. <br><br>
-                    Si usted no solicitó este cambio, puede ignorar este mensaje. <br><br>
-                    Atentamente,
+                <div id="saludo">Estimado/a, <br><br>
+                    Hemos generado una clave temporal para que pueda acceder a los sistemas de SJDigital. <br>
+                    Su clave de acceso temporal es: <strong><?php echo $data['codigo']; ?></strong> <br>
+                    Con esta clave temporal podrá generar una nueva contraseña, la cual será requerida para sus futuros accesos al sistema. <br>
+                    Si usted no solicitó este acceso, puede ignorar este mensaje. <br>
+                    Atentamente, <br> <br>
+
+                    <strong>
+                        Paolo Vilches R.
+                        Área de Desarrollo Informático
+                        Unidad Transformación Digital
+                        Hospital San Juan de Dios| SSMOC
+                        Teléfono: 225742234
+                        Red MINSAL: 242234
+                        www.hsjd.cl 
+                    </strong>
+                
                 </div>
             </div>
         </div>
