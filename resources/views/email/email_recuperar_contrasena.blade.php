@@ -76,7 +76,6 @@
                     Atentamente, <br> <br>
 
                     <strong>
-                        Área de Desarrollo Informático<br>
                         <strong>Unidad Transformación Digital</strong><br>
                         Hospital San Juan de Dios| SSMOC<br>
                         Teléfono: 225742234<br>

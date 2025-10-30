@@ -142,3 +142,10 @@
 ::placeholder {
   font-size: .8em;
 }
+
+.text_recuperar{
+  text-shadow: #010510;
+  color: rgb(26, 21, 21) !important;
+  font-weight: 800 !important;
+  
+}

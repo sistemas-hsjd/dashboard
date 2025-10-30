@@ -71,7 +71,7 @@
                                                     </div>
                                                     <div class="flex-shrink-0">
                                                         <div class="">
-                                                            <a href="{{ route('recuperarContrasena')}}" class="text-muted">¿Recuperar contraseña?</a>
+                                                            <a href="{{ route('recuperarContrasena')}}" class="text-muted text_recuperar">¿Recuperar contraseña?</a>
                                                         </div>
                                                     </div>
                                                 </div>
