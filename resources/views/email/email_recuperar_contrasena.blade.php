@@ -69,20 +69,19 @@
     <div class="container">
         <div class="content">
                 <div id="saludo">Estimado/a, <br><br>
-                    Hemos generado una clave temporal para que pueda acceder a los sistemas de SJDigital. <br>
-                    Su clave de acceso temporal es: <strong><?php echo $data['codigo']; ?></strong> <br>
-                    Con esta clave temporal podrá generar una nueva contraseña, la cual será requerida para sus futuros accesos al sistema. <br>
-                    Si usted no solicitó este acceso, puede ignorar este mensaje. <br>
+                    Hemos generado una clave temporal para que pueda acceder a los sistemas de SJDigital. <br><br>
+                    Su clave de acceso temporal es: <strong><?php echo $data['codigo']; ?></strong> <br><br>
+                    Con esta clave temporal podrá generar una nueva contraseña, la cual será requerida para sus futuros accesos al sistema. <br><br>
+                    Si usted no solicitó este acceso, puede ignorar este mensaje. <br><br>
                     Atentamente, <br> <br>
 
                     <strong>
-                        Paolo Vilches R.
-                        Área de Desarrollo Informático
-                        Unidad Transformación Digital
-                        Hospital San Juan de Dios| SSMOC
-                        Teléfono: 225742234
-                        Red MINSAL: 242234
-                        www.hsjd.cl 
+                        Área de Desarrollo Informático<br>
+                        <strong>Unidad Transformación Digital</strong><br>
+                        Hospital San Juan de Dios| SSMOC<br>
+                        Teléfono: 225742234<br>
+                        Red MINSAL: 242234<br>
+                        www.hsjd.cl <br>
                     </strong>
                 
                 </div>

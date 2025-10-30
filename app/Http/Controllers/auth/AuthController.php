@@ -169,19 +169,20 @@ class AuthController extends Controller
                 'update_password' => 0,
                 'codigo' => $codigo
             ];
-            UserPortal::updateOrCreate(['rut'=> $userPortal->rut], $dataRequest);
+            UserPortal::updateOrCreate(['id'=> $userPortal->id], $dataRequest);
         }
 
         $template_path = 'email.email_recuperar_contrasena';
         Mail::send(['html'=> $template_path ],['data' => $dataRequest], function($message) use($email){
             if (!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $message->to($email, 'User')->subject('Reestablecer contraseña San Juan');
+                $message->to($email, 'User')->subject('Reestablecer contraseña SJDigital');
             }
             
-            $message->from('sistemas.ssmoc@appminsal.cl','Cuenta San Juan');
+            $message->from('sistemas.ssmoc@appminsal.cl','SJDigital');
         });
         return response()->json([
-            'redirect' => route('login')
+            'redirect' => route('login'),
+            'respuesta' => 'ok'
         ]);
     }
 }
