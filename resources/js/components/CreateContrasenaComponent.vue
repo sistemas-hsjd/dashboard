@@ -17,12 +17,12 @@
                         <div class="row d-flex justify-content-center">
                             <div class="col-md-5">
                                 <div class="mb-1">
-                                    <label class="form-label text-white font-size-16">Contraseña</label>
+                                    <label class="form-label text-white font-size-16">Nueva Contraseña</label>
                                     <input type="password" v-model="contrasena1" class="form-control" id="contrasena1" name="contrasena1" placeholder="Ingrese contraseña">
                                 </div>
 
                                 <div class="mb-1">
-                                    <label class="form-label text-white font-size-16">Reingrese contraseña</label>
+                                    <label class="form-label text-white font-size-16">Reingrese nueva contraseña</label>
                                     <input type="password" v-model="contrasena2" class="form-control" id="contrasena2" name="contrasena2" placeholder="Reingrese contraseña">
                                 </div>
                                  <div class="mb-1">
