@@ -21,7 +21,7 @@
                                 <div class="mb-1">
                                     <label class="form-label text-white font-size-16">Email</label>
                                     <input type="email" v-model="email_recuperacion" class="form-control" id="email_recuperacion" name="email_recuperacion" placeholder="Ingrese email">
-                                    <span v-if="errores.email_recuperacion" class="text-white font-size-13">* {{ errores.email_recuperacion }}</span>
+                                    <span v-if="errores.email_recuperacion" class="text-white font-size-14">* {{ errores.email_recuperacion }}</span>
                                     <span v-if="respuesta.respuesta" class="text-white font-size-15">* {{ respuesta.respuesta }}</span>
                                 </div>
                                 <div class="mt-3">
@@ -81,13 +81,16 @@ export default defineComponent({
                         setTimeout(() => {
                             window.location.href = redirectUrl;
                         }, 5000);
-                     
-                    } else {
-                        alert('Redirección no recibida desde el servidor');
+                        
+                    } else if(response.data=='no encontrado'){
+                        this.errores.email_recuperacion = 'Usuario no encontrado, favor comunicarse al 242234';
+                    }else{
+                        this.errores.email_recuperacion = 'Usuario no encontrado, favor comunicarse al 242234';
                     }
                 })
                 .catch(error => {
                     console.log(error)    
+                    this.errores.email_recuperacion = 'Usuario no encontrado, favor comunicarse al 242234';
                     this.estadoRegistro = false              
                 });    
             }else{
@@ -102,7 +105,6 @@ export default defineComponent({
                 // this.authenticated = authenticated
                 // this.jefatura = jefatura
                 this.user = user
-           
             })
             .catch(error => {
                 console.error('Error: ', error);
@@ -126,3 +128,5 @@ export default defineComponent({
     background-color: #080a2c !important;
 }
 </style>
+
+

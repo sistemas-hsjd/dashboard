@@ -172,6 +172,8 @@ class AuthController extends Controller
                 'codigo' => $codigo
             ];
             UserPortal::updateOrCreate(['id'=> $userPortal->id], $dataRequest);
+        }else{
+            return 'no encontrado';
         }
 
         $template_path = 'email.email_recuperar_contrasena';

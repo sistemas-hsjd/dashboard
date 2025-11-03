@@ -76,7 +76,7 @@ export default {
     abrirModal(cat) {
         this.enlaces = []
         this.enlaces = cat.enlaces
-        // Aquí puedes manejar lógica adicional, como cargar un iframe
+
         console.log('Abrir modal para:', cat);
         $('#modalEnlaces').modal('show')
     }

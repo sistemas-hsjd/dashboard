@@ -14,13 +14,13 @@
                                 <li class="nav-item">
                                     <a href="#chat" data-bs-toggle="tab" aria-expanded="true" class="nav-link active">
                                         <i class="bx bx-chat font-size-20 d-sm-none"></i>
-                                        <span class="d-none d-sm-block">Sistemas</span>
+                                        <span class="d-none d-sm-block">Unidad de Transformación Digital</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="#groups" data-bs-toggle="tab" aria-expanded="false" class="nav-link">
                                         <i class="bx bx-group font-size-20 d-sm-none"></i>
-                                        <span class="d-none d-sm-block">Equipos Redes</span>
+                                        <span class="d-none d-sm-block">Unidad de Informática</span>
                                     </a>
                                 </li>
                                 <!-- <li class="nav-item">
