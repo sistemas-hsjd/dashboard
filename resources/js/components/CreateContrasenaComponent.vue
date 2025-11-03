@@ -16,15 +16,50 @@
                     <div class="mb-3">
                         <div class="row d-flex justify-content-center">
                             <div class="col-md-5">
+                                  <!-- Primera contraseña -->
                                 <div class="mb-1">
                                     <label class="form-label text-white font-size-16">Nueva Contraseña</label>
-                                    <input type="password" v-model="contrasena1" class="form-control" id="contrasena1" name="contrasena1" placeholder="Ingrese contraseña">
+                                    <div class="input-group auth-pass-inputgroup">
+                                        <input
+                                        :type="mostrarContrasena1 ? 'text' : 'password'"
+                                        v-model="contrasena1"
+                                        class="form-control"
+                                        id="contrasena1"
+                                        name="contrasena1"
+                                        placeholder="Ingrese contraseña"
+                                        />
+                                        <button
+                                        class="btn btn-light ms-0"
+                                        type="button"
+                                        id="password-addon1"
+                                        @click="verContrasena('1')"
+                                        >
+                                        <i :class="mostrarContrasena1 ? 'mdi mdi-eye-off-outline' : 'mdi mdi-eye-outline'"></i>
+                                        </button>
+                                    </div>
                                 </div>
 
-                                <div class="mb-1">
-                                    <label class="form-label text-white font-size-16">Reingrese nueva contraseña</label>
-                                    <input type="password" v-model="contrasena2" class="form-control" id="contrasena2" name="contrasena2" placeholder="Reingrese contraseña">
-                                </div>
+                                    <div class="mb-1">
+                                        <label class="form-label text-white font-size-16">Reingrese nueva contraseña</label>
+                                        <div class="input-group auth-pass-inputgroup">
+                                            <input
+                                            :type="mostrarContrasena2 ? 'text' : 'password'"
+                                            v-model="contrasena2"
+                                            class="form-control"
+                                            id="contrasena2"
+                                            name="contrasena2"
+                                            placeholder="Reingrese contraseña"
+                                            />
+                                            <button
+                                            class="btn btn-light ms-0"
+                                            type="button"
+                                            id="password-addon2"
+                                            @click="verContrasena('2')"
+                                            >
+                                            <i :class="mostrarContrasena2 ? 'mdi mdi-eye-off-outline' : 'mdi mdi-eye-outline'"></i>
+                                            </button>
+                                        </div>
+                                    </div>
                                  <div class="mb-1">
                                     <span v-if="errores.contrasena1" class="text-white font-size-13">* {{ errores.contrasena1 }}</span>
                                 </div>
@@ -53,6 +88,8 @@ export default defineComponent({
     },
     data() {
         return {
+            mostrarContrasena1: false,
+            mostrarContrasena2: false,
             contrasena1:'',
             contrasena2:'',
             errores:{},
@@ -99,6 +136,13 @@ export default defineComponent({
                 });    
             }else{
                 this.estadoRegistro = false
+            }
+        },
+        verContrasena(numero) {
+            if (numero === '1') {
+                this.mostrarContrasena1 = !this.mostrarContrasena1;
+            } else if (numero === '2') {
+                this.mostrarContrasena2 = !this.mostrarContrasena2;
             }
         },
         getAuthUser(){
