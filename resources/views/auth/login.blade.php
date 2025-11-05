@@ -62,7 +62,7 @@
                                             {{ csrf_field() }}
                                             <div class="mb-3">
                                                 <label class="form-label">RUN</label>
-                                                <input type="text" class="form-control" value="{{old('rut')}}" id="rut" name="rut" tabindex="1" placeholder="Ingrese RUN">
+                                                <input type="text" class="form-control" value="{{old('rut')}}" id="rut" name="rut" tabindex="1" placeholder="Ingrese RUN" onblur="formatearRutSoloGuion(this)">
                                             </div>
                                             <div class="mb-3">
                                                 <div class="d-flex align-items-start">
