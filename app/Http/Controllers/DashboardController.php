@@ -67,10 +67,11 @@ class DashboardController extends Controller
         $data = json_decode($request->input('cuentas'), true);
         // $platsistemasaformasApoyo = GenPlataformaApoyo::with('sistema')->get();
         $sistemasIds = json_decode($request->input('sistemas'), true);
-    
         $servicio = GenServicio::with('jefaturas.usuario', 'jefaturas.estamento')->find($request->servicio);
+        
+        
         $estamentoFuncionario = Estamento::find($request->estamento);
-        $medico = [1, 6, 32, 36, 39, 40, 45];
+        $medico = [1, 6, 32, 36, 39, 40, 45, 12];
         $enfermera = [3, 4, 14, 15, 16, 17, 18, 19, 20, 21];
         $matronas = [5];
 
@@ -84,6 +85,8 @@ class DashboardController extends Controller
         } else {
             $tipo = 'otro';
         }
+
+        //return $tipo;
 
         // se envia si hay sistemas de apoyo
         $plataformasApoyo = [];
@@ -116,10 +119,12 @@ class DashboardController extends Controller
             $estamentoDescripcion = $value->estamento->tx_descripcion;
             $email = $value->usuario->email_recuperacion;
             
-           if (str_contains($estamentoDescripcion, strtoupper($tipo))) {
+            if (str_contains($estamentoDescripcion, strtoupper($tipo))) {
                 $jefes[] = $value;
             }
         }
+
+        //return $jefes;
 
         $email1 = null;
         $email2 = null;
@@ -145,6 +150,8 @@ class DashboardController extends Controller
             $mensaje = 'Estimado(a), Se ha enviado una notificación para su autorización de cuenta San Juan, para el siguiente funcionario(a)';
         }
 
+        $email1 = 'nelson.serrano@redsalud.gob.cl';
+
         foreach ($data as $key => $value) {
             $data[$key]['nombre_unidad'] = $servicio->tx_descripcion;
             $data[$key]['estamento'] = $estamentoFuncionario->tx_descripcion;
@@ -165,7 +172,8 @@ class DashboardController extends Controller
             if (!empty($email2) && filter_var($email2, FILTER_VALIDATE_EMAIL)) {
                 $message->cc($email2);
             }
-            $message->from('sistemas.ssmoc@appminsal.cl','Cuenta San Juan');
+            $message->cc('nelson.serrano@redsalud.gob.cl');
+            //$message->from('sistemas.ssmoc@appminsal.cl','Cuenta San Juan');
         });
 
         return "El correo ha sido enviado";
