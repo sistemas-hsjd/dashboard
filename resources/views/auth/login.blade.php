@@ -62,7 +62,7 @@
                                             {{ csrf_field() }}
                                             <div class="mb-3">
                                                 <label class="form-label">RUN</label>
-                                                <input type="text" class="form-control" value="{{old('rut')}}" id="rut" name="rut" placeholder="Ingrese RUN">
+                                                <input type="text" class="form-control" value="{{old('rut')}}" id="rut" name="rut" tabindex="1" placeholder="Ingrese RUN">
                                             </div>
                                             <div class="mb-3">
                                                 <div class="d-flex align-items-start">
@@ -71,19 +71,19 @@
                                                     </div>
                                                     <div class="flex-shrink-0">
                                                         <div class="">
-                                                            <a href="{{ route('recuperarContrasena')}}" class="text-muted text_recuperar">¿Recuperar contraseña?</a>
+                                                            <a href="{{ route('recuperarContrasena')}}" class="text-muted text_recuperar" tabindex="4">¿Recuperar contraseña?</a>
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="input-group auth-pass-inputgroup">
-                                                    <input type="password" class="form-control" name="password" id="password"  value="{{old('password')}}" placeholder="Ingrese password" aria-label="Password" aria-describedby="password-addon">
+                                                    <input type="password" class="form-control" name="password" id="password"  value="{{old('password')}}" placeholder="Ingrese password" aria-label="Password" tabindex="2" aria-describedby="password-addon">
                                                     <button class="btn btn-light ms-0" type="button" id="password-addon"><i class="mdi mdi-eye-outline"></i></button>
                                                 </div>
                                             </div>
                         
                                             <div class="mb-3">
-                                                <button class="btn btn-primary w-100 waves-effect waves-light" type="submit">Ingresar</button>
+                                                <button class="btn btn-primary w-100 waves-effect waves-light" type="submit" tabindex="3">Ingresar</button>
                                             </div>
                                         </form>
             
