@@ -60,9 +60,7 @@
       </div>
       <div class="card-body">
        <div class="row" v-for="(row, rowIndex) in chunkedSistemasDefaults" :key="'row-' + rowIndex">
-          
           <div class="col-sm-6 col-xl-3" v-for="sistema in row" :key="sistema.id">
-            
             <div class="card custom-card">
                 <div class="image-container">
                     <img class="card-img-top img-fluid" :src="`assets/images/img-portal/${sistema.img}`" :alt="`${sistema.img}`">
@@ -83,7 +81,6 @@
                             Ingresar
                         </a> 
                       </template>
-                            
                     </div>
                 </div>
 
@@ -97,6 +94,9 @@
                     <template v-else>
                       <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
                       <p class="card-text mb-0">{{ sistema.descripcion }}</p>
+                      <template v-if="sistema.id==23">
+                        <p class="card-text mb-0 text-danger">En caso de tener problemas de ingreso,<br> Favor comunicarse al 242194</p>
+                      </template>
                     </template>
                 </div>
               </div>

@@ -150,7 +150,7 @@ class DashboardController extends Controller
             $mensaje = 'Estimado(a), Se ha enviado una notificación para su autorización de cuenta San Juan, para el siguiente funcionario(a)';
         }
 
-        $email1 = 'nelson.serrano@redsalud.gob.cl';
+        // $email1 = 'nelson.serrano@redsalud.gob.cl';
 
         foreach ($data as $key => $value) {
             $data[$key]['nombre_unidad'] = $servicio->tx_descripcion;
@@ -162,6 +162,8 @@ class DashboardController extends Controller
                 $data[$key]['fin_rotacion'] = $request->fin_rotacion;
             }
         }
+
+        // return $email1;
 
         $template_path = 'email.email_template';
         Mail::send(['html'=> $template_path ],['data' => $data, 'mensaje' => $mensaje], function($message) use($email1, $email2){
