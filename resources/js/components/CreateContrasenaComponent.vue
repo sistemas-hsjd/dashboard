@@ -121,7 +121,6 @@ export default defineComponent({
                 data.append('password', this.contrasena1)
                 axios.post('api/cambiar-contrasena', data)
                 .then(response => {
-                    console.log(response.data)
                     this.estadoRegistro = false
                     const redirectUrl = response.data.redirect;
                     if (redirectUrl) {
@@ -131,7 +130,6 @@ export default defineComponent({
                     }
                 })
                 .catch(error => {
-                    console.log(error)    
                     this.estadoRegistro = false              
                 });    
             }else{
@@ -148,7 +146,7 @@ export default defineComponent({
         getAuthUser(){
             axios.post('data-auth')
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 const { user } = response.data
                 // this.authenticated = authenticated
                 // this.jefatura = jefatura

@@ -260,7 +260,6 @@ export default {
     getInfo(){
         axios.post('api/data-inicial')
         .then(response => {
-            console.log(response.data);
             const { estamentos, servicios, sistemas } = response.data
             this.servicios = servicios
             this.estamentos = estamentos
@@ -276,8 +275,6 @@ export default {
         data.append('run', this.run)
         axios.post('api/get-persona', data)
         .then(response => {
-            console.log(response.data);
-
             if (response.data !== 'no hay rut' && response.data !== 'usuario registrado' &&  response.data !== 'rut falso') {
                 if (this.jefatura) {
                         const persona = response.data;
@@ -309,7 +306,7 @@ export default {
                     }
                 this.run = '';
             }else if(response.data == 'usuario registrado'){
-                console.log('usuario registrado es una alerta')
+             
                 this.mensaje = 'registrado'
             }else if(response.data=='rut falso'){
                 this.mensaje = 'rut falso'
@@ -350,7 +347,6 @@ export default {
             axios.post('api/solicitar-cuenta', data)
             .then(response => {
                 this.estadoRegistro = false
-                console.log(response.data)
                 if(response.data=='El correo ha sido enviado'){
                     this.estadoSolicitud = true
                     this.borrarForm()
@@ -363,7 +359,6 @@ export default {
     },
     getTutor(input){
         var rut = input.srcElement.value;
-        console.log(rut)
         if(rut.length>=9 && rut.length<=10){
             var data = new FormData()
             data.append('rut', rut)

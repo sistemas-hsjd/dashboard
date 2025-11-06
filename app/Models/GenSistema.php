@@ -10,4 +10,9 @@ class GenSistema extends Model
     use HasFactory;
     protected $table = 'gen_sistemas'; 
     protected $connection = 'generales';
+
+    public function encargado(){
+        return $this->hasOne(GenPlataformaApoyo::class, 'sistema_id');
+    }
+    
 }

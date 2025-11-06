@@ -73,7 +73,7 @@ export default defineComponent({
                 data.append('email', this.email_recuperacion)
                 axios.post('api/enviar-codigo', data)
                 .then(response => {
-                    console.log(response.data)
+                   
                     this.estadoRegistro = false
                     const redirectUrl = response.data.redirect;
                     this.respuesta.respuesta = response.data.respuesta
@@ -89,7 +89,7 @@ export default defineComponent({
                     }
                 })
                 .catch(error => {
-                    console.log(error)    
+                    
                     this.errores.email_recuperacion = 'Usuario no encontrado, favor comunicarse al 242234';
                     this.estadoRegistro = false              
                 });    
@@ -100,7 +100,7 @@ export default defineComponent({
         getAuthUser(){
             axios.post('data-auth')
             .then(response => {
-                console.log(response.data);
+               
                 const { user, jefatura, authenticated } = response.data
                 // this.authenticated = authenticated
                 // this.jefatura = jefatura

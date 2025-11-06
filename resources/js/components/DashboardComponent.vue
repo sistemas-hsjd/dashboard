@@ -66,7 +66,6 @@ export default {
      getCategorias(){
         axios.post('api/get-info')
         .then(response => {
-            console.log(response.data); 
             this.categorias = response.data.categorias         
         })
         .catch(error => {
@@ -76,8 +75,6 @@ export default {
     abrirModal(cat) {
         this.enlaces = []
         this.enlaces = cat.enlaces
-
-        console.log('Abrir modal para:', cat);
         $('#modalEnlaces').modal('show')
     }
   }, 

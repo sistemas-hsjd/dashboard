@@ -85,19 +85,43 @@
                 </div>
 
                 <div class="card-body small-padding card-header_sistemas">
+                  
                    <template v-if="sistema.estado == 0 && sistema.id === 24">
                       <h4 class="card-title">TracKare de Contingencia</h4>
+                       <p class="card-text mb-0 text-danger">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al número <strong>{{ sistema.encargado.telefono }}</strong>.</p>
                     </template>
                     <template v-else-if="sistema.estado == 0 && sistema.id === 20">
                       <h4 class="card-title">Laboratorio Clínico Contingencia <br>User:LABO Pass: Labo1234</h4>
                     </template>
-                    <template v-else>
-                      <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
-                      <p class="card-text mb-0">{{ sistema.descripcion }}</p>
-                      <template v-if="sistema.id==23">
-                        <p class="card-text mb-0 text-danger">En caso de tener problemas de ingreso,<br> Favor comunicarse al 242194</p>
-                      </template>
+                    <template v-else-if="sistema.id === 24">
+                        <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
+                        <p class="card-text mb-0 text-primary">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al número <strong>{{ sistema.encargado.telefono }}</strong>.</p>
                     </template>
+                    <template v-else-if="sistema.id === 20">
+                          <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
+                          <p class="card-text mb-0 text-primary">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al número <strong>{{ sistema.encargado.telefono }}</strong>.</p>
+                    </template>
+                    <template v-else-if="sistema.id === 19">
+                          <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
+                          <p class="card-text mb-0 text-primary">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al número <strong>{{ sistema.encargado.telefono }}</strong>.</p>
+                    </template>
+                    <template v-else-if="sistema.id === 19">
+                          <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
+                          <p class="card-text mb-0 text-primary">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al número <strong>{{ sistema.encargado.telefono }}</strong>.</p>
+                    </template>
+                    <template v-else-if="sistema.id === 22">
+                          <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
+                          <p class="card-text mb-0 text-primary">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al número <strong>{{ sistema.encargado.telefono }}</strong>.</p>
+                    </template>
+                    <template v-else-if="sistema.id === 23">
+                          <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
+                          <p class="card-text mb-0 text-primary">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al número <strong>{{ sistema.encargado.telefono }}</strong>.</p>
+                    </template>
+                    <template v-else-if="sistema.id === 25">
+                          <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
+                          <p class="card-text mb-0 text-primary">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al número <strong>{{ sistema.encargado.telefono }}</strong>.</p>
+                    </template>
+
                 </div>
               </div>
 
@@ -155,12 +179,10 @@ export default {
     }
   },
   methods: {
-
     abrirAcess(){
-      console.log('desde abrir ')
         axios.post('/api/abrir-access')
         .then(response => {
-            console.log(response.data)
+            // console.log(response.data)
         })
         .catch(error => {
             console.error('Error: ', error);
@@ -169,8 +191,9 @@ export default {
     getSistemas(){
         axios.post('api/get-mis-sistemas')
         .then(response => {
-            this.sistemas = response.data.mis_sistemas
-            this.sistemasDefaults = response.data.defaultSistemas
+          this.sistemas = response.data.mis_sistemas
+          this.sistemasDefaults = response.data.defaultSistemas
+          console.log(this.sistemasDefaults)
         })
         .catch(error => {
             console.error('Error: ', error);
@@ -185,12 +208,10 @@ export default {
     getAuthUser(){
         axios.post('data-auth')
         .then(response => {
-            console.log(response.data);
             const { user, jefatura, authenticated } = response.data
             // this.authenticated = authenticated
             // this.jefatura = jefatura
             this.user = user
-            console.log(this.user)
         })
         .catch(error => {
             console.error('Error: ', error);

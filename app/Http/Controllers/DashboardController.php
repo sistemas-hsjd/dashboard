@@ -311,7 +311,7 @@ class DashboardController extends Controller
             $sistemas->push((object) $nuevo);
         }
     
-        $defaultSistemas = GenSistema::whereIn('id', [22,24,20,23,19,25])->get()->toArray();
+        $defaultSistemas = GenSistema::with('encargado')->whereIn('id', [22,24,20,23,19,25])->get()->toArray();
         // $sistemas = array_merge($sistemas->toArray(), $defaultSistemas);
         return response()->json([
             'mis_sistemas' => $sistemas,
