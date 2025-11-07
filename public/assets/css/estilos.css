@@ -148,3 +148,18 @@
   color: rgb(26, 21, 21) !important;
   font-weight: 800 !important;
 }
+
+/* Estilos que sirven para crear overlay nuevos  */
+/* .bg-overlay {
+    position: fixed;  
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+}
+
+ .bg-overlay_uci {
+    position: fixed; 
+    z-index: 100000000; 
+    top:200px !important;
+    left: 100px;
+  } */

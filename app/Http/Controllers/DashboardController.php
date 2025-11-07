@@ -23,15 +23,49 @@ use Mail;
 class DashboardController extends Controller
 {
 
-    public function abrirMsaccess()
+    // public function abrirMsaccess(Request $request)
+    // {
+    //     if($request->tipo == 'uci'){
+    //         return 'es uci';
+    //     }elseif($request->tipo == 'uciq'){
+    //         return 'es uciq';
+    //     }elseif($request->tipo == 'sti'){
+    //         return 'es sti';
+    //     }
+    //     $ip = $this->getClientIP();
+    //     $url = 'http://'.$this->getClientIP().':5000/open-access';
+    //     $response = Http::get($url);
+    //     return response()->json([
+    //         'status' => $response->status(),
+    //         'mensaje' => $response->body(),
+    //     ]);
+    // }
+
+    public function abrirMsaccess(Request $request)
     {
-        $ip = $this->getClientIP();
-        $url = 'http://'.$this->getClientIP().':5000/open-access';
-        $response = Http::get($url);
-        return response()->json([
-            'status' => $response->status(),
-            'mensaje' => $response->body(),
-        ]);
+        $tipo = $request->input('tipo'); // uci, uciq o sti
+        $ipCliente = $this->getClientIP(); // función para detectar IP real del usuario
+        $flaskUrl = "http://{$ipCliente}:5000/open-access"; // Flask corre en el puerto 5000
+
+        try {
+            // Enviar el tipo al servidor Flask
+            $response = Http::post($flaskUrl, [
+                'tipo' => $tipo
+            ]);
+
+            return response()->json([
+                'status' => 'ok',
+                'mensaje' => 'Petición enviada al servidor Flask.',
+                'respuesta_flask' => $response->json(),
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'mensaje' => 'No se pudo conectar con el servidor Flask en ' . $flaskUrl,
+                'error' => $e->getMessage(),
+            ]);
+        }
     }
 
     public function getInfo(Request $request){
@@ -312,7 +346,7 @@ class DashboardController extends Controller
         }
     
         $defaultSistemas = GenSistema::with('encargado')->whereIn('id', [22,24,20,23,19,25])->get()->toArray();
-        // $sistemas = array_merge($sistemas->toArray(), $defaultSistemas);
+
         return response()->json([
             'mis_sistemas' => $sistemas,
             'defaultSistemas' => $defaultSistemas,

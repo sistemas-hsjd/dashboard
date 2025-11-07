@@ -100,10 +100,7 @@ export default defineComponent({
         getAuthUser(){
             axios.post('data-auth')
             .then(response => {
-               
                 const { user, jefatura, authenticated } = response.data
-                // this.authenticated = authenticated
-                // this.jefatura = jefatura
                 this.user = user
             })
             .catch(error => {

@@ -33,7 +33,6 @@
                               target="_blank">
                               Ingresar
                           </a> 
-                          
                           <button v-else
                                   class="btn btn-outline-light waves-effect"
                                   @click="abrirModal(sistema.tx_direccion)">
@@ -124,9 +123,7 @@
 
                 </div>
               </div>
-
           </div>
-
         </div>
       </div>
     </div>
@@ -134,6 +131,7 @@
     <modalCrearCuentaComponent></modalCrearCuentaComponent>
     <modalEstadosEnlacesComponent></modalEstadosEnlacesComponent>
     <modalSoporteComponent></modalSoporteComponent>
+    <ModalUciComponent></ModalUciComponent>
   </div>
 </template>
 
@@ -142,13 +140,15 @@
 import modalSoporteComponent from './modals/ModalSoporteComponent.vue'
 import modalCrearCuentaComponent from './modals/ModalCrearCuentaComponent.vue'
 import ModalEstadosEnlacesComponent from './modals/ModalEstadosEnlacesComponent.vue';
+import ModalUciComponent from './modals/ModalUciComponent.vue';
 
 export default {
   name: 'MisSistemasGrid',
     components: {
         modalSoporteComponent,
         modalCrearCuentaComponent,
-        ModalEstadosEnlacesComponent
+        ModalEstadosEnlacesComponent,
+        ModalUciComponent
     },
    data() {
         return {
@@ -167,9 +167,7 @@ export default {
       }
       return chunks;
     },
- 
     chunkedSistemasDefaults() {
-  
       const chunkSize = 4;
       const chunks = [];
       for (let i = 0; i < this.sistemasDefaults.length; i += chunkSize) {
@@ -180,13 +178,7 @@ export default {
   },
   methods: {
     abrirAcess(){
-        axios.post('/api/abrir-access')
-        .then(response => {
-            // console.log(response.data)
-        })
-        .catch(error => {
-            console.error('Error: ', error);
-        });
+      $('#modalUci').modal('show')
     },
     getSistemas(){
         axios.post('api/get-mis-sistemas')
