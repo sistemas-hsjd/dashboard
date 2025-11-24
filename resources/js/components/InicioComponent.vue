@@ -120,7 +120,7 @@
                           <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
                           <p class="card-text mb-0 text-primary">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al número <strong>{{ sistema.encargado.telefono }}</strong>.</p>
                     </template>
-                    <template else>
+                    <template v-else-if="sistema.id === 26">
                           <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
                     </template>
 
