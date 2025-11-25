@@ -16,7 +16,7 @@
      <!-- App Css-->
     <link href="{{ asset('assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
     
-    <link href="{{ asset('assets/css/estilos.css') }}" id="app-style" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/estilos.css') }}?v={{ time() }}" id="app-style" rel="stylesheet" type="text/css" />
 
 </head>
 
