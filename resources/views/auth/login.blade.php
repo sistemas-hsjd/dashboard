@@ -21,7 +21,7 @@
 </head>
 
  <body>
-<div class="auth-page">
+<div class="auth-page" id="app">
     <div class="container-fluid p-0">
         <div class="row g-0">
             
@@ -119,9 +119,40 @@
         <!-- end row -->
     </div>
     <!-- end container fluid -->
+    <!-- Modal -->
+    <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content modal_video">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="videoModalLabel">Cuídados y manejo de nuestra ficha clínica electrónica</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body p-0">
+                <div class="ratio ratio-16x9">
+                <iframe id="videoFrame"
+                    src="http://10.4.237.58/capsulas_tic/capsula_login.mp4"
+                    title="Capsula"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+                </div>
+            </div>
+
+            </div>
+        </div>
+        </div>
 </div>
 <!-- JAVASCRIPT -->
+<script src="{{ asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('assets/libs/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/js/login.js') }}"></script>
+<script>
+   $(document).ready(function() {
+    var modal = new bootstrap.Modal(document.getElementById('videoModal'));
+    modal.show();
+  });
+</script>
 </body>
 </html>
