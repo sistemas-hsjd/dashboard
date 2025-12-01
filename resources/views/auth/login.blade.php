@@ -151,7 +151,14 @@
 <script>
    $(document).ready(function() {
     var modal = new bootstrap.Modal(document.getElementById('videoModal'));
+    var iframe = $("#videoFrame");
     modal.show();
+
+    $('#videoModal').on('hidden.bs.modal', function () {
+        var src = iframe.attr("src");
+        iframe.attr("src", "");
+        iframe.attr("src", src);
+    });
   });
 </script>
 </body>
