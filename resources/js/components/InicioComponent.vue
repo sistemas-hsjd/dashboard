@@ -98,11 +98,7 @@
                     </template>
                     <template v-else-if="sistema.id === 20">
                           <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
-                          <p class="card-text mb-0 text-primary">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al número <strong>{{ sistema.encargado.telefono }}</strong>.</p>
-                    </template>
-                    <template v-else-if="sistema.id === 19">
-                          <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
-                          <p class="card-text mb-0 text-primary">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al número <strong>{{ sistema.encargado.telefono }}</strong>.</p>
+                          <p class="card-text mb-0 text-primary">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al correo eléctronico <strong>{{ sistema.encargado.telefono }}</strong>.</p>
                     </template>
                     <template v-else-if="sistema.id === 19">
                           <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
