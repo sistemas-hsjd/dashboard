@@ -124,21 +124,18 @@
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content modal_video">
 
-            <div class="modal-header">
-                <h5 class="modal-title" id="videoModalLabel">Cuídados y manejo de nuestra ficha clínica electrónica</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
-            <div class="modal-body p-0">
-                <div class="ratio ratio-16x9">
-                <iframe id="videoFrame"
-                    src="http://10.4.237.58/capsulas_tic/capsula_login.mp4"
-                    title="Capsula"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen>
-                </iframe>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="videoModalLabel">Cuídados y manejo de nuestra ficha clínica electrónica</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-            </div>
+
+                <div class="modal-body p-0">
+                    <div class="ratio ratio-16x9">
+                        <video id="videoFrame" class="w-100" controls>
+                            <source src="http://10.4.237.58/capsulas_tic/capsula_login.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -149,17 +146,16 @@
 <script src="{{ asset('assets/libs/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/js/login.js') }}"></script>
 <script>
-   $(document).ready(function() {
+$(document).ready(function () {
     var modal = new bootstrap.Modal(document.getElementById('videoModal'));
-    var iframe = $("#videoFrame");
+    var video = document.getElementById('videoFrame');
     modal.show();
+    video.play();
 
-    $('#videoModal').on('hidden.bs.modal', function () {
-        var src = iframe.attr("src");
-        iframe.attr("src", "");
-        iframe.attr("src", src);
+   $('#videoModal').on('hidden.bs.modal', function () {
+        document.getElementById('videoFrame').pause();
     });
-  });
+});
 </script>
 </body>
 </html>
