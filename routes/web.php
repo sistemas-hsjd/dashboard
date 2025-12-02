@@ -35,15 +35,11 @@ Route::middleware(['auth'])->group(function () {
 Route::prefix('api')->group(function () {
     // Route::get('/get-default', [DashboardController::class, 'getDefault']);
     Route::post('/abrir-access', [DashboardController::class, 'abrirMsaccess']);
-    
     Route::post('/cambiar-contrasena', [AuthController::class, 'changePasswordSistemas']);
     Route::post('/enviar-codigo', [AuthController::class, 'recuperarContrasena']);
-    
     Route::get('/leer-excel', [GeneralController::class, 'leerExcel']);
-
     Route::post('/desactivar-enlaces', [DashboardController::class, 'desactivarEnlaces']);
-
-     Route::post('/desactivar-sistema', [DashboardController::class, 'desactivarSistema']);
+    Route::post('/desactivar-sistema', [DashboardController::class, 'desactivarSistema']);
 
     Route::post('/get-info', [DashboardController::class, 'getInfo']);
     Route::get('/get-sistemas', [DashboardController::class, 'getSistemas']);

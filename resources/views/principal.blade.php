@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es_cl">
 <head>
-    <title>Portal de Aplicativos </title>
+    <title>Portal de Aplicativos</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Portal San Juan de Dios" name="description"/>
@@ -22,7 +22,6 @@
 </head>
 
 <body data-topbar="light" data-layout="horizontal">
-    
     <!-- Begin page -->
     <div id="layout-wrapper">
         <div id="app">
@@ -31,10 +30,8 @@
             <!-- Start right Content here -->
             <!-- ============================================================== -->
             <div class="main-content" >
-
                 <div class="page-content">
                     <div class="container-fluid">
-
                         <!-- start page title -->
                         <div class="row">
                             <div class="col-12">
@@ -71,10 +68,8 @@
     <script src="{{ asset('assets/libs/feather-icons/feather.min.js') }}"></script>
     <!-- pace js -->
     <script src="{{ asset('assets/libs/pace-js/pace.min.js') }}"></script>
-
     <!-- apexcharts -->
     <script src="{{ asset('assets/libs/apexcharts/apexcharts.min.js') }}"></script>
-
     <!-- Plugins js-->
     <script src="{{ asset('assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
     <script src="{{ asset('assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-world-mill-en.js') }}"></script>

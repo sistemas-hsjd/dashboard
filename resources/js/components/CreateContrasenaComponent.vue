@@ -39,9 +39,9 @@
                                     </div>
                                 </div>
 
-                                    <div class="mb-1">
-                                        <label class="form-label text-white font-size-16">Reingrese nueva contraseña</label>
-                                        <div class="input-group auth-pass-inputgroup">
+                                <div class="mb-1">
+                                    <label class="form-label text-white font-size-16">Reingrese nueva contraseña</label>
+                                    <div class="input-group auth-pass-inputgroup">
                                             <input
                                             :type="mostrarContrasena2 ? 'text' : 'password'"
                                             v-model="contrasena2"
@@ -58,8 +58,8 @@
                                             >
                                             <i :class="mostrarContrasena2 ? 'mdi mdi-eye-off-outline' : 'mdi mdi-eye-outline'"></i>
                                             </button>
-                                        </div>
                                     </div>
+                                </div>
                                  <div class="mb-1">
                                     <span v-if="errores.contrasena1" class="text-white font-size-13">* {{ errores.contrasena1 }}</span>
                                 </div>

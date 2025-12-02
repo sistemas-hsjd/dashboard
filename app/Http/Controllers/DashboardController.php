@@ -208,7 +208,7 @@ class DashboardController extends Controller
             if (!empty($email2) && filter_var($email2, FILTER_VALIDATE_EMAIL)) {
                 $message->cc($email2);
             }
-            $message->cc('nelson.serrano@redsalud.gob.cl');
+            $message->cc('paolo.vilches@redsalud.gob.cl');
             //$message->from('sistemas.ssmoc@appminsal.cl','Cuenta San Juan');
         });
 
