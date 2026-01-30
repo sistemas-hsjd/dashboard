@@ -36,7 +36,7 @@
                           <button v-else
                                   class="btn btn-outline-light waves-effect"
                                   @click="abrirModal(sistema.tx_direccion)">
-                              Ingresar
+                                  Ingresar
                           </button>
                         </template>
                           
@@ -130,6 +130,7 @@
     <modalCrearCuentaComponent></modalCrearCuentaComponent>
     <modalEstadosEnlacesComponent></modalEstadosEnlacesComponent>
     <modalSoporteComponent></modalSoporteComponent>
+    <modalNewSoporteComponent></modalNewSoporteComponent>
     <ModalUciComponent></ModalUciComponent>
   </div>
 </template>
@@ -137,6 +138,7 @@
 <script>
 
 import modalSoporteComponent from './modals/ModalSoporteComponent.vue'
+import modalNewSoporteComponent from './modals/modalNewSoporteComponent.vue'
 import modalCrearCuentaComponent from './modals/ModalCrearCuentaComponent.vue'
 import ModalEstadosEnlacesComponent from './modals/ModalEstadosEnlacesComponent.vue';
 import ModalUciComponent from './modals/ModalUciComponent.vue';
@@ -147,7 +149,8 @@ export default {
         modalSoporteComponent,
         modalCrearCuentaComponent,
         ModalEstadosEnlacesComponent,
-        ModalUciComponent
+        ModalUciComponent,
+        modalNewSoporteComponent
     },
    data() {
         return {
