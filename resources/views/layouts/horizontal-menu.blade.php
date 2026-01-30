@@ -99,26 +99,14 @@
                     
                     @if (Auth::user())
                         @if (COUNT(Auth::user()->jefatura)>0)
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-pages" role="button">
-                                    <i data-feather="grid"></i><span data-key="t-apps">Cuenta San Juan de Dios</span>
-                                    <div class="arrow-down"></div>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="topnav-pages">
-                                    <a href="#" class="dropdown-item" data-key="t-calendar"  data-bs-toggle="modal" data-bs-target="#modalCrearCuenta">Solicitar Cuenta</a>
-                                </div>
-                            </li>
+                            <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-dashboard" role="button"  data-bs-toggle="modal" data-bs-target="#modalCrearCuenta">
+                                <i data-feather="grid"></i><span data-key="t-apps">Solicitar Cuenta HSJD</span>
+                            </a>
                         @endif
                     @else
-                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-pages" role="button">
-                            <i data-feather="grid"></i><span data-key="t-apps">Cuenta San Juan de Dios</span>
-                            <div class="arrow-down"></div>
+                        <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-dashboard" role="button"  data-bs-toggle="modal" data-bs-target="#modalCrearCuenta">
+                            <i data-feather="grid"></i><span data-key="t-apps">Solicitar Cuenta HSJD</span>
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="topnav-pages">
-                            <a href="#" class="dropdown-item" data-key="t-calendar"  data-bs-toggle="modal" data-bs-target="#modalCrearCuenta">Solicitar Cuenta</a>
-                        </div>
-                    </li>
                     @endif
                     @if (Auth::user())
                         @if(Auth::user()->id_perfil==1)
