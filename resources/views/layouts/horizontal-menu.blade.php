@@ -99,9 +99,19 @@
                     
                     @if (Auth::user())
                         @if (COUNT(Auth::user()->jefatura)>0)
-                              <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-dashboard" role="button"  data-bs-toggle="modal" data-bs-target="#modalCrearCuenta">
+                            <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-dashboard" role="button"  data-bs-toggle="modal" data-bs-target="#modalCrearCuenta">
                                 <i data-feather="grid"></i><span data-key="t-apps">Solicitar Cuenta HSJD</span>
                             </a>
+
+                             <a class="nav-link dropdown-toggle arrow-none"
+                                href="{{ url('http://solicitus.test/formulario/' . Auth::user()->rut ) }}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                id="topnav-requerimiento"
+                                role="button">
+                                    <i data-feather="grid"></i>
+                                    <span data-key="t-apps">Solicitud de Requerimiento</span>
+                                </a>
                         @endif
                     @else
                        <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-dashboard" role="button"  data-bs-toggle="modal" data-bs-target="#modalCrearCuenta">
