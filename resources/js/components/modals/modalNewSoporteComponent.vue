@@ -49,6 +49,11 @@
                             <i class="bx bx-phone-call me-2"></i>
                             <span>{{ tec.telefono }}</span>
                           </div>
+                            
+                          <!-- Sistemas -->
+                          <div class="sistemas-list mt-1">
+                            <span class="badge bg-info rounded-pill mb-1 d-block">{{ tec.estamento }}</span>
+                          </div>
                         </div>
 
                         <!-- Badge de disponibilidad -->
@@ -126,5 +131,10 @@ export default {
 
 .badge {
   font-size: 0.8rem;
+}
+.sistemas-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
 }
 </style>

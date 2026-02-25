@@ -53,12 +53,12 @@
 
                                                         <!-- Sistemas -->
                                                         <div class="sistemas-list mt-1">
-                                                        <span v-for="sistema in desarrollador.sistemas"
-                                                            :key="sistema.id"
-                                                            class="badge bg-info rounded-pill mb-1 d-block">
-                                                            {{ sistema.nombre }}
-                                                        </span>
-                                                    </div>
+                                                            <span v-for="sistema in desarrollador.sistemas"
+                                                                :key="sistema.id"
+                                                                class="badge bg-info rounded-pill mb-1 d-block">
+                                                                {{ sistema.nombre }}
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </a>
