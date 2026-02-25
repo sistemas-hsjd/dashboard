@@ -50,7 +50,11 @@
                                                                 08:00 a 17:00 | viernes 08:00 a 16:00
                                                             </span>
                                                         </div>
-
+                                                        
+                                                        <div v-if="desarrollador.id==4" class="sistemas-list mt-1">
+                                                            <span class="badge bg-info rounded-pill mb-1 d-block">Jefe de Unidad</span>
+                                                        </div>
+                                                        
                                                         <!-- Sistemas -->
                                                         <div class="sistemas-list mt-1">
                                                             <span v-for="sistema in desarrollador.sistemas"
