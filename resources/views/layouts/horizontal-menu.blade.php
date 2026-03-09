@@ -110,7 +110,7 @@
                                 id="topnav-requerimiento"
                                 role="button">
                                     <i data-feather="grid"></i>
-                                    <span data-key="t-apps">Solicitud de Requerimiento</span>
+                                    <span data-key="t-apps">Solicitar nuevo Desarrollo</span>
                                 </a>
                         @endif
                     @else

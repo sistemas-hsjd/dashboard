@@ -21,10 +21,7 @@
                                     </div>
 
                                     <ul class="list-unstyled chat-list">
-                                        <li class="unread"
-                                            v-for="desarrollador in desarrolladores"
-                                            :key="desarrollador.id">
-
+                                        <li class="unread" v-for="desarrollador in desarrolladores" :key="desarrollador.id">
                                             <!-- Tarjeta clicable -->
                                             <a href="#" class="full-link">
                                                 <div class="d-flex align-items-start w-100">
