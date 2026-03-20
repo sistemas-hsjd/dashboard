@@ -119,7 +119,7 @@
                                 <div class="arrow-down"></div>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="topnav-pages">
-                                <a href="{{ url('http://solicitus.test/formulario/' . Auth::user()->rut ) }}"
+                                <a href="{{ url('http://10.4.237.75/formulario/' . Auth::user()->rut ) }}"
                                     class="dropdown-item nav-link dropdown-toggle arrow-none"
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -129,7 +129,7 @@
                                         <span>Desarrollo Informático</span>
                                 </a>
 
-                                <a href="{{ url('http://solicitus.test/formulario-enmienda-error/' . Auth::user()->rut ) }}"
+                                <a href="{{ url('http://10.4.237.75/formulario-enmienda-error/' . Auth::user()->rut ) }}"
                                     class="dropdown-item nav-link dropdown-toggle arrow-none"
                                     target="_blank"
                                     rel="noopener noreferrer"
