@@ -103,23 +103,14 @@
                                 <i data-feather="grid"></i><span data-key="t-apps">Solicitar Cuenta HSJD</span>
                             </a>
                         @endif
-                             {{-- <a class="nav-link dropdown-toggle arrow-none"
-                                href="{{ url('http://10.4.237.75/formulario/' . Auth::user()->rut ) }}"
-                                
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                id="topnav-requerimiento"
-                                role="button">
-                                    <i data-feather="grid"></i>
-                                    <span data-key="t-apps">Solicitar nuevo Desarrollo</span>
-                                </a> --}}
-                        <li class="nav-item dropdown">
+                        {{-- <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-pages" role="button">
                                 <i data-feather="grid"></i><span data-key="t-apps">Solicitar Nuevo Desarrollo</span>
                                 <div class="arrow-down"></div>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="topnav-pages">
-                                <a href="{{ url('http://10.4.237.75/formulario/' . Auth::user()->rut ) }}"
+                                <a 
+                                    href="{{ url('http://10.4.237.75/formulario/' . Auth::user()->rut ) }}"
                                     class="dropdown-item nav-link dropdown-toggle arrow-none"
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -129,21 +120,18 @@
                                         <span>Desarrollo Informático</span>
                                 </a>
 
-                                <a href="{{ url('http://10.4.237.75/formulario-enmienda-error/' . Auth::user()->rut ) }}"
+                                <a 
+                                    href="{{ url('http://10.4.237.75/formulario-enmienda-error/' . Auth::user()->rut ) }}"
                                     class="dropdown-item nav-link dropdown-toggle arrow-none"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     id="topnav-enmienda-error"
                                     role="button">
-                                    {{-- <i data-feather="check-circle"></i> --}}
                                     <i data-feather="tool"></i>
                                     <span>Enmienda de Error</span>
                                 </a>
-                              
-                                {{-- <a href="#" class="dropdown-item" data-key="t-calendar"  data-bs-toggle="modal" data-bs-target="#modalEditEnlaces">Sistemas</a> --}}
                             </div>
-                            
-                        </li>
+                        </li> --}}
                        
                     @else
                        <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-dashboard" role="button"  data-bs-toggle="modal" data-bs-target="#modalCrearCuenta">
