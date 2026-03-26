@@ -103,7 +103,7 @@
                                 <i data-feather="grid"></i><span data-key="t-apps">Solicitar Cuenta HSJD</span>
                             </a>
                         @endif
-                        <li class="nav-item dropdown">
+                        {{-- <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-pages" role="button">
                                 <i data-feather="grid"></i><span data-key="t-apps">Solicitar Nuevo Desarrollo</span>
                                 <div class="arrow-down"></div>
@@ -131,7 +131,7 @@
                                     <span>Enmienda de Error</span>
                                 </a>
                             </div>
-                        </li>
+                        </li> --}}
                        
                     @else
                        <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-dashboard" role="button"  data-bs-toggle="modal" data-bs-target="#modalCrearCuenta">
