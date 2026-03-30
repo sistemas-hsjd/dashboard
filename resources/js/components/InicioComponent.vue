@@ -129,7 +129,7 @@
   
     <modalCrearCuentaComponent></modalCrearCuentaComponent>
     <modalEstadosEnlacesComponent></modalEstadosEnlacesComponent>
-    <modalSoporteComponent></modalSoporteComponent>
+    <modalDesarrolloComponent></modalDesarrolloComponent>
     <modalNewSoporteComponent></modalNewSoporteComponent>
     <ModalUciComponent></ModalUciComponent>
   </div>
@@ -137,7 +137,7 @@
 
 <script>
 
-import modalSoporteComponent from './modals/ModalSoporteComponent.vue'
+import modalDesarrolloComponent from './modals/ModalDesarrolloComponent.vue'
 import modalNewSoporteComponent from './modals/modalNewSoporteComponent.vue'
 import modalCrearCuentaComponent from './modals/ModalCrearCuentaComponent.vue'
 import ModalEstadosEnlacesComponent from './modals/ModalEstadosEnlacesComponent.vue';
@@ -146,7 +146,7 @@ import ModalUciComponent from './modals/ModalUciComponent.vue';
 export default {
   name: 'MisSistemasGrid',
     components: {
-        modalSoporteComponent,
+        modalDesarrolloComponent,
         modalCrearCuentaComponent,
         ModalEstadosEnlacesComponent,
         ModalUciComponent,

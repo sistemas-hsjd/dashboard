@@ -30,21 +30,21 @@
     
     <modalEnlacesComponent :enlaces="enlaces" ref="modalEnlaces"></modalEnlacesComponent>
     <modalCrearCuentaComponent></modalCrearCuentaComponent>
-    <modalSoporteComponent></modalSoporteComponent>
+    <modalDesarrolloComponent></modalDesarrolloComponent>
     <modalNewSoporteComponent></modalNewSoporteComponent>
   </div>
 </template>
 
 <script>
 import modalEnlacesComponent from './modals/ModalEnlacesComponet.vue'
-import modalSoporteComponent from './modals/ModalSoporteComponent.vue'
+import modalDesarrolloComponent from './modals/ModalDesarrolloComponent.vue'
 import modalNewSoporteComponent from './modals/modalNewSoporteComponent.vue'
 import modalCrearCuentaComponent from './modals/ModalCrearCuentaComponent.vue'
 export default {
   name: 'CategoriasGrid',
     components: {
         modalEnlacesComponent,
-        modalSoporteComponent,
+        modalDesarrolloComponent,
         modalCrearCuentaComponent,
         modalNewSoporteComponent
     },
