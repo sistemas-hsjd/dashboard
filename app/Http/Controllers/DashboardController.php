@@ -279,11 +279,11 @@ class DashboardController extends Controller
 
     public function getFuncionarios(Request $request){
         $desarrolladores = Funcionario::with([
-            'sistemas'
+        'sistemas'
         ])
         ->whereIn('tipo_id', [1,4,5])
         ->where('estado', 1)
-        ->orderBy('nombre')
+        ->orderBy('id', 'desc')
         ->get();
 
         $tecnicos = Funcionario::with([
