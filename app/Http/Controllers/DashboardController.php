@@ -291,7 +291,7 @@ class DashboardController extends Controller
         ])
         ->whereIn('tipo_id', [2,3])
         ->where('estado', 1)
-        ->orderBy('nombre')
+        ->orderBy('orden')
         ->get();
 
         return [
