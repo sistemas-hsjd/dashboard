@@ -54,6 +54,13 @@
 
                     </div>
 
+                    <!-- Sistemas -->
+                    <div class="mt-2 sistemas-list">
+                        <span v-for="sistema in tec.sistemas" :key="tec.id" class="badge badge-sistema">
+                            {{ sistema.nombre }}
+                        </span>
+                    </div>
+
                     <!-- Contacto -->
                     <div class="contact-info mt-2">
                       <div>
@@ -122,6 +129,19 @@ export default {
   padding: 15px;
   border: 1px solid #e9ecef;
   transition: all 0.2s ease;
+}
+
+/* Sistemas */
+.sistemas-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.badge-sistema {
+    background: #e9f7ef;
+    color: #198754;
+    font-weight: 500;
 }
 
 .contact-card .card-body:hover {
