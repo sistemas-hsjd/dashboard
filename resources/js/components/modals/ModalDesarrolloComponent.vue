@@ -13,7 +13,10 @@
                 <div class="modal-body">
 
                     <div class="px-2">
-                        <h6 class="mb-3 text-muted">Desarrolladores</h6>
+                        <h6 class="mb-3 text-muted">
+                            Desarrollo, mantenimiento y mejora continua de sistemas informáticos y plataformas 
+                            <span class="text-primary fw-semibold">SJDigital</span>.
+                        </h6>
 
                         <ul class="p-0 m-0">
                             <li class="contact-card"
@@ -38,16 +41,15 @@
                                                     {{ desarrollador.apellido_materno }}
                                                 </h6>
                                                 <span v-if="desarrollador.id == 4" class="badge badge-horario" style="font-size: .7rem;">
-                                                    Jefe de Desarrollo
+                                                    {{ desarrollador.estamento }}
                                                 </span>
-
                                                 <span v-if="desarrollador.id == 14" class="badge badge-horario" style="font-size: .7rem;">
-                                                    Jefe de Unidad
+                                                   {{ desarrollador.estamento }}
                                                 </span>
                                             </div>
 
                                             <span class="badge badge-horario">
-                                                08:00 - 17:00 | Vie 08:00 - 16:00
+                                               Lun–Jue: 08:00–17:00 | Vie: 08:00–16:00
                                             </span>
                                         </div>
 
