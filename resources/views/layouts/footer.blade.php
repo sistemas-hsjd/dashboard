@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-6">
-                <strong>© Hospital San Juan de Dios 2025</strong>
+                <strong>© Hospital San Juan de Dios 2026</strong>
             </div>
             <div class="col-sm-6">
                 <div class="text-sm-end d-none d-sm-block">
