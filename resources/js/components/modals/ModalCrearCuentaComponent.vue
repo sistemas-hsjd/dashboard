@@ -227,6 +227,7 @@ export default {
         usuarios: [
             {
                 run: '',
+                fc_nacimiento: '',
                 nombre_completo:'',
                 telefono: '',
                 email:''
@@ -246,6 +247,7 @@ export default {
         if(this.usuarios.length<10){
             this.usuarios.push({
                 run: '',
+                fc_nacimiento: '',
                 nombre_completo:'',
                 telefono: '',
                 email:''  
@@ -278,13 +280,13 @@ export default {
             if (response.data !== 'no hay rut' && response.data !== 'usuario registrado' &&  response.data !== 'rut falso') {
                 if (this.jefatura) {
                         const persona = response.data;
-                        
                         const existe = this.usuarios.some(u => u.run === persona.run);
                         if (!existe) {
                             const indexToFill = this.usuarios.findIndex(u => !u.run);
                             if (indexToFill !== -1) {
                                 this.usuarios[indexToFill] = {
                                     run: persona.run || '',
+                                    fc_nacimiento: persona.fc_nacimiento || '',
                                     nombre_completo: persona.nombre_completo || '',
                                     telefono: persona.telefono || '',
                                     email: persona.email || ''
@@ -293,6 +295,7 @@ export default {
                                 // Si no hay objeto vacío, agregamos uno nuevo
                                 this.usuarios.push({
                                     run: persona.run || '',
+                                    fc_nacimiento: persona.fc_nacimiento || '',
                                     nombre_completo: persona.nombre_completo || '',
                                     telefono: persona.telefono || '',
                                     email: persona.email || ''
@@ -320,7 +323,8 @@ export default {
     mapearParametros(respuesta) {
         let datos = Array.isArray(respuesta) ? respuesta : [respuesta];
         this.usuarios = datos.map(item => ({
-            run: item.run || '', 
+            run: item.run || '',
+            fc_nacimiento: item.fc_nacimiento || '',
             nombre_completo: item.nombre_completo || '', 
             telefono: item.telefono || ''
         }));
@@ -378,6 +382,7 @@ export default {
         this.usuarios = [
             {
                 run: '',
+                fc_nacimiento: '',
                 nombre_completo: '',
                 telefono: '',
                 email: ''

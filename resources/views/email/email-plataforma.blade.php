@@ -84,6 +84,7 @@
                       <tr tyle="background-color: #f8f9fa;">
                         <th style="border: 1px solid #dddddd;">RUN</th>
                         <th style="border: 1px solid #dddddd;">Nombre Completo</th>
+                        <th style="border: 1px solid #dddddd;">Fecha de Nacimiento</th>
                         <th style="border: 1px solid #dddddd;">Email</th>
                         <th style="border: 1px solid #dddddd;">Teléfono</th>
                         <th style="border: 1px solid #dddddd;">Estamento</th>
@@ -102,6 +103,7 @@
                            <tr style="background-color: #f8f9fa;">
                                 <th style="border: 1px solid #dddddd;"><?php echo $value['run']; ?></th>
                                 <td style="border: 1px solid #dddddd;"><?php echo $value['nombre_completo']; ?></td>
+                                <td style="border: 1px solid #dddddd;"><?php echo $value['fc_nacimiento']; ?></td>
                                 <td style="border: 1px solid #dddddd;"><?php echo $value['email']; ?></td>
                                 <td style="border: 1px solid #dddddd;"><?php echo $value['telefono']; ?></td>
                                 <td style="border: 1px solid #dddddd;"><?php echo $value['estamento']; ?></td>
@@ -124,7 +126,6 @@
                
             
             </div>
-                
 
         </div>
     </div>

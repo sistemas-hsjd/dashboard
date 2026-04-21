@@ -216,7 +216,7 @@ class DashboardController extends Controller
     }
 
     public function sendEmailPlataformaApoyo($data, $plataformasApoyo, $estamentoFuncionario, $servicio, $request){
-
+    
         $email = '';
 
         foreach ($data as $key => $value) {
