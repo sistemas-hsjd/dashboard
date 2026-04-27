@@ -181,7 +181,7 @@ class DashboardController extends Controller
                 }
             }
          
-            $mensaje = 'Estimado(a), Se ha enviado una notificación para su autorización de cuenta San Juan, para el siguiente funcionario(a)';
+            $mensaje = 'Estimado(a), Se ha enviado una notificación para su autorización de cuenta San Juan, para el siguiente funcionario(a), la cual debe ser respondida al siguiente correo elctronico: ' . config('app.EMAIL_CREAR_CUENTA') . ' : ' . $data[0]['nombre'] . ' ' . $data[0]['apellido'] . ' del servicio de ' . $servicio->tx_descripcion;
         }
 
         // $email1 = 'nelson.serrano@redsalud.gob.cl';
@@ -216,7 +216,7 @@ class DashboardController extends Controller
     }
 
     public function sendEmailPlataformaApoyo($data, $plataformasApoyo, $estamentoFuncionario, $servicio, $request){
-    
+
         $email = '';
 
         foreach ($data as $key => $value) {
