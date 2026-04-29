@@ -25,6 +25,12 @@
                                             <span class="d-none d-sm-block">Enlaces</span>
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-bs-toggle="tab" href="#popups" role="tab">
+                                            <span class="d-block d-sm-none"><i class="fas fa-bell"></i></span>
+                                            <span class="d-none d-sm-block">Popups</span>
+                                        </a>
+                                    </li>
                                    
                                 </ul>
 
@@ -96,6 +102,33 @@
                                                 </div>
                                             </div>
                                             <!-- end col -->
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane" id="popups" role="tabpanel">
+                                        <div class="row d-flex justify-content-center">
+                                            <div class="col-md-12">
+                                                <div class="card">
+                                                    <div class="card-body">
+
+                                                        <div class="table-responsive">
+                                                            <table class="table" id="tabla_popups" style="width: 100%; font-size: .9em;">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>ID</th>
+                                                                        <th>Título</th>
+                                                                        <th>Imagen</th>
+                                                                        <th>Estado</th>
+                                                                        <th>Opciones</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody></tbody>
+                                                            </table>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -173,7 +206,7 @@ export default {
 
             axios.get('api/get-enlaces', { params: params })
             .then(response => {
-                console.log('desde la tabla de enlaces: ',response.data)
+                // console.log('desde la tabla de enlaces: ',response.data)
                 $('#tabla_enlaces').DataTable({
                     "responsive": true,
                     "autoWidth": false, 
@@ -292,7 +325,7 @@ export default {
             };
             axios.get('api/get-sistemas', { params: params })
             .then(response => {
-                console.log('desde la tabla de sistemas: ',response.data)
+                // console.log('desde la tabla de sistemas: ',response.data)
                 $('#tabla_sistemas').DataTable({
                     "responsive": true,
                     "autoWidth": false, 
@@ -380,6 +413,60 @@ export default {
                 console.error('Error: ', error);
             });
     },
+    initFiltrosPopups() {
+        axios.get('api/get-popups')
+        .then(response => {
+            console.log('desde la tabla de popups: ',response.data)
+            $('#tabla_popups').DataTable({
+                destroy: true,
+                data: response.data,
+                language: this.lenguaje,
+                columns: [
+                    { data: "id" },
+                    { 
+                        render: function(data, type, row){
+                            return `
+                                ${row.nombre}
+                            `;
+                        }
+                    },
+                    {
+                       render: function(data, type, row){
+                            return `
+                                ${row.imagen_url}
+                            `;
+                        }
+                    },
+                    {
+                        data: "estado",
+                        render: function(data, type, row){
+                            if(data == 1){
+                                return `<span class="badge bg-success">Activo</span>`;
+                            }
+                            return `<span class="badge bg-danger">Inactivo</span>`;
+                        }
+                    },
+                    {
+                        "data": "id",
+                        "sortable": false,
+                        "render": function(data, type, row, meta) {
+                            let checked = row.estado == 1 ? 'checked' : '';
+
+                            return `
+                                <input type="checkbox" 
+                                    class="editarPopups" 
+                                    id="editarPopups${row.id}" 
+                                    switch="bool" ${checked}/>
+                                <label for="editarPopups${row.id}" data-on-label="Sí" data-off-label="No"></label>
+                            `;
+                        }
+                    }
+                ]
+            });
+
+        })
+        .catch(error => console.error(error));
+    },
     changeEstado(id, cat, enlace){
         var data = new FormData()  
         data.append('id', id)
@@ -414,12 +501,29 @@ export default {
         .catch(error => {
             console.error('Error: ', error)
         });
-    }
+    },
+    changeEstadoPopup(id, estado){
+        axios.post('api/actualizar-popup', {
+            id: id,
+            popup: estado
+        })
+        .then(response => {
+            console.log(response.data);
+            if(response.data.ok){
+                this.initFiltrosPopups()
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    },
+    
   },
   mounted() {
     const vm = this;
     vm.initFiltrosEnlaces()  
     vm.initFiltrosSistemas()
+    vm.initFiltrosPopups()
     $('#tabla_enlaces tbody').on('click', '.editarEnlace, .editarCategoria', function(event) {
         event.stopPropagation();
 
@@ -447,9 +551,26 @@ export default {
         var sistemaTexto = enlaceSeleccionado ? 'Sí' : 'No';
 
 
-        console.log(sistemaTexto)
+        // console.log(sistemaTexto)
         vm.changeEstadoSistema(id, sistemaTexto)
        
+    });
+
+
+   $('#tabla_popups tbody').on('change', '.editarPopups', function () {
+
+        const $checkbox = $(this);
+
+        // ID limpio
+        const id = $checkbox.attr('id').replace('editarPopups', '');
+
+        // Estado correcto (1 o 0)
+        const estado = $checkbox.is(':checked') ? 1 : 0;
+
+        console.log('ID:', id, 'Estado:', estado);
+
+        vm.changeEstadoPopup(id, estado);
+
     });
 
   }

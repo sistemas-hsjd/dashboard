@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Categoria;
 use App\Models\Enlace;
 use App\Models\Funcionario;
+use App\Models\Popup;
 use App\Models\UserPortal;
 use App\Models\Unidad;
 use App\Models\GenServicio;
@@ -78,6 +79,14 @@ class DashboardController extends Controller
             "categorias" => $categorias,
             "ip" => $ip
         ];
+    }
+
+    public function getPopups(Request $request){
+        return Popup::get();
+    }
+
+    public function getPermisoPopUp(Request $request){
+       return Popup::where('estado', 1)->first();
     }
 
     public function getSistemas(Request $request){
@@ -419,6 +428,10 @@ class DashboardController extends Controller
         return $enlaces = Enlace::with(['categoria'])->get(); 
     }
 
+    // public function getPopups(Request $request){
+    //     return $popups = Popup::where('mostrar_popup', 1)->get(); 
+    // }
+
     public function desactivarSistema(Request $request){
         $sistema = GenSistema::find($request->id);
         if($request->sistema=='No'){
@@ -429,6 +442,17 @@ class DashboardController extends Controller
         }
         $sistema->save();
         return 'ok';
+    }
+
+    public function actualizarPopup(Request $request)
+    {
+        Popup::where('id', $request->id)
+            ->update([
+                'mostrar_popup' => $request->popup,
+                'estado' => $request->popup
+            ]);
+
+        return response()->json(['ok' => true]);
     }
 
     public function desactivarEnlaces(Request $request){

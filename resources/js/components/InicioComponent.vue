@@ -132,16 +132,26 @@
     <modalDesarrolloComponent></modalDesarrolloComponent>
     <modalNewSoporteComponent></modalNewSoporteComponent>
     <ModalUciComponent></ModalUciComponent>
+    
+    <!-- <TourNuevoMenu></TourNuevoMenu> -->
+    <div v-if="iniciarPupUP">
+        <div v-if="showImagePopup" class="image-popup" @click.self="cerrarPopup">
+          <img :src="popupImage" class="popup-img" />
+          <button class="close-btn" @click="cerrarPopup">✕</button>
+        </div>
+    </div>
+  
   </div>
 </template>
 
 <script>
 
-import modalDesarrolloComponent from './modals/ModalDesarrolloComponent.vue'
-import modalNewSoporteComponent from './modals/modalNewSoporteComponent.vue'
-import modalCrearCuentaComponent from './modals/ModalCrearCuentaComponent.vue'
+import modalDesarrolloComponent from './modals/ModalDesarrolloComponent.vue';
+import modalNewSoporteComponent from './modals/modalNewSoporteComponent.vue';
+import modalCrearCuentaComponent from './modals/ModalCrearCuentaComponent.vue';
 import ModalEstadosEnlacesComponent from './modals/ModalEstadosEnlacesComponent.vue';
 import ModalUciComponent from './modals/ModalUciComponent.vue';
+// import TourNuevoMenu  from './elements/TourNuevoMenuCompoent.vue';
 
 export default {
   name: 'MisSistemasGrid',
@@ -150,14 +160,20 @@ export default {
         modalCrearCuentaComponent,
         ModalEstadosEnlacesComponent,
         ModalUciComponent,
-        modalNewSoporteComponent
+        modalNewSoporteComponent,
+        // TourNuevoMenu,
     },
    data() {
         return {
-           sistemas :[],
-           enlaces:[],
-           sistemasDefaults:[],
-           user:[]
+          iniciarPupUP: false,
+          sistemas :[],
+          enlaces:[],
+          sistemasDefaults:[],
+          user:[],
+          // popup
+          showImagePopup: false,
+          popupImage: '', 
+          popupActivo:[]
         }
     },
   computed: {
@@ -179,6 +195,17 @@ export default {
     }
   },
   methods: {
+      mostrarImagenPopup(img) {
+        this.popupImage = img;
+        this.showImagePopup = true;
+      },
+
+    cerrarPopup() {
+      this.showImagePopup = false;
+
+      // CLAVE: guardar que el usuario lo cerró
+      //localStorage.setItem('popup_cerrado', '1');
+    },
     abrirAcess(){
       $('#modalUci').modal('show')
     },
@@ -191,6 +218,22 @@ export default {
         })
         .catch(error => {
             console.error('Error: ', error);
+        });
+    },
+    getPermisoPopup(){
+        axios.post('api/get-permiso-pop-up')
+        .then(response => {
+            console.log('Permiso PopUp:', response.data);
+            this.popupActivo = response.data;
+            if(this.popupActivo && this.popupActivo.mostrar_popup) {
+                this.iniciarPupUP = true;
+            }
+            console.log('Popup Activo:', this.popupActivo);
+     
+        })
+        .catch(error => {
+            console.error('Error al obtener el permiso del PopUp:', error);
+            return null;
         });
     },
     abrirModal(cat) {
@@ -215,6 +258,17 @@ export default {
   mounted(){
     this.getSistemas()
     this.getAuthUser()
+    this.getPermisoPopup()
+
+      // revisar si el usuario ya lo cerró
+      const cerrado = localStorage.getItem('popup_cerrado');
+
+      if (!cerrado) {
+        setTimeout(() => {
+          this.mostrarImagenPopup('assets/images/1777389396-AFICHES PROMO-01.jpg');
+        }, 1000);
+      }
+
   }
 }
 </script>
@@ -223,4 +277,41 @@ export default {
   .card-header_sistemas{
       padding: .5em !important;
   }
+
+  .image-popup {
+  position: fixed;
+  bottom: 20px;   /* distancia desde abajo */
+  right: 20px;    /* distancia desde la derecha */
+  z-index: 9999;
+
+  background: #000;
+  padding: 10px;
+  border-radius: 12px;
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+/* imagen */
+.popup-img {
+  max-width: 325px;
+  border-radius: 8px;
+  display: block;
+}
+
+/* botón cerrar */
+.close-btn {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+
+  background: red;
+  border: none;
+  color: white;
+
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+
+  cursor: pointer;
+}
 </style>

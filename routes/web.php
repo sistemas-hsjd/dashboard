@@ -41,6 +41,11 @@ Route::prefix('api')->group(function () {
     Route::post('/desactivar-enlaces', [DashboardController::class, 'desactivarEnlaces']);
     Route::post('/desactivar-sistema', [DashboardController::class, 'desactivarSistema']);
 
+    Route::post('/get-permiso-pop-up', [DashboardController::class, 'getPermisoPopup']);
+
+
+    Route::post('/actualizar-popup', [DashboardController::class, 'actualizarPopup']);
+
     Route::post('/get-info', [DashboardController::class, 'getInfo']);
     Route::get('/get-sistemas', [DashboardController::class, 'getSistemas']);
 
@@ -48,6 +53,8 @@ Route::prefix('api')->group(function () {
     Route::post('/get-funcionarios', [DashboardController::class, 'getFuncionarios']);   
     
     Route::get('/get-enlaces', [DashboardController::class, 'getALLEnlaces']);   
+
+    Route::get('/get-popups', [DashboardController::class, 'getPopups']);
 
     Route::post('/get-persona', [GeneralController::class, 'getPersona']);
     Route::post('/data-inicial', [GeneralController::class, 'getInfoInicial']);

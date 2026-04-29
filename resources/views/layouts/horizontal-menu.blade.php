@@ -103,8 +103,8 @@
                                 <i data-feather="grid"></i><span data-key="t-apps">Solicitar Cuenta HSJD</span>
                             </a>
                         @endif
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-pages" role="button">
+                        <li class="nav-item dropdown" id="menu-nuevo">
+                            <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-pages" role="button" data-bs-toggle="dropdown">
                                 <i data-feather="grid"></i><span data-key="t-apps">Solicitar Nuevo Desarrollo</span>
                                 <div class="arrow-down"></div>
                             </a>
@@ -121,7 +121,8 @@
                                 </a>
 
                                 <a 
-                                    href="{{ url('http://10.4.237.75/formulario-enmienda-error/' . Auth::user()->rut ) }}"
+                                    href="{{ url('http://solicitus.test/formulario-enmienda-error/' . Auth::user()->rut ) }}"
+                                    {{-- href="{{ url('http://10.4.237.75/formulario-enmienda-error/' . Auth::user()->rut ) }}" --}}
                                     class="dropdown-item nav-link dropdown-toggle arrow-none"
                                     target="_blank"
                                     rel="noopener noreferrer"
