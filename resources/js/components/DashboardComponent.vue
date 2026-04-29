@@ -32,6 +32,7 @@
     <modalCrearCuentaComponent></modalCrearCuentaComponent>
     <modalDesarrolloComponent></modalDesarrolloComponent>
     <modalNewSoporteComponent></modalNewSoporteComponent>
+    <PopupComponent></PopupComponent>
   </div>
 </template>
 
@@ -40,12 +41,14 @@ import modalEnlacesComponent from './modals/ModalEnlacesComponet.vue'
 import modalDesarrolloComponent from './modals/ModalDesarrolloComponent.vue'
 import modalNewSoporteComponent from './modals/modalNewSoporteComponent.vue'
 import modalCrearCuentaComponent from './modals/ModalCrearCuentaComponent.vue'
+import PopupComponent  from './elements/PopupComponent.vue';
 export default {
   name: 'CategoriasGrid',
     components: {
         modalEnlacesComponent,
         modalDesarrolloComponent,
         modalCrearCuentaComponent,
+        PopupComponent,
         modalNewSoporteComponent
     },
    data() {
