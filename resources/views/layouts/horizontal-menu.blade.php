@@ -121,8 +121,8 @@
                                 </a>
 
                                 <a 
-                                    href="{{ url('http://solicitus.test/formulario-enmienda-error/' . Auth::user()->rut ) }}"
-                                    {{-- href="{{ url('http://10.4.237.75/formulario-enmienda-error/' . Auth::user()->rut ) }}" --}}
+                                    {{-- href="{{ url('http://solicitus.test/formulario-enmienda-error/' . Auth::user()->rut ) }}" --}}
+                                    href="{{ url('http://10.4.237.75/formulario-enmienda-error/' . Auth::user()->rut ) }}"
                                     class="dropdown-item nav-link dropdown-toggle arrow-none"
                                     target="_blank"
                                     rel="noopener noreferrer"
