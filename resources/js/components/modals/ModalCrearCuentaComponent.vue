@@ -262,6 +262,7 @@ export default {
     getInfo(){
         axios.post('api/data-inicial')
         .then(response => {
+            console.log(response.data);
             const { estamentos, servicios, sistemas } = response.data
             this.servicios = servicios
             this.estamentos = estamentos
@@ -271,50 +272,90 @@ export default {
             console.error('Error: ', error);
         });
     },
-    getPersona(){
-        this.mensaje = ''
+   getPersona() {
+        this.mensaje = '';
+        // Limpiar RUN
+        let rutLimpio = this.run
+            .replace(/[^0-9kK]/g, '')
+            .toUpperCase()
+            .substring(0, 9);
+
+        // Formatear correctamente
+        if (rutLimpio.length > 1) {
+            let cuerpo = rutLimpio.slice(0, -1);
+            let dv = rutLimpio.slice(-1);
+
+            this.run = `${cuerpo}-${dv}`;
+        } else {
+            this.run = rutLimpio;
+        }
+
         var data = new FormData();
-        data.append('run', this.run)
+        data.append('run', this.run);
+
         axios.post('api/get-persona', data)
         .then(response => {
-            if (response.data !== 'no hay rut' && response.data !== 'usuario registrado' &&  response.data !== 'rut falso') {
+
+            console.log('desde persona', response.data);
+
+            if (
+                response.data !== 'no hay rut' &&
+                response.data !== 'usuario registrado' &&
+                response.data !== 'rut falso'
+            ) {
+
                 if (this.jefatura) {
-                        const persona = response.data;
-                        const existe = this.usuarios.some(u => u.run === persona.run);
-                        if (!existe) {
-                            const indexToFill = this.usuarios.findIndex(u => !u.run);
-                            if (indexToFill !== -1) {
-                                this.usuarios[indexToFill] = {
-                                    run: persona.run || '',
-                                    fc_nacimiento: persona.fc_nacimiento || '',
-                                    nombre_completo: persona.nombre_completo || '',
-                                    telefono: persona.telefono || '',
-                                    email: persona.email || ''
-                                };
-                            } else {
-                                // Si no hay objeto vacío, agregamos uno nuevo
-                                this.usuarios.push({
-                                    run: persona.run || '',
-                                    fc_nacimiento: persona.fc_nacimiento || '',
-                                    nombre_completo: persona.nombre_completo || '',
-                                    telefono: persona.telefono || '',
-                                    email: persona.email || ''
-                                });
-                            }
+
+                    const persona = response.data;
+
+                    const existe = this.usuarios.some(u => u.run === persona.run);
+
+                    if (!existe) {
+
+                        const indexToFill = this.usuarios.findIndex(u => !u.run);
+
+                        if (indexToFill !== -1) {
+
+                            this.usuarios[indexToFill] = {
+                                run: persona.run || '',
+                                fc_nacimiento: persona.fc_nacimiento || '',
+                                nombre_completo: persona.nombre_completo || '',
+                                telefono: persona.telefono || '',
+                                email: persona.email || ''
+                            };
+
                         } else {
-                            console.warn(`La persona con RUN ${persona.run} ya está en la lista.`);
+
+                            this.usuarios.push({
+                                run: persona.run || '',
+                                fc_nacimiento: persona.fc_nacimiento || '',
+                                nombre_completo: persona.nombre_completo || '',
+                                telefono: persona.telefono || '',
+                                email: persona.email || ''
+                            });
                         }
+
                     } else {
-                        this.mapearParametros(response.data);
+
+                        console.warn(`La persona con RUN ${persona.run} ya está en la lista.`);
                     }
+
+                } else {
+
+                    this.mapearParametros(response.data);
+                }
+
                 this.run = '';
-            }else if(response.data == 'usuario registrado'){
-             
-                this.mensaje = 'registrado'
-            }else if(response.data=='rut falso'){
-                this.mensaje = 'rut falso'
+
+            } else if (response.data == 'usuario registrado') {
+
+                this.mensaje = 'registrado';
+
+            } else if (response.data == 'rut falso') {
+
+                this.mensaje = 'rut falso';
             }
-            
+
         })
         .catch(error => {
             console.error('Error: ', error);
@@ -484,14 +525,34 @@ export default {
         });
     },
     validarRutEnTiempoReal(event) {
-        const rut = event.target.value;
-        document.getElementById(event.target.id).addEventListener('input', function (e) {
-            let rut = e.target.value.replace(/[^\dkK]/gi, '').toUpperCase(); // Solo números y K
+
+        const input = document.getElementById(event.target.id);
+
+        input.addEventListener('input', function (e) {
+
+            // Limpiar caracteres inválidos
+            let rut = e.target.value.replace(/[^0-9kK]/g, '').toUpperCase();
+
+            // Máximo permitido:
+            // 8 números + 1 dígito verificador
+            rut = rut.substring(0, 9);
+
+            // Si tiene más de 1 carácter
             if (rut.length > 1) {
-                let cuerpo = rut.slice(0, -1);
+
+                // Último carácter = DV
                 let dv = rut.slice(-1);
+
+                // Todo lo anterior = cuerpo
+                let cuerpo = rut.slice(0, -1);
+
+                // Máximo 8 dígitos en el cuerpo
+                cuerpo = cuerpo.substring(0, 8);
+
                 e.target.value = `${cuerpo}-${dv}`;
+
             } else {
+
                 e.target.value = rut;
             }
         });
