@@ -80,7 +80,7 @@ class GeneralController extends Controller
     
     public function getInfoInicial(Request $request){
         return [
-            'servicios' => GenServicio::where('bo_estado', 1)->orderBy('tx_descripcion', 'asc')->get(),
+            'servicios' => GenServicio::where('bo_estado', 1)->get(),
             'estamentos' => Estamento::where('bo_estado', 1)->where('cuenta_usuario', 1)->orderBy('tx_descripcion', 'asc')->get(),
             'sistemas' => GenSistema::where('sistema_local', 1)->orderBy('tx_descripcion', 'asc')->get(),
         ];
