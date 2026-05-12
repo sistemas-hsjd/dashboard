@@ -272,7 +272,7 @@ export default {
             console.error('Error: ', error);
         });
     },
-   getPersona() {
+    getPersona() {
         this.mensaje = '';
         // Limpiar RUN
         let rutLimpio = this.run
