@@ -355,7 +355,7 @@ class DashboardController extends Controller
         }
     
         $defaultSistemas = GenSistema::with('encargado')
-        ->whereIn('id', [22,24,20,23,19,25,26,28])
+        ->whereIn('id', [22,24,20,23,19,25,26,28, 29])
         ->where('estado', 1)
         ->get()->toArray();
 
