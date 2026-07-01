@@ -98,29 +98,29 @@
                     </template>
                     <template v-else-if="sistema.id === 20">
                           <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
-                          <p class="card-text mb-0 text-primary">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al correo eléctronico <strong>{{ sistema.encargado.email }}</strong>.</p>
+                          <p class="card-text mb-0 text-primary">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al correo eléctronico <strong>{{ sistema.encargado?.email }}</strong>.</p>
                     </template>
                     <template v-else-if="sistema.id === 19">
                           <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
-                          <p class="card-text mb-0 text-primary">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al número <strong>{{ sistema.encargado.telefono }}</strong>.</p>
+                          <p class="card-text mb-0 text-primary">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al número <strong>{{ sistema.encargado?.telefono }}</strong>.</p>
                     </template>
                     <template v-else-if="sistema.id === 22">
                           <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
-                          <p class="card-text mb-0 text-primary">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al número <strong>{{ sistema.encargado.telefono }}</strong>.</p>
+                          <p class="card-text mb-0 text-primary">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al número <strong>{{ sistema.encargado?.telefono }}</strong>.</p>
                     </template>
                     <template v-else-if="sistema.id === 23">
                           <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
-                          <p class="card-text mb-0 text-primary">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al número <strong>{{ sistema.encargado.telefono }}</strong>.</p>
+                          <p class="card-text mb-0 text-primary">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al número <strong>{{ sistema.encargado?.telefono }}</strong>.</p>
                     </template>
                     <template v-else-if="sistema.id === 25">
                           <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
-                          <p class="card-text mb-0 text-primary">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al número <strong>{{ sistema.encargado.telefono }}</strong>.</p>
+                          <p class="card-text mb-0 text-primary">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al número <strong>{{ sistema.encargado?.telefono }}</strong>.</p>
                     </template>
 
-                     <!-- <template v-else-if="sistema.id === 29">
+                    <template v-else-if="sistema.id === 29">
                           <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
-                          <p class="card-text mb-0 text-primary">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al número <strong>{{ sistema.encargado.telefono }}</strong>.</p>
-                    </template> -->
+                          <p class="card-text mb-0 text-primary">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al número <strong>{{ sistema.encargado?.telefono }}</strong>.</p>
+                    </template>
               
                     <template v-else-if="sistema.id === 26">
                           <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
@@ -174,27 +174,29 @@ export default {
           enlaces:[],
           sistemasDefaults:[],
           user:[],
+          chunkSize: 4,
         }
     },
   computed: {
     chunkedSistemas() {
-      const chunkSize = 4;
-      const chunks = [];
-      for (let i = 0; i < this.sistemas.length; i += chunkSize) {
-        chunks.push(this.sistemas.slice(i, i + chunkSize));
-      }
-      return chunks;
+      return this.chunkArray(this.sistemas, this.chunkSize);
     },
     chunkedSistemasDefaults() {
-      const chunkSize = 4;
-      const chunks = [];
-      for (let i = 0; i < this.sistemasDefaults.length; i += chunkSize) {
-        chunks.push(this.sistemasDefaults.slice(i, i + chunkSize));
-      }
-      return chunks;
+      return this.chunkArray(this.sistemasDefaults, this.chunkSize);
     }
   },
   methods: {
+    chunkArray(items, chunkSize) {
+      if (!Array.isArray(items) || chunkSize <= 0) {
+        return [];
+      }
+
+      const chunks = [];
+      for (let i = 0; i < items.length; i += chunkSize) {
+        chunks.push(items.slice(i, i + chunkSize));
+      }
+      return chunks;
+    },
     abrirAcess(){
       $('#modalUci').modal('show')
     },
