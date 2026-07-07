@@ -96,9 +96,22 @@
                         <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
                         <p class="card-text mb-0 text-primary">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al número <strong>{{ sistema.encargado?.telefono }}</strong>.</p>
                     </template>
-                    <template v-else-if="sistema.id === 20">
+                    <template v-else-if="sistema.id === 20 || sistema.id === 29">
                           <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
                           <p class="card-text mb-0 text-primary">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al correo eléctronico <strong>{{ sistema.encargado?.email }}</strong>.</p>
+                  
+                        <template v-if="sistema.id === 20">
+                        <p class="card-text mb-0 text-danger">
+                          <strong>(Exámenes hasta el 07-julio-2026)</strong>.
+                        </p>
+                      </template>
+
+                      <template v-if="sistema.id === 29">
+                        <p class="card-text mb-0 text-danger">
+                          <strong>(Exámenes desde el 08-julio-2026)</strong>.
+                        </p>
+                      </template>
+                      
                     </template>
                     <template v-else-if="sistema.id === 19">
                           <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
@@ -116,18 +129,14 @@
                           <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
                           <p class="card-text mb-0 text-primary">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al número <strong>{{ sistema.encargado?.telefono }}</strong>.</p>
                     </template>
-
-                    <template v-else-if="sistema.id === 29">
+                    <!-- <template v-else-if="sistema.id === 29">
                           <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
-                          <p class="card-text mb-0 text-primary">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al número <strong>{{ sistema.encargado?.telefono }}</strong>.</p>
-                    </template>
-              
+                          <p class="card-text mb-0 text-primary">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al número (Exámenes desde el 08-julio-2026)<strong>{{ sistema.encargado?.telefono }}</strong>.</p>
+                    </template> -->
                     <template v-else-if="sistema.id === 26">
                           <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
                     </template>
-
-                    
-
+                
                 </div>
               </div>
           </div>
