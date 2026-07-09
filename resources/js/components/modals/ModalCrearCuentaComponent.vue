@@ -11,7 +11,7 @@
                     <div class="container">
                         <div class="row d-flex justify-content-center">
                             <div class="col-md-10">
-                                <div v-if="mensaje=='registrado' || mensaje=='rut falso'" class="alert alert-danger alert-dismissible alert-label-icon label-arrow fade show" role="alert">
+                                <!-- <div v-if="mensaje=='registrado' || mensaje=='rut falso'" class="alert alert-danger alert-dismissible alert-label-icon label-arrow fade show" role="alert">
                                     <template v-if="mensaje=='registrado'">
                                         <i class="mdi mdi-block-helper label-icon"></i><strong>Usuario Registrado</strong> -  El usuario ya se encuentra registrado
                                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -20,6 +20,69 @@
                                         <i class="mdi mdi-block-helper label-icon"></i><strong>Rut Inválido</strong> - ¡El RUN ingresado es incorrecto!
                                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     </template>
+                                </div> -->
+                                <div v-if="mensaje=='registrado' || mensaje=='rut falso' || mensaje=='actualizar cuenta'" 
+                                    class="alert alert-danger alert-dismissible alert-label-icon label-arrow fade show d-flex align-items-center justify-content-between" 
+                                    role="alert">
+
+                                    <div class="d-flex align-items-center">
+                                        <template v-if="mensaje=='registrado'">
+                                            <i class="mdi mdi-block-helper label-icon me-2"></i>
+                                            <span>
+                                                <strong>Usuario Registrado</strong> - El usuario ya se encuentra registrado
+                                            </span>
+                                        </template>
+
+                                        <template v-if="mensaje=='rut falso'">
+                                            <i class="mdi mdi-block-helper label-icon me-2"></i>
+                                            <span>
+                                                <strong>Rut Inválido</strong> - ¡El RUN ingresado es incorrecto!
+                                            </span>
+                                        </template>
+
+                                        <template v-if="mensaje=='actualizar cuenta'">
+                                            <i class="mdi mdi-account-edit label-icon me-2"></i>
+                                            <span>
+                                                <strong>Cuenta existente</strong> - El usuario ya posee una cuenta, puede actualizar sus datos.
+                                            </span>
+                                        </template>
+                                    </div>
+
+                                    <div class="d-flex align-items-center gap-2">
+
+                                          <button
+                                            v-if="!estadoActualizacionLoder"
+                                            type="button"
+                                            class="btn btn-primary btn-sm"
+                                            @click="actualizarCuenta()">
+                                            <i class="mdi mdi-account-edit"></i>
+                                            SOLICITAR ACTUALIZACIÓN DE CUENTA
+                                        </button>
+
+                                        <button
+                                            v-else
+                                            type="button"
+                                            class="btn btn-primary btn-sm"
+                                            disabled>
+                                            <i class="bx bx-loader-alt bx-spin me-1"></i>
+                                            Enviando solicitud...
+                                        </button>
+
+                                        <button type="button" 
+                                                class="btn-close"
+                                                data-bs-dismiss="alert"
+                                                aria-label="Close">
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+                                <div v-if="estadoActualizacion">
+                                    <div class="alert alert-success alert-top-border alert-dismissible fade show" role="alert">
+                                        <i class="mdi mdi-check-all me-3 align-middle text-success"></i><strong>Solicitud enviada</strong> - Su solicitud de actualización de cuenta fue enviada correctamente
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
                                 </div>
 
                                 <div v-if="authenticated">
@@ -211,6 +274,8 @@ export default {
     },
   data() {
     return {
+        estadoActualizacionLoder:false,
+        estadoActualizacion:false,
         estadoRegistro:false,
         authenticated:'',
         errors:{},
@@ -259,6 +324,25 @@ export default {
             this.usuarios.splice(index, 1);
         }
     },
+    actualizarCuenta(){
+        this.estadoActualizacionLoder = true
+       axios.post('api/actualizar-cuenta', { run: this.run })
+        .then(response => {
+            console.log(response.data);
+            if (response.data.success) {
+                this.estadoActualizacionLoder = false;
+                this.estadoActualizacion = true;
+                // this.mensaje = 'Se envío la solicitud de actualización de cuenta correctamente.';
+            } else {
+                console.error('Error al actualizar la cuenta:', response.data.message);
+            }
+        
+        })
+        .catch(error => {
+            console.error('Error: ', error);
+        });
+
+    },
     getInfo(){
         axios.post('api/data-inicial')
         .then(response => {
@@ -292,30 +376,17 @@ export default {
 
         var data = new FormData();
         data.append('run', this.run);
-
         axios.post('api/get-persona', data)
         .then(response => {
-
             console.log('desde persona', response.data);
-
-            if (
-                response.data !== 'no hay rut' &&
-                response.data !== 'usuario registrado' &&
-                response.data !== 'rut falso'
-            ) {
-
+            const persona = response.data;
+            if (response.data.mensaje !== 'no hay rut' && response.data.mensaje !== 'usuario registrado' && response.data.mensaje !== 'rut falso') {
                 if (this.jefatura) {
-
-                    const persona = response.data;
-
+                  
                     const existe = this.usuarios.some(u => u.run === persona.run);
-
                     if (!existe) {
-
                         const indexToFill = this.usuarios.findIndex(u => !u.run);
-
                         if (indexToFill !== -1) {
-
                             this.usuarios[indexToFill] = {
                                 run: persona.run || '',
                                 fc_nacimiento: persona.fc_nacimiento || '',
@@ -323,9 +394,7 @@ export default {
                                 telefono: persona.telefono || '',
                                 email: persona.email || ''
                             };
-
                         } else {
-
                             this.usuarios.push({
                                 run: persona.run || '',
                                 fc_nacimiento: persona.fc_nacimiento || '',
@@ -334,25 +403,25 @@ export default {
                                 email: persona.email || ''
                             });
                         }
-
                     } else {
-
                         console.warn(`La persona con RUN ${persona.run} ya está en la lista.`);
                     }
-
                 } else {
-
                     this.mapearParametros(response.data);
                 }
 
                 this.run = '';
 
-            } else if (response.data == 'usuario registrado') {
-
+            } else if (response.data.mensaje == 'usuario registrado') {
+                console.log(response.data.email);
                 this.mensaje = 'registrado';
+                if(response.data.email){
+                    console.log('El usuario ya posee una cuenta, tiene email.');
+                }else{
+                    console.log('El usuario ya posee una cuenta, pero no tiene email.');
+                }
 
-            } else if (response.data == 'rut falso') {
-
+            } else if (response.data.mensaje == 'rut falso') {
                 this.mensaje = 'rut falso';
             }
 
@@ -436,7 +505,8 @@ export default {
         this.fin_rotacion = ''
         this.sistemasSolicitados = [],
         this.mensaje = ''
-      
+        this.estadoActualizacion = false;
+      this.estadoActualizacionLoder = false;
     },
     changeEstado(){
         this.estadoSolicitud = false

@@ -41,7 +41,7 @@ class GeneralController extends Controller
                         "telefono" => $datos[0]['telefono']
                     ];
                 }else{
-                    return 'usuario registrado';
+                    return ["mensaje" => 'usuario registrado', 'email' => $user->email_recuperacion];
                 }
             }else{
                 echo 'rut falso';

@@ -487,4 +487,48 @@ class DashboardController extends Controller
 
     }
 
+    public function actualizarCuenta(Request $request)
+    {
+        $user = UserPortal::where('rut', $request->run)->first();
+
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Usuario no encontrado.'
+            ], 404);
+        }
+
+        $mensaje = 'Se ha solicitado la actualización de la cuenta del siguiente usuario.';
+
+        $data = [
+            'usuario' => $user,
+        ];
+
+        $email = config('app.EMAIL_CREAR_CUENTA');
+        $template_path = 'email.email-actualizar-cuenta';
+
+        Mail::send(
+            ['html' => $template_path],
+            [
+                'data' => $data,
+                'mensaje' => $mensaje
+            ],
+            function ($message) use ($email, $user) {
+                if (!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    $message->to($email)
+                            ->subject('Solicitud de actualización de cuenta San Juan');
+                }
+
+                $message->from(
+                    'sistemas.ssmoc@appminsal.cl',
+                    'Solicitud de actualización de cuenta San Juan'
+                );
+            }
+        );
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Solicitud enviada correctamente.'
+        ]);
+    }
 }

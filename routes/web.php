@@ -40,7 +40,7 @@ Route::prefix('api')->group(function () {
     Route::get('/leer-excel', [GeneralController::class, 'leerExcel']);
     Route::post('/desactivar-enlaces', [DashboardController::class, 'desactivarEnlaces']);
     Route::post('/desactivar-sistema', [DashboardController::class, 'desactivarSistema']);
-
+    Route::post('/actualizar-cuenta', [DashboardController::class, 'actualizarCuenta']);
     Route::post('/get-permiso-pop-up', [DashboardController::class, 'getPermisoPopup']);
 
 
