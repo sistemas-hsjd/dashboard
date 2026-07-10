@@ -13,6 +13,8 @@ use App\Models\GenServicio;
 use App\Models\GenSistema;
 use App\Models\Estamento;
 use App\Models\GenPlataformaApoyo;
+use App\Models\UserSivea;
+use App\Models\EstamentoSivea;
 use Illuminate\Support\Facades\Auth;
 use Freshwork\ChileanBundle\Rut;
 use App\Http\Controllers\ApplicationController;
@@ -498,11 +500,29 @@ class DashboardController extends Controller
             ], 404);
         }
 
+        $userSivea = UserSivea::with(['estamento', 'unidades'])
+            ->where('rut', $request->run)
+            ->first();
+
         $mensaje = 'Se ha solicitado la actualización de la cuenta del siguiente usuario.';
 
         $data = [
             'usuario' => $user,
+            'estamento' => 'No disponible',
+            'email' => 'No disponible',
+            'unidades' => []
         ];
+
+        if ($userSivea) {
+
+            $data['estamento'] = optional($userSivea->estamento)->tx_descripcion ?? 'No disponible';
+
+            $data['email'] = $userSivea->email ?? 'No disponible';
+
+            $data['unidades'] = $userSivea->unidades
+                ? $userSivea->unidades->pluck('tx_descripcion')->toArray()
+                : [];
+        }
 
         $email = config('app.EMAIL_CREAR_CUENTA');
         $template_path = 'email.email-actualizar-cuenta';
@@ -513,10 +533,11 @@ class DashboardController extends Controller
                 'data' => $data,
                 'mensaje' => $mensaje
             ],
-            function ($message) use ($email, $user) {
+            function ($message) use ($email) {
+
                 if (!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     $message->to($email)
-                            ->subject('Solicitud de actualización de cuenta San Juan');
+                        ->subject('Solicitud de actualización de cuenta San Juan');
                 }
 
                 $message->from(
@@ -528,7 +549,8 @@ class DashboardController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Solicitud enviada correctamente.'
+            'message' => 'Solicitud enviada correctamente.',
+            'data' => $data
         ]);
     }
 }

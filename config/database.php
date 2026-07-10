@@ -176,6 +176,20 @@ return [
             'engine' => null,
         ],
 
+        'sivea' => [
+            'driver' => 'mysql',
+            'host' => env('DB_HOSTSIVEA'),
+            'port' => env('DB_PORTSIVEA'),
+            'database' => env('DB_DATABASESIVEA'),
+            'username' => env('DB_USERNAMESIVEA'),
+            'password' => env('DB_PASSWORDSIVEA'),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'strict' => true,
+            'engine' => null,
+        ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
@@ -190,6 +204,7 @@ return [
             'search_path' => 'public',
             'sslmode' => 'prefer',
         ],
+        
 
         'sqlsrv' => [
             'driver' => 'sqlsrv',

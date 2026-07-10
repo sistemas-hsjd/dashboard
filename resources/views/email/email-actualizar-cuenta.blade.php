@@ -41,12 +41,18 @@
         table td{
             padding:10px;
             border:1px solid #ddd;
+            vertical-align: top;
         }
 
         .label{
             width:220px;
             background:#f8f9fa;
             font-weight:bold;
+        }
+
+        ul{
+            margin:0;
+            padding-left:20px;
         }
 
         .footer{
@@ -73,6 +79,7 @@
         <p>Se ha recibido una solicitud para actualizar la información de la siguiente cuenta:</p>
 
         <table>
+
             <tr>
                 <td class="label">Nombre</td>
                 <td>{{ $data['usuario']->nombre }}</td>
@@ -89,26 +96,56 @@
             </tr>
 
             <tr>
+                <td class="label">Correo solicitado</td>
+                <td>{{ $data['email'] }}</td>
+            </tr>
+
+            <tr>
+                <td class="label">Estamento</td>
+                <td>{{ $data['estamento'] }}</td>
+            </tr>
+
+            <tr>
+                <td class="label">Unidades solicitadas</td>
+                <td>
+                    @if(!empty($data['unidades']))
+                        <ul>
+                            @foreach($data['unidades'] as $unidad)
+                                <li>{{ $unidad }}</li>
+                            @endforeach
+                        </ul>
+                    @else
+                        Sin unidades asociadas
+                    @endif
+                </td>
+            </tr>
+
+            <tr>
                 <td class="label">Último acceso</td>
                 <td>{{ $data['usuario']->ultimo_acceso ?? 'Sin información' }}</td>
             </tr>
 
             <tr>
-                <td class="label">Fecha de creación</td>
-                <td>{{ \Carbon\Carbon::parse($data['usuario']->created_at)->format('d/m/Y H:i') }}</td>
+                <td class="label">Fecha de creación de la cuenta</td>
+                <td>
+                    {{ \Carbon\Carbon::parse($data['usuario']->created_at)->format('d/m/Y H:i') }}
+                </td>
             </tr>
+
         </table>
 
         <br>
 
         <p>
-            Favor revisar la información del usuario y realizar la actualización correspondiente si procede.
+            Favor revisar la información del usuario y realizar la actualización de la cuenta en caso de corresponder.
         </p>
 
     </div>
 
     <div class="footer">
         Este correo fue generado automáticamente por el Portal de Solicitud de Cuentas del Hospital San Juan de Dios.
+        <br>
+        Por favor, no responda este mensaje.
     </div>
 
 </div>
