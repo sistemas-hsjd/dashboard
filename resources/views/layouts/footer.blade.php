@@ -6,7 +6,7 @@
             </div>
             <div class="col-sm-6">
                 <div class="text-sm-end d-none d-sm-block">
-                  <strong>Diseñado y Desarrollado por Unidad de Desarrollo Informático <a href="http://www.hsjd.cl/web/" class="text-decoration-underline">HSJD</a></strong> 
+                  <strong>Diseñado y Desarrollado por Unidad de Desarrollo Informático <a href="http://hsjd.redsalud.gob.cl" class="text-decoration-underline">HSJD</a></strong> 
                 </div>
             </div>
         </div>
