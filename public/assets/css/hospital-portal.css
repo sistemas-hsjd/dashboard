@@ -79,3 +79,34 @@
 .hospital-header-ip strong { font-size: 16px; font-weight: 700; color: #111827; font-variant-numeric: tabular-nums; }
 @media (min-width: 768px) and (max-width: 1199px) { .hospital-header-ip span { display: none; } .hospital-header-ip { left: 57%; } .hospital-portal #page-header-user-dropdown { max-width: 220px; } .hospital-portal #page-header-user-dropdown .span-ip { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .hospital-portal .logo-txt { font-size: 15px; } }
 @media (max-width: 767px) { .hospital-portal .navbar-header:has(.hospital-header-ip) { height: 88px; padding-bottom: 34px; } .hospital-portal:has(.hospital-header-ip) .topnav { margin-top: 88px; } .hospital-portal:has(.hospital-header-ip) .page-content { padding-top: 112px; } .hospital-header-ip { bottom: 5px; } .hospital-portal #page-header-user-dropdown { max-width: 150px; } .hospital-portal #page-header-user-dropdown .span-ip { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } }
+/* Metallic blue title with a soft moving highlight. */
+.hospital-portal .hospital-brand-copy .logo-txt {
+  display: inline-block;
+  color: #277aa4;
+  background-image: linear-gradient(110deg, #235c80 0%, #348bb7 28%, #66b4d4 42%, #d8f3ff 49%, #ffffff 51%, #66b4d4 58%, #348bb7 72%, #235c80 100%);
+  background-size: 250% 100%;
+  background-position: 100% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: hospital-title-shimmer 7s ease-in-out infinite;
+}
+@keyframes hospital-title-shimmer {
+  0%, 18% { background-position: 100% 50%; }
+  65%, 100% { background-position: 0% 50%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hospital-portal .hospital-brand-copy .logo-txt {
+    animation: none;
+    background-image: none;
+    -webkit-text-fill-color: currentColor;
+  }
+}
+@media (forced-colors: active) {
+  .hospital-portal .hospital-brand-copy .logo-txt {
+    animation: none;
+    background-image: none;
+    color: CanvasText;
+    -webkit-text-fill-color: currentColor;
+  }
+}
