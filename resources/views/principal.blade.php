@@ -33,6 +33,15 @@
             <div class="main-content" >
                 <div class="page-content">
                     <div class="container-fluid">
+                        @auth
+                            <div class="hospital-ip-wrapper">
+                                <div class="hospital-ip-banner" aria-label="Dirección IP de tu equipo">
+                                    <i class="mdi mdi-lan-connect" aria-hidden="true"></i>
+                                    <span>IP de tu equipo</span>
+                                    <strong>{{ $ip }}</strong>
+                                </div>
+                            </div>
+                        @endauth
                         @yield('contenido')
 
                     </div> 

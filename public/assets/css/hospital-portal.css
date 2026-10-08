@@ -71,3 +71,9 @@
 .hospital-portal .logo-txt { color: #317ea8; }
 @media (max-width: 991px) { .hospital-portal .topnav .hospital-navigation { align-items: stretch; gap: 4px; padding: 4px 0; } .hospital-portal .topnav .hospital-navigation > .nav-item > .nav-link { width: 100%; } .hospital-portal .hospital-anexos { margin: 8px 0; } }
 @media (prefers-reduced-motion: reduce) { .hospital-portal .topnav .hospital-navigation > .nav-item > .nav-link { transition: none; } }
+.hospital-ip-wrapper { display: flex; justify-content: center; margin-bottom: 24px; }
+.hospital-ip-banner { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 10px; padding: 12px 24px; border: 1px solid #b7d6e8; border-radius: 12px; background: #e8f3fa; color: #304f66; box-shadow: 0 3px 12px #274e7008; }
+.hospital-ip-banner .mdi { font-size: 24px; color: #237da4; }
+.hospital-ip-banner span { font-size: 14px; font-weight: 600; }
+.hospital-ip-banner strong { font-size: 22px; color: #111827; font-variant-numeric: tabular-nums; letter-spacing: .5px; overflow-wrap: anywhere; }
+@media (max-width: 575px) { .hospital-ip-banner { padding: 10px 16px; } .hospital-ip-banner strong { font-size: 20px; } }
