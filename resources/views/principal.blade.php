@@ -19,9 +19,10 @@
     <!-- App Css-->
     <link href="{{ asset('assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/estilos.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/hospital-portal.css') }}?v={{ filemtime(public_path('assets/css/hospital-portal.css')) }}" rel="stylesheet" type="text/css" />
 </head>
 
-<body data-topbar="light" data-layout="horizontal">
+<body class="hospital-portal" data-topbar="light" data-layout="horizontal">
     <!-- Begin page -->
     <div id="layout-wrapper">
         <div id="app">
@@ -32,16 +33,6 @@
             <div class="main-content" >
                 <div class="page-content">
                     <div class="container-fluid">
-                        <!-- start page title -->
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                                    <h4 class="mb-sm-0 font-size-18">Tú Ip es: <strong>{{ $ip }}</strong></h4>
-
-                                </div>
-                            </div>
-                        </div>
-                        <!-- end page title -->
                         @yield('contenido')
 
                     </div> 

@@ -8,7 +8,7 @@
                         <img src="assets/images/small/logo.jpg" alt="" height="24">
                     </span>
                     <span class="logo-lg">
-                        <img src="assets/images/small/logo.jpg" alt="" height="24"> <span class="logo-txt">Portal Aplicativos</span>
+                        <img src="assets/images/small/logo.jpg" alt="" height="24"> <span class="hospital-brand-copy"><span class="logo-txt">Portal de Aplicaciones Hospitalarias</span><small>Hospital San Juan de Dios - El Primero de Chile</small></span>
                     </span>
                 </a>
 
@@ -22,47 +22,20 @@
                 </a>
             </div>
 
-            <button type="button" class="btn btn-sm px-3 font-size-16 d-lg-none header-item waves-effect waves-light" data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
+            <button type="button" class="btn btn-sm px-3 font-size-16 d-lg-none header-item waves-effect waves-light" data-bs-toggle="collapse" data-bs-target="#topnav-menu-content" aria-controls="topnav-menu-content" aria-expanded="false" aria-label="Abrir menú de navegación">
                 <i class="fa fa-fw fa-bars"></i>
             </button>
 
-            <!-- App Search-->
-            {{-- <form class="app-search d-none d-lg-block">
-                <div class="position-relative">
-                    <input type="text" class="form-control" placeholder="Buscar">
-                    <button class="btn btn-primary" type="button"><i class="bx bx-search-alt align-middle"></i></button>
-                </div>
-            </form> --}}
         </div>
-
         <div class="d-flex">
-
-            <div class="dropdown d-inline-block d-lg-none ms-2">
-                <button type="button" class="btn header-item" id="page-header-search-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i data-feather="search" class="icon-lg"></i>
-                </button>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-search-dropdown">
-
-                    <form class="p-3">
-                        <div class="form-group m-0">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search" aria-label="Search Result">
-
-                                <button class="btn btn-primary" type="submit"><i class="mdi mdi-magnify"></i></button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item bg-soft-light border-start border-end" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="d-none d-xl-inline-block ms-1 fw-medium span-ip">
+                    <span class="ms-1 fw-medium span-ip">
                         @if (Auth::user())
                             {{ Auth::user()->nombre }}
                              <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                         @else
-                           Tú IP es: {{ $ip }}
+                           <i class="mdi mdi-wifi" aria-hidden="true"></i> {{ $ip }}
                         @endif
                     </span>
                 </button>
@@ -82,93 +55,82 @@
 
 <div class="topnav">
     <div class="container-fluid">
-        <nav class="navbar navbar-light navbar-expand-lg topnav-menu">
+        <nav class="navbar navbar-light navbar-expand-lg topnav-menu" aria-label="Navegación principal">
             <div class="collapse navbar-collapse" id="topnav-menu-content">
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        @if (Auth::user())
-                            <a class="nav-link dropdown-toggle arrow-none" href="inicio" id="topnav-dashboard" role="button">
-                                <i data-feather="home"></i><span data-key="t-dashboards">Inicio</span>
-                            </a>
-                        @else
-                            <a class="nav-link dropdown-toggle arrow-none" href="/" id="topnav-dashboard" role="button">
-                                <i data-feather="home"></i><span data-key="t-dashboards">Inicio</span>
-                            </a>
-                        @endif
+                <ul class="navbar-nav hospital-navigation">
+                    <li class="nav-item">
+                        <a class="nav-link hospital-nav-active" href="{{ Auth::user() ? route('misSistemas') : url('/') }}" id="topnav-dashboard" aria-current="page">
+                            <i class="mdi mdi-home-outline" aria-hidden="true"></i><span>Inicio</span>
+                        </a>
                     </li>
-                    
+                    @if (!Auth::user() || count(Auth::user()->jefatura) > 0)
+                        <li class="nav-item">
+                            <button type="button" class="nav-link" data-bs-toggle="modal" data-bs-target="#modalCrearCuenta">
+                                <i class="mdi mdi-account-plus-outline" aria-hidden="true"></i><span>Solicitar Cuenta HSJD</span>
+                            </button>
+                        </li>
+                    @endif
                     @if (Auth::user())
-                        @if (COUNT(Auth::user()->jefatura)>0)
-                            <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-dashboard" role="button"  data-bs-toggle="modal" data-bs-target="#modalCrearCuenta">
-                                <i data-feather="grid"></i><span data-key="t-apps">Solicitar Cuenta HSJD</span>
-                            </a>
-                        @endif
                         <li class="nav-item dropdown" id="menu-nuevo">
-                            <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-pages" role="button" data-bs-toggle="dropdown">
-                                <i data-feather="grid"></i><span data-key="t-apps">Solicitar Nuevo Desarrollo</span>
-                                <div class="arrow-down"></div>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="topnav-pages">
-                                <a 
-                                    href="{{ url('http://10.4.237.75/formulario/' . Auth::user()->rut ) }}"
-                                    class="dropdown-item nav-link dropdown-toggle arrow-none"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    id="topnav-requerimiento"
-                                    role="button">
-                                       <i data-feather="code"></i>
-                                        <span>Desarrollo Informático</span>
+                            <button type="button" class="nav-link dropdown-toggle arrow-none" id="topnav-development" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="mdi mdi-code-tags" aria-hidden="true"></i><span>Solicitar Nuevo Desarrollo</span><i class="mdi mdi-chevron-down hospital-nav-chevron" aria-hidden="true"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="topnav-development">
+                                <a href="{{ url('http://10.4.237.75/formulario/' . Auth::user()->rut) }}" class="dropdown-item" target="_blank" rel="noopener noreferrer">
+                                    <i class="mdi mdi-code-tags" aria-hidden="true"></i> Desarrollo Informático
                                 </a>
-
-                                <a 
-                                    {{-- href="{{ url('http://solicitus.test/formulario-enmienda-error/' . Auth::user()->rut ) }}" --}}
-                                    href="{{ url('http://10.4.237.75/formulario-enmienda-error/' . Auth::user()->rut ) }}"
-                                    class="dropdown-item nav-link dropdown-toggle arrow-none"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    id="topnav-enmienda-error"
-                                    role="button">
-                                    <i data-feather="tool"></i>
-                                    <span>Enmienda de Error</span>
+                                <a href="{{ url('http://10.4.237.75/formulario-enmienda-error/' . Auth::user()->rut) }}" class="dropdown-item" target="_blank" rel="noopener noreferrer">
+                                    <i class="mdi mdi-tools" aria-hidden="true"></i> Enmienda de Error
                                 </a>
                             </div>
                         </li>
-                       
-                    @else
-                       <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-dashboard" role="button"  data-bs-toggle="modal" data-bs-target="#modalCrearCuenta">
-                            <i data-feather="grid"></i><span data-key="t-apps">Solicitar Cuenta HSJD</span>
-                        </a>
-                    @endif
-                    @if (Auth::user())
-                        @if(Auth::user()->id_perfil==1)
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-pages" role="button">
-                                <i data-feather="grid"></i><span data-key="t-apps">Mantenedores</span>
-                                <div class="arrow-down"></div>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="topnav-pages">
-                                <a href="#" class="dropdown-item" data-key="t-calendar"  data-bs-toggle="modal" data-bs-target="#modalEditEnlaces">Enlaces</a>
-                                {{-- <a href="#" class="dropdown-item" data-key="t-calendar"  data-bs-toggle="modal" data-bs-target="#modalEditEnlaces">Sistemas</a> --}}
-                            </div>
-                            
-                        </li>
+                        @if (Auth::user()->id_perfil == 1)
+                            <li class="nav-item dropdown">
+                                <button type="button" class="nav-link dropdown-toggle arrow-none" id="topnav-admin" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="mdi mdi-cog-outline" aria-hidden="true"></i><span>Mantenedores</span><i class="mdi mdi-chevron-down hospital-nav-chevron" aria-hidden="true"></i>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="topnav-admin">
+                                    <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalEditEnlaces">Enlaces</button>
+                                </div>
+                            </li>
                         @endif
                     @endif
-                    {{-- <li class="nav-item dropdown ">
-                        <a class="nav-link dropdown-toggle arrow-none" href="#" role="button" data-bs-toggle="modal" data-bs-target=".bs-example-modal-xl">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layout"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg><span data-key="t-horizontal">Soporte</span>
-                        </a>
-                    </li> --}}
-
-                   <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-dashboard" role="button" data-bs-toggle="modal" data-bs-target="#modalDesarrollo">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layout"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg><span data-key="t-horizontal">Unidad de Transformación Digital</span>
-                    </a>
-
-                     <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-dashboard_2" role="button" data-bs-toggle="modal" data-bs-target="#modalInformatica">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layout"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg><span data-key="t-horizontal">Unidad de Informática</span>
-                    </a>
+                    <li class="nav-item">
+                        <button type="button" class="nav-link" data-bs-toggle="modal" data-bs-target="#modalDesarrollo">
+                            <i class="mdi mdi-monitor-dashboard" aria-hidden="true"></i><span>Unidad de Transformación Digital</span>
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button type="button" class="nav-link" data-bs-toggle="modal" data-bs-target="#modalInformatica">
+                            <i class="mdi mdi-lifebuoy" aria-hidden="true"></i><span>Unidad de Informática</span>
+                        </button>
+                    </li>
                 </ul>
+                @php
+                    $anexosUrl = config('services.anexos.url') ?: \App\Models\Enlace::where('estado', 1)
+                        ->where('nombre', 'like', '%anexo%')->value('enlace');
+                @endphp
+                @if ($anexosUrl)
+                    <a class="hospital-anexos ms-lg-auto" href="{{ $anexosUrl }}" target="_blank" rel="noopener noreferrer">
+                        <i class="mdi mdi-phone-outline" aria-hidden="true"></i> Anexos Hospitalarios
+                    </a>
+                @else
+                    <button type="button" class="hospital-anexos ms-lg-auto" data-bs-toggle="modal" data-bs-target="#modalAnexosHospitalarios">
+                        <i class="mdi mdi-phone-outline" aria-hidden="true"></i> Anexos Hospitalarios
+                    </button>
+                @endif
             </div>
         </nav>
+    </div>
+</div>
+<div class="modal fade" id="modalAnexosHospitalarios" tabindex="-1" aria-labelledby="anexosHospitalariosTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="anexosHospitalariosTitle">Anexos Hospitalarios</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">El directorio de anexos hospitalarios aún no tiene un enlace configurado.</div>
+        </div>
     </div>
 </div>

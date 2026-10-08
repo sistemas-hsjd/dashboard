@@ -14,6 +14,10 @@ return [
     |
     */
 
+    'anexos' => [
+        'url' => env('ANEXOS_HOSPITALARIOS_URL'),
+    ],
+
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),
