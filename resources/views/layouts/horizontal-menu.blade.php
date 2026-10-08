@@ -27,6 +27,13 @@
             </button>
 
         </div>
+        @auth
+            <div class="hospital-header-ip" aria-label="Dirección IP de tu equipo">
+                <i class="mdi mdi-lan-connect" aria-hidden="true"></i>
+                <span>IP de tu equipo</span>
+                <strong>{{ $ip }}</strong>
+            </div>
+        @endauth
         <div class="d-flex">
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item bg-soft-light border-start border-end" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
