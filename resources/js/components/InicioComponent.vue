@@ -1,9 +1,12 @@
 <template>
   <div class="staff-portal">
     <section class="staff-section" aria-labelledby="localSystemsTitle">
-      <div class="staff-section-heading">
+      <div class="staff-section-heading staff-local-heading">
         <span class="staff-section-icon" aria-hidden="true"><i class="mdi mdi-hospital-building"></i></span>
         <div><h2 id="localSystemsTitle">Sistemas Locales</h2><p>Accede a tus aplicaciones clínicas y administrativas.</p></div>
+        <p v-if="user?.nombre" class="staff-greeting">
+          <span>{{ saludo }}</span>, <strong>{{ user.nombre }}</strong>
+        </p>
         <span class="staff-count">{{ sistemas.length }} sistemas</span>
       </div>
       <div class="staff-grid">
@@ -128,11 +131,19 @@ export default {
           sistemas :[],
 
           sistemasDefaults:[],
-          user:[],
+          user: null,
+          saludo: '',
+          saludoTimer: null,
 
         }
     },
   methods: {
+    actualizarSaludo() {
+      const hora = Number(new Intl.DateTimeFormat('es-CL', {
+        timeZone: 'America/Santiago', hour: '2-digit', hourCycle: 'h23'
+      }).format(new Date()));
+      this.saludo = hora < 12 ? 'Buen día' : hora < 20 ? 'Buenas tardes' : 'Buenas noches';
+    },
     localUrl(sistema) {
       return [22, 24, 20, 21, 19].includes(Number(sistema.id))
         ? sistema.tx_direccion : (sistema.url_final || sistema.tx_direccion);
@@ -170,7 +181,12 @@ export default {
         });
     },
   }, 
+  beforeUnmount() {
+    clearInterval(this.saludoTimer);
+  },
   mounted(){
+    this.actualizarSaludo();
+    this.saludoTimer = setInterval(() => this.actualizarSaludo(), 60000);
     this.getSistemas()
     this.getAuthUser()      
   }
@@ -178,6 +194,13 @@ export default {
 </script>
 
 <style scoped>
+.staff-local-heading { position: relative; }
+.staff-section-heading .staff-greeting { position: absolute; left: 50%; transform: translateX(-50%); max-width: 40%; text-align: center; color: #33495e; font-size: 13px; line-height: 1.5; }
+.staff-greeting span { color: #237d70; font-weight: 600; }
+.staff-greeting strong { color: #253e52; text-transform: capitalize; }
+@media (max-width: 1199px) { .staff-section-heading .staff-greeting { position: static; transform: none; flex: 1; max-width: none; padding: 0 10px; } }
+@media (max-width: 767px) { .staff-section-heading .staff-greeting { order: 4; flex: 0 0 100%; text-align: center; padding: 6px 0 0; } }
+
 .staff-support .staff-card-image { height: 64px; flex-basis: 64px; }
 .staff-support .staff-card-image img { height: 64px; }
 .staff-support .staff-card-body { padding: 8px 11px; }
