@@ -195,11 +195,11 @@ export default {
 
 <style scoped>
 .staff-local-heading { position: relative; }
-.staff-section-heading .staff-greeting { position: absolute; left: 50%; transform: translateX(-50%); max-width: 40%; text-align: center; color: #33495e; font-size: 13px; line-height: 1.5; }
+.staff-section-heading .staff-greeting { position: absolute; left: 50%; transform: translateX(-50%); max-width: 40%; text-align: center; color: #33495e; font-size: 15px; line-height: 1.3; }
 .staff-greeting span { color: #237d70; font-weight: 600; }
 .staff-greeting strong { color: #253e52; text-transform: capitalize; }
 @media (max-width: 1199px) { .staff-section-heading .staff-greeting { position: static; transform: none; flex: 1; max-width: none; padding: 0 10px; } }
-@media (max-width: 767px) { .staff-section-heading .staff-greeting { order: 4; flex: 0 0 100%; text-align: center; padding: 6px 0 0; } }
+@media (max-width: 767px) { .staff-section-heading .staff-greeting { order: 4; flex: 0 0 100%; text-align: center; padding: 0; } }
 
 .staff-support .staff-card-image { height: 64px; flex-basis: 64px; }
 .staff-support .staff-card-image img { height: 64px; }
