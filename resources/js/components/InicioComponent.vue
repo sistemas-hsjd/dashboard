@@ -35,18 +35,18 @@
             <span class="staff-card-badge">{{ sistema.estado == 0 && [24, 20].includes(Number(sistema.id)) ? 'Contingencia' : 'Plataforma de apoyo' }}</span>
                    <template v-if="sistema.estado == 0 && sistema.id === 24">
                       <h4 class="card-title">TracKare de Contingencia</h4>
-                       <p class="card-text mb-0 text-danger">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al número <strong>{{ sistema.encargado?.telefono }}</strong>.</p>
+                       <p class="card-text mb-0 text-danger">Soporte: <strong>{{ sistema.encargado?.telefono }}</strong>.</p>
                     </template>
                     <template v-else-if="sistema.estado == 0 && sistema.id === 20">
                       <h4 class="card-title">Laboratorio Clínico Contingencia <br>User:LABO Pass: Labo1234</h4>
                     </template>
                     <template v-else-if="sistema.id === 24 || sistema.id === 28">
                         <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
-                        <p class="card-text mb-0 text-primary">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al número <strong>{{ sistema.encargado?.telefono }}</strong>.</p>
+                        <p class="card-text mb-0 text-primary">Soporte: <strong>{{ sistema.encargado?.telefono }}</strong>.</p>
                     </template>
                     <template v-else-if="sistema.id === 20 || sistema.id === 29">
                           <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
-                          <p class="card-text mb-0 text-primary">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al correo eléctronico <strong>{{ sistema.encargado?.email }}</strong>.</p>
+                          <p class="card-text mb-0 text-primary">Soporte: <strong>{{ sistema.encargado?.email }}</strong>.</p>
                   
                         <template v-if="sistema.id === 20">
                         <p class="card-text mb-0 text-danger">
@@ -63,23 +63,23 @@
                     </template>
                     <template v-else-if="sistema.id === 19">
                           <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
-                          <p class="card-text mb-0 text-primary">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al número <strong>{{ sistema.encargado?.telefono }}</strong>.</p>
+                          <p class="card-text mb-0 text-primary">Soporte: <strong>{{ sistema.encargado?.telefono }}</strong>.</p>
                     </template>
                     <template v-else-if="sistema.id === 22">
                           <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
-                          <p class="card-text mb-0 text-primary">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al número <strong>{{ sistema.encargado?.telefono }}</strong>.</p>
+                          <p class="card-text mb-0 text-primary">Soporte: <strong>{{ sistema.encargado?.telefono }}</strong>.</p>
                     </template>
                     <template v-else-if="sistema.id === 23">
                           <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
-                          <p class="card-text mb-0 text-primary">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al número <strong>{{ sistema.encargado?.telefono }}</strong>.</p>
+                          <p class="card-text mb-0 text-primary">Soporte: <strong>{{ sistema.encargado?.telefono }}</strong>.</p>
                     </template>
                     <template v-else-if="sistema.id === 25">
                           <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
-                          <p class="card-text mb-0 text-primary">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al número <strong>{{ sistema.encargado?.telefono }}</strong>.</p>
+                          <p class="card-text mb-0 text-primary">Soporte: <strong>{{ sistema.encargado?.telefono }}</strong>.</p>
                     </template>
                     <!-- <template v-else-if="sistema.id === 29">
                           <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
-                          <p class="card-text mb-0 text-primary">En caso de presentar inconvenientes para el ingreso,<br> por favor comuníquese al número (Exámenes desde el 08-julio-2026)<strong>{{ sistema.encargado?.telefono }}</strong>.</p>
+                          <p class="card-text mb-0 text-primary">Soporte: (Exámenes desde el 08-julio-2026)<strong>{{ sistema.encargado?.telefono }}</strong>.</p>
                     </template> -->
                     <template v-else>
                           <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
@@ -178,6 +178,15 @@ export default {
 </script>
 
 <style scoped>
+.staff-support .staff-card-image { height: 64px; flex-basis: 64px; }
+.staff-support .staff-card-image img { height: 64px; }
+.staff-support .staff-card-body { padding: 8px 11px; }
+.staff-support .staff-card-badge { margin-bottom: 4px; font-size: 9px; }
+.staff-support .staff-card-body .card-title { margin-bottom: 4px; }
+.staff-support .staff-card-body .card-text { font-size: 11px; line-height: 1.4; margin-bottom: 5px !important; }
+.staff-support .staff-card-body .text-primary { color: #43586a !important; }
+.staff-support .staff-card-actions { padding-top: 6px; }
+
 .staff-section { --staff-accent: #258674; --staff-soft: #e5f3ee; margin-bottom: 22px; }
 .staff-support { --staff-accent: #5866ac; --staff-soft: #eceef9; }
 .staff-section-heading { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
