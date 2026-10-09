@@ -29,9 +29,28 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $this->validateLogin($request);
+            $location = $request->validate([
+                'location_status' => 'nullable|in:success,denied,unavailable,timeout,unsupported,insecure',
+                'latitude' => 'nullable|required_if:location_status,success|numeric|between:-90,90',
+                'longitude' => 'nullable|required_if:location_status,success|numeric|between:-180,180',
+                'accuracy_meters' => 'nullable|required_if:location_status,success|numeric|min:0|max:100000000',
+            ]);
+
 
         if (Auth::guard('generales')->attempt(['rut' => $request->rut, 'password' => $request->password])) {
             $user = Auth::guard('generales')->user();
+            $hasLocation = ($location['location_status'] ?? '') === 'success';
+
+            DB::table('login_locations')->insert([
+                'user_id' => $user->getAuthIdentifier(),
+                'ip_address' => $request->ip(),
+                'latitude' => $hasLocation ? $location['latitude'] : null,
+                'longitude' => $hasLocation ? $location['longitude'] : null,
+                'accuracy_meters' => $hasLocation ? $location['accuracy_meters'] : null,
+                'location_status' => $location['location_status'] ?? 'unavailable',
+                'logged_in_at' => now(),
+            ]);
+
 
             // Generar token manualmente con expiración
             $plainTextToken = Str::random(64);

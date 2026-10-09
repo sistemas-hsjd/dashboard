@@ -58,8 +58,14 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <form  method="POST" action="{{ route('iniciarSesion')}}" class="custom-form mt-4 pt-2">
+                                        <form  method="POST" action="{{ route('iniciarSesion')}}" id="clinical-login-form" class="custom-form mt-4 pt-2">
                                             {{ csrf_field() }}
+                                            <input type="hidden" name="location_status" value="unavailable">
+                                            <input type="hidden" name="latitude">
+                                            <input type="hidden" name="longitude">
+                                            <input type="hidden" name="accuracy_meters">
+                                            <p class="text-muted small mb-2">Al ingresar se registra la IP del equipo. Si autorizas al navegador, también se registra tu ubicación para la auditoría del acceso.</p>
+                                            <p id="login-location-status" class="small text-muted" role="status"></p>
                                             <div class="mb-3">
                                                 <label class="form-label">RUN</label>
                                                 <input type="text" class="form-control" value="{{old('rut')}}" id="rut" name="rut" tabindex="1" placeholder="Ingrese RUN" oninput="formatearRutSoloGuion(this)">
@@ -77,7 +83,7 @@
                                                 </div>
 
                                                 <div class="input-group auth-pass-inputgroup">
-                                                    <input type="password" class="form-control" name="password" id="password"  value="{{old('password')}}" placeholder="Ingrese password" aria-label="Password" tabindex="2" aria-describedby="password-addon">
+                                                    <input type="password" class="form-control" name="password" id="password" value="{{old('password')}}" placeholder="Ingrese password" aria-label="Password" tabindex="2" aria-describedby="password-addon">
                                                     <button class="btn btn-light ms-0" type="button" id="password-addon"><i class="mdi mdi-eye-outline"></i></button>
                                                 </div>
                                             </div>
@@ -157,5 +163,6 @@
 //     });
 // });
 </script>
+<script src="{{ asset('assets/js/login-location.js') }}?v={{ filemtime(public_path('assets/js/login-location.js')) }}"></script>
 </body>
 </html>
