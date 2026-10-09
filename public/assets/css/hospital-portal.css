@@ -14,8 +14,9 @@
 .hospital-portal .topnav .nav-link { padding: 18px 20px; font-size: 14px; font-weight: 500; color: #526177; }
 .hospital-portal .topnav .nav-link:hover, .hospital-portal .topnav .nav-link:focus { color: #297db0; }
 
-.hospital-portal .main-content { margin-left: 0; }
-.hospital-portal .page-content { padding: 128px 24px 40px; min-height: calc(100vh - 44px); }
+.hospital-portal .main-content { margin-left: 0; min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; }
+body.hospital-portal[data-layout="horizontal"] .page-content { flex: 1 0 auto; margin-top: 0; padding: var(--portal-content-top, 128px) 24px 0; min-height: 0; }
+.hospital-portal .footer { flex-shrink: 0; margin-top: 0; }
 .hospital-portal .page-content > .container-fluid { max-width: 1370px; padding: 0; }
 .hospital-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 20px 18px; }
 .hospital-card { overflow: hidden; border: 1px solid #e5ebef; border-radius: 17px; background: #fff; display: flex; flex-direction: column; transition: transform .2s ease, box-shadow .2s ease; }
@@ -34,9 +35,9 @@
 .hospital-portal .footer { position: static; height: auto; min-height: 44px; background: #fff; border-top: 1px solid #e2eaf0; padding: 8px 24px; color: #758397; font-size: 12px; }
 .hospital-portal .footer > .container-fluid { max-width: 1600px; margin: auto; padding: 0; }
 @media (max-width: 1199px) { .hospital-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .hospital-portal .topnav .nav-link { padding-left: 12px; padding-right: 12px; font-size: 13px; } }
-@media (max-width: 991px) { .hospital-portal .topnav { margin-top: 54px; } .hospital-portal .page-content { padding-top: 78px; } .hospital-portal .topnav .nav-link { padding: 12px; } }
+@media (max-width: 991px) { .hospital-portal .topnav { margin-top: 54px; } .hospital-portal { --portal-content-top: 78px; } .hospital-portal .topnav .nav-link { padding: 12px; } }
 @media (max-width: 767px) { .hospital-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; } .hospital-portal .logo-txt { font-size: 14px; } .hospital-brand-copy small { font-size: 9px; } .hospital-portal .navbar-header { padding: 0 16px; } .hospital-portal .logo-sm { display: none; } .hospital-portal .logo-lg { display: flex; } .hospital-portal .footer .row { gap: 8px; } }
-@media (max-width: 575px) { .hospital-grid { grid-template-columns: 1fr; } .hospital-portal .page-content { padding-left: 18px; padding-right: 18px; } .hospital-portal .logo-txt { max-width: 190px; font-size: 13px; } .hospital-portal #page-header-user-dropdown { padding: 0 8px; box-shadow: none; } .hospital-portal .span-ip { font-size: 10px !important; } .hospital-portal #page-header-search-dropdown { display: none; } .hospital-card-body { min-height: 175px; } }
+@media (max-width: 575px) { .hospital-grid { grid-template-columns: 1fr; } body.hospital-portal[data-layout="horizontal"] .page-content { padding-left: 18px; padding-right: 18px; } .hospital-portal .logo-txt { max-width: 190px; font-size: 13px; } .hospital-portal #page-header-user-dropdown { padding: 0 8px; box-shadow: none; } .hospital-portal .span-ip { font-size: 10px !important; } .hospital-portal #page-header-search-dropdown { display: none; } .hospital-card-body { min-height: 175px; } }
 @media (prefers-reduced-motion: reduce) { .hospital-card { transition: none; } .hospital-card:hover { transform: none; } }
 
 .hospital-portal .topnav .navbar-nav { flex-wrap: wrap; }
@@ -78,7 +79,7 @@
 .hospital-header-ip span { font-size: 12px; font-weight: 600; }
 .hospital-header-ip strong { font-size: 16px; font-weight: 700; color: #111827; font-variant-numeric: tabular-nums; }
 @media (min-width: 768px) and (max-width: 1199px) { .hospital-header-ip span { display: none; } .hospital-header-ip { left: 57%; } .hospital-portal #page-header-user-dropdown { max-width: 220px; } .hospital-portal #page-header-user-dropdown .span-ip { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .hospital-portal .logo-txt { font-size: 15px; } }
-@media (max-width: 767px) { .hospital-portal .navbar-header:has(.hospital-header-ip) { height: 88px; padding-bottom: 34px; } .hospital-portal:has(.hospital-header-ip) .topnav { margin-top: 88px; } .hospital-portal:has(.hospital-header-ip) .page-content { padding-top: 112px; } .hospital-header-ip { bottom: 5px; } .hospital-portal #page-header-user-dropdown { max-width: 150px; } .hospital-portal #page-header-user-dropdown .span-ip { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } }
+@media (max-width: 767px) { .hospital-portal .navbar-header:has(.hospital-header-ip) { height: 88px; padding-bottom: 34px; } .hospital-portal:has(.hospital-header-ip) .topnav { margin-top: 88px; } .hospital-portal:has(.hospital-header-ip) { --portal-content-top: 112px; } .hospital-header-ip { bottom: 5px; } .hospital-portal #page-header-user-dropdown { max-width: 150px; } .hospital-portal #page-header-user-dropdown .span-ip { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } }
 /* Metallic blue title with a soft moving highlight. */
 .hospital-portal .hospital-brand-copy .logo-txt {
   display: inline-block;
