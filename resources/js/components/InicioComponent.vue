@@ -219,6 +219,7 @@ export default {
 .staff-support .staff-card-actions { padding-top: 6px; }
 
 .staff-section { --staff-accent: #258674; --staff-soft: #e5f3ee; margin-bottom: 22px; }
+.staff-section + .staff-support { margin-top: 36px; }
 .staff-support { --staff-accent: #5866ac; --staff-soft: #eceef9; }
 .staff-section-heading { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
 .staff-section-icon { display: grid; place-items: center; width: 38px; height: 38px; flex-shrink: 0; border-radius: 14px; background: var(--staff-soft); color: var(--staff-accent); font-size: 25px; }
