@@ -35,7 +35,7 @@ export default {
       columns: [
         {data: 'id'}, {data: 'logged_in_at', render: text},
         {data: 'nombre_completo', defaultContent: '', render: text}, {data: 'rut', defaultContent: '', render: text},
-        {data: 'unidades', orderable: false, render: value => text.display(value === null ? 'Pendiente' : (value || []).map(unit => unit.nombre + (unit.active ? '' : ' (inactiva)')).join(', ') || 'Sin unidades')},
+        {data: 'unidades', orderable: false, render: value => text.display(value === null ? 'Pendiente' : (value || []).map(unit => unit.nombre).join(', ') || 'Sin unidades')},
         {data: 'ip_address', render: text}, {data: 'location_status', render: value => text.display(statuses[value] || value)},
         {data: 'latitude', defaultContent: '—'}, {data: 'longitude', defaultContent: '—'}, {data: 'accuracy_meters', defaultContent: '—'},
         {data: null, orderable: false, searchable: false, render: row => {

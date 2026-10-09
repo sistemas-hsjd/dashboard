@@ -14,13 +14,15 @@
           <div class="staff-card-image"><img :src="`assets/images/img-portal/${sistema.img}`" :alt="sistema.tx_descripcion" loading="lazy"></div>
           <div class="staff-card-body">
             <span class="staff-card-badge">Sistema local</span>
-            <h3>{{ sistema.tx_descripcion }}</h3>
-            <p v-if="sistema.descripcion">{{ sistema.descripcion }}</p>
-            <div class="staff-card-actions">
+            <div class="staff-title-row">
+              <h3>{{ sistema.tx_descripcion }}</h3>
+            <div class="staff-inline-actions">
               <button v-if="sistema.id === 10000000" type="button" class="staff-access" @click="abrirAcess()">Ingresar <i class="mdi mdi-arrow-right" aria-hidden="true"></i></button>
               <a v-else-if="localUrl(sistema)" class="staff-access" :href="localUrl(sistema)" target="_blank" rel="noopener noreferrer" :aria-label="`Ingresar a ${sistema.tx_descripcion} (nueva pestaña)`">Ingresar <i class="mdi mdi-arrow-top-right" aria-hidden="true"></i></a>
               <span v-else class="staff-unavailable">Acceso no disponible</span>
             </div>
+            </div>
+            <p v-if="sistema.descripcion" class="staff-local-description">{{ sistema.descripcion }}</p>
           </div>
         </article>
       </div>
@@ -194,6 +196,12 @@ export default {
 </script>
 
 <style scoped>
+.staff-title-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.staff-title-row h3 { flex: 1; min-width: 0; margin: 0; overflow-wrap: anywhere; }
+.staff-inline-actions { flex-shrink: 0; }
+.staff-inline-actions .staff-access { white-space: nowrap; }
+.staff-local-description { margin: 6px 0 0; }
+
 .staff-local-heading { position: relative; }
 .staff-section-heading .staff-greeting { position: absolute; left: 50%; transform: translateX(-50%); max-width: 40%; text-align: center; color: #33495e; font-size: 15px; line-height: 1.3; }
 .staff-greeting span { color: #237d70; font-weight: 600; }
