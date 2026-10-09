@@ -239,6 +239,7 @@ export default {
 .staff-access:focus-visible { outline: 3px solid #245d83; outline-offset: 3px; }
 .staff-unavailable { font-size: 12px; color: #526779; }
 .staff-card-body .card-text { margin-bottom: 7px !important; }
+@media (min-width: 1600px) { .staff-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
 @media (max-width: 1199px) { .staff-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 767px) { .staff-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; } .staff-section-heading { flex-wrap: wrap; } }
 @media (max-width: 575px) { .staff-grid { grid-template-columns: 1fr; } .staff-section-heading h2 { font-size: 16px; } .staff-count { margin-left: 58px; } }
