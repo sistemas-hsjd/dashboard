@@ -15,6 +15,7 @@ use App\Models\UserNotificacion;
 use App\Models\UserHospitalizados;
 use App\Models\UserRce;
 use App\Services\LoginLocationUserDetails;
+use App\Models\LoginLocation;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use DB;
@@ -44,7 +45,9 @@ class AuthController extends Controller
 
             $userDetails = app(LoginLocationUserDetails::class)->forUserId((int) $user->getAuthIdentifier());
 
-            DB::table('login_locations')->insert(array_merge($userDetails, [
+            LoginLocation::create(array_merge(array_replace($userDetails, [
+                'unidades' => $userDetails['unidades'] === null ? null : json_decode($userDetails['unidades'], true, 512, JSON_THROW_ON_ERROR),
+            ]), [
                 'user_id' => $user->getAuthIdentifier(),
                 'ip_address' => $request->ip(),
                 'latitude' => $hasLocation ? $location['latitude'] : null,

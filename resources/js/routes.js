@@ -1,9 +1,11 @@
+import LoginLocations from './components/LoginLocationsComponent.vue';
 import Dashboard from './components/DashboardComponent.vue';
 import Inicio from './components/InicioComponent.vue';
 import contrasena from './components/CreateContrasenaComponent.vue';
 import recuperar from './components/RecuperarContrasenaComponent.vue';
 
 export default [
+    { path: '/registro-accesos', component: LoginLocations },
     {
         path: '/',
         component: Dashboard,

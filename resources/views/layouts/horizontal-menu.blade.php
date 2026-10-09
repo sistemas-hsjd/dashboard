@@ -97,6 +97,7 @@
                                     <i class="mdi mdi-cog-outline" aria-hidden="true"></i><span>Mantenedores</span><i class="mdi mdi-chevron-down hospital-nav-chevron" aria-hidden="true"></i>
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="topnav-admin">
+                                    <a class="dropdown-item" href="{{ route('loginLocations.index') }}"><i class="mdi mdi-map-marker-outline" aria-hidden="true"></i> Registro de accesos</a>
                                     <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalEditEnlaces">Enlaces</button>
                                 </div>
                             </li>

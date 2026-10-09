@@ -25,6 +25,8 @@ Route::middleware(['guest'])->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/registro-accesos', [\App\Http\Controllers\LoginLocationController::class, 'index'])->name('loginLocations.index');
+    Route::get('/registro-accesos/data', [\App\Http\Controllers\LoginLocationController::class, 'data'])->name('loginLocations.data');
     Route::get('/inicio', [DashboardController::class, 'showSistemas'])->name('misSistemas');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/cambiar-contrasena', function () {
