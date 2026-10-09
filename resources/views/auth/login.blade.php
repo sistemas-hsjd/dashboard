@@ -1,168 +1,64 @@
-
 <!DOCTYPE html>
-<html lang="es_cl">
+<html lang="es">
 <head>
-   <title>Iniciar Sesión Ficha clínica</title>
-   <meta charset="utf-8"/>
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <meta content="NEA Notificación de elementos ADV" name="description"/>
-   <meta content="Themesbrand" name="author"/>
-   <!-- App favicon -->
-    <link rel="shortcut icon" href="build/assets/images/favicon.ico">
-    <link rel="stylesheet" href="{{ asset('assets/css/preloader.min.css') }}" type="text/css" />
-    <link href="{{ asset('assets/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css"/>
-    <!-- Icons Css -->
-    <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
-     <!-- App Css-->
-    <link href="{{ asset('assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
-    
-    <link href="{{ asset('assets/css/estilos.css') }}?v={{ time() }}" id="app-style" rel="stylesheet" type="text/css" />
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Acceso al Portal de Aplicaciones Hospitalarias del Hospital San Juan de Dios">
+    <title>Iniciar sesión | Hospital San Juan de Dios</title>
+    <link rel="shortcut icon" href="{{ asset('assets/images/small/favicon.ico') }}">
+    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/hospital-login.css') }}?v={{ filemtime(public_path('assets/css/hospital-login.css')) }}" rel="stylesheet">
 </head>
-
- <body>
-<div class="auth-page" id="app">
-    <div class="container-fluid p-0">
-        <div class="row g-0">
-            
-            <!-- end col -->
-            <div class="col-xxl-12 col-lg-12 col-md-12">
-                
-                <div class="auth-bg pt-md-5 p-4 d-flex justify-content-center">
-                    <div class="row">
-                      <div class="col-md-8 col-xl-8">
-                            <div class="card card-login">
-                                <div class="card-body">
-                                    <h4 class="card-title">Iniciar Sesión</h4>
-                                    <div class="row">
-                                        <div class="col-md-12 d-flex align-items-center justify-content-center">
-                                             <div class="image-wrapper">
-                                                <img src="assets/images/logo-sjd.png" class="ht-100 mb-0" alt="Logo Hospital San Juan de Dios">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-            
-                                <div class="card-body">
-                                    <div class="auth-content my-auto">
-                                        <div class="text-center">
-                                            <h5 class="mb-0">¡Bienvenido!</h5>
-                                            <p class="text-muted mt-1">Iniciar sesión para continuar.</p>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-md-12 info-cuentas">
-                                                <div  class="alert alert-info alert-top-border alert-dismissible fade show mb-0 mt-3 w-100 p-2" role="alert">
-                                                    <i class="mdi mdi-alert-circle-outline text-info align-middle me-3"></i><strong>¡Importante!</strong>
-                                                    Les informamos que las cuentas son <strong>personales e intransferibles.</strong> El mal uso de las mismas, <strong>afecta directamente la protección de los datos del paciente.</strong> 
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <form  method="POST" action="{{ route('iniciarSesion')}}" id="clinical-login-form" class="custom-form mt-4 pt-2">
-                                            {{ csrf_field() }}
-                                            <input type="hidden" name="location_status" value="unavailable">
-                                            <input type="hidden" name="latitude">
-                                            <input type="hidden" name="longitude">
-                                            <input type="hidden" name="accuracy_meters">
-                                            <p class="text-muted small mb-2">Al ingresar se registra la IP del equipo. Si autorizas al navegador, también se registra tu ubicación para la auditoría del acceso.</p>
-                                            <p id="login-location-status" class="small text-muted" role="status"></p>
-                                            <div class="mb-3">
-                                                <label class="form-label">RUN</label>
-                                                <input type="text" class="form-control" value="{{old('rut')}}" id="rut" name="rut" tabindex="1" placeholder="Ingrese RUN" oninput="formatearRutSoloGuion(this)">
-                                            </div>
-                                            <div class="mb-3">
-                                                <div class="d-flex align-items-start">
-                                                    <div class="flex-grow-1">
-                                                        <label class="form-label">Password</label>
-                                                    </div>
-                                                    <div class="flex-shrink-0">
-                                                        <div class="">
-                                                            <a href="{{ route('recuperarContrasena')}}" class="text-muted text_recuperar" tabindex="4">¿Recuperar contraseña?</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="input-group auth-pass-inputgroup">
-                                                    <input type="password" class="form-control" name="password" id="password" value="{{old('password')}}" placeholder="Ingrese password" aria-label="Password" tabindex="2" aria-describedby="password-addon">
-                                                    <button class="btn btn-light ms-0" type="button" id="password-addon"><i class="mdi mdi-eye-outline"></i></button>
-                                                </div>
-                                            </div>
-                        
-                                            <div class="mb-3">
-                                                <button class="btn btn-primary w-100 waves-effect waves-light" type="submit" tabindex="3">Ingresar</button>
-                                            </div>
-
-                                            <div class="mb-3">
-                                               @error('rut')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                        </form>
-            
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+<body class="hospital-login">
+    <header class="login-header">
+        <a href="{{ url('/') }}" class="login-brand">
+            <img src="{{ asset('assets/images/small/logo.jpg') }}" alt="" width="30" height="30">
+            <span><strong>Hospital San Juan de Dios</strong><small>El Primero de Chile</small></span>
+        </a>
+        <a href="{{ url('/') }}" class="portal-back"><i class="mdi mdi-arrow-left" aria-hidden="true"></i> Volver al portal</a>
+    </header>
+    <main class="login-main">
+        <div class="login-shell">
+            <section class="login-intro" aria-labelledby="portal-title">
+                <span class="intro-label">PORTAL DE APLICACIONES HOSPITALARIAS</span>
+                <h1 id="portal-title">Tecnología al servicio<br>del cuidado.</h1>
+                <p>Accede a tus sistemas clínicos y herramientas de trabajo en un solo lugar.</p>
+                <div class="intro-symbol" aria-hidden="true"><i class="mdi mdi-hospital-building"></i><span class="symbol-orbit orbit-one"></span><span class="symbol-orbit orbit-two"></span></div>
+                <div class="intro-footer"><i class="mdi mdi-account-group-outline" aria-hidden="true"></i><span>Un portal para quienes cuidan de las personas.</span></div>
+            </section>
+            <section class="login-form-panel" aria-labelledby="login-title">
+                <span class="login-icon" aria-hidden="true"><i class="mdi mdi-account-outline"></i></span>
+                <h2 id="login-title">Bienvenido a tu portal</h2>
+                <p class="login-subtitle">Ingresa con tu cuenta institucional para continuar.</p>
+                @if ($errors->any())
+                    <div class="login-error" role="alert"><i class="mdi mdi-alert-circle-outline" aria-hidden="true"></i><span>{{ $errors->first() }}</span></div>
+                @endif
+                <form method="POST" action="{{ route('iniciarSesion') }}" id="clinical-login-form">
+                    @csrf
+                    <input type="hidden" name="location_status" value="unavailable">
+                    <input type="hidden" name="latitude">
+                    <input type="hidden" name="longitude">
+                    <input type="hidden" name="accuracy_meters">
+                    <div class="login-field">
+                        <label for="rut">RUN</label>
+                        <div class="login-input"><i class="mdi mdi-card-account-details-outline" aria-hidden="true"></i><input type="text" value="{{ old('rut') }}" id="rut" name="rut" placeholder="Ej. 12345678-9" autocomplete="username" autocapitalize="characters" spellcheck="false" required oninput="formatearRutSoloGuion(this)" @if($errors->has('rut')) aria-invalid="true" @endif></div>
                     </div>
-                    <div class="gradient_login bg-primary"></div>
-                    <ul class="bg-bubbles">
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                    </ul>
-                    <!-- end bubble effect -->      
-                </div>
-            </div>
-            <!-- end col -->
-        </div>
-        <!-- end row -->
-    </div>
-    <!-- end container fluid -->
-    <!-- Modal -->
-    <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content modal_video">
-
-                <div class="modal-header">
-                    <h5 class="modal-title" id="videoModalLabel">Cuídados y manejo de nuestra ficha clínica electrónica</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-
-                {{-- <div class="modal-body p-0">
-                    <div class="ratio ratio-16x9">
-                        <video id="videoFrame" class="w-100" controls>
-                            <source src="http://10.4.237.58/capsulas_tic/capsula_login.mp4" type="video/mp4">
-                        </video>
+                    <div class="login-field">
+                        <div class="login-label-row"><label for="password">Contraseña</label><a href="{{ route('recuperarContrasena') }}">¿Olvidaste tu contraseña?</a></div>
+                        <div class="login-input"><i class="mdi mdi-lock-outline" aria-hidden="true"></i><input type="password" name="password" id="password" placeholder="Ingresa tu contraseña" autocomplete="current-password" required><button type="button" id="password-addon" aria-label="Mostrar contraseña" aria-controls="password" aria-pressed="false"><i class="mdi mdi-eye-outline" aria-hidden="true"></i></button></div>
                     </div>
-                </div> --}}
-
-            </div>
+                    <button class="login-submit" type="submit">Iniciar sesión <i class="mdi mdi-arrow-right" aria-hidden="true"></i></button>
+                    <div class="login-account-note"><i class="mdi mdi-shield-account-outline" aria-hidden="true"></i><p>Tu cuenta es <strong>personal e intransferible</strong>. Protege tus credenciales y la información de los pacientes.</p></div>
+                    <p class="login-audit-note">Se registra la IP del equipo al ingresar. Si autorizas al navegador, también se registra tu ubicación para la auditoría del acceso.</p>
+                    <p id="login-location-status" class="login-location-status" role="status" aria-live="polite"></p>
+                </form>
+            </section>
         </div>
-        </div>
-</div>
-<!-- JAVASCRIPT -->
-<script src="{{ asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('assets/libs/jquery/jquery.min.js') }}"></script>
-<script src="{{ asset('assets/js/login.js') }}"></script>
-<script>
-// $(document).ready(function () {
-//     var modal = new bootstrap.Modal(document.getElementById('videoModal'));
-//     var video = document.getElementById('videoFrame');
-//     modal.show();
-//     video.play();
-
-//    $('#videoModal').on('hidden.bs.modal', function () {
-//         document.getElementById('videoFrame').pause();
-//     });
-// });
-</script>
-<script src="{{ asset('assets/js/login-location.js') }}?v={{ filemtime(public_path('assets/js/login-location.js')) }}"></script>
+    </main>
+    <footer class="login-footer">© {{ date('Y') }} Hospital San Juan de Dios <span>Unidad de Transformación Digital</span></footer>
+    <script src="{{ asset('assets/libs/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/js/login.js') }}?v={{ filemtime(public_path('assets/js/login.js')) }}"></script>
+    <script src="{{ asset('assets/js/login-location.js') }}?v={{ filemtime(public_path('assets/js/login-location.js')) }}"></script>
 </body>
 </html>

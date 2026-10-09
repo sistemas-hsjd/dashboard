@@ -3,6 +3,9 @@ $(document).ready(function() {
         const input = $('#password');
         const type = input.attr('type') === 'password' ? 'text' : 'password';
         input.attr('type', type);
+        $(this).attr('aria-pressed', type === 'text' ? 'true' : 'false')
+            .attr('aria-label', type === 'text' ? 'Ocultar contrase\u00f1a' : 'Mostrar contrase\u00f1a');
+        $(this).find('i').toggleClass('mdi-eye-outline', type === 'password').toggleClass('mdi-eye-off-outline', type === 'text');
 
         // Cambiar el texto del botón
         // $(this).text(type === 'password' ? '👁️ Ver' : 'Ocultar');
