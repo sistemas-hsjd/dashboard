@@ -196,10 +196,10 @@ export default {
 </script>
 
 <style scoped>
-.staff-title-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-.staff-title-row h3 { flex: 1; min-width: 0; margin: 0; overflow-wrap: anywhere; }
-.staff-inline-actions { flex-shrink: 0; }
-.staff-inline-actions .staff-access { white-space: nowrap; }
+.staff-title-row { display: grid; grid-template-columns: minmax(0, 1fr) 92px; align-items: center; gap: 10px; min-height: 40px; }
+.staff-card-body .staff-title-row h3 { min-width: 0; margin: 0; overflow-wrap: anywhere; }
+.staff-inline-actions { display: flex; align-items: center; justify-content: flex-end; }
+.staff-inline-actions .staff-access { width: 92px; height: 28px; justify-content: center; padding: 0 10px; line-height: 1; white-space: nowrap; }
 .staff-local-description { margin: 6px 0 0; }
 
 .staff-local-heading { position: relative; }
