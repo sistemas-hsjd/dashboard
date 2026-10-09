@@ -112,4 +112,4 @@ body.hospital-portal[data-layout="horizontal"] .page-content { flex: 1 0 auto; m
   }
 }
 /* Use the available width for the signed-in systems view. */
-body.hospital-portal[data-layout="horizontal"] .page-content > .container-fluid:has(.staff-portal) { max-width: none; width: 100%; }
+body.hospital-portal[data-layout="horizontal"] .page-content > .container-fluid:has(.staff-portal) { max-width: 1680px; width: 100%; }
