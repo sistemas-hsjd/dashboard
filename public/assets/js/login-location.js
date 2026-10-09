@@ -1,9 +1,6 @@
 (() => {
     const form = document.getElementById('clinical-login-form');
     if (!form) return;
-    if (!window.isSecureContext) {
-        document.getElementById('login-location-status').textContent = 'La ubicación requiere HTTPS o localhost. En esta conexión solo se registrará la IP.';
-    }
     let pending = false;
     form.addEventListener('submit', (event) => {
         event.preventDefault();

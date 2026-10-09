@@ -12,11 +12,11 @@
 </head>
 <body class="hospital-login">
     <header class="login-header">
-        <a href="{{ url('/') }}" class="login-brand">
+        <a href="{{ '/' }}" class="login-brand">
             <img src="{{ asset('assets/images/small/logo.jpg') }}" alt="" width="30" height="30">
             <span><strong>Hospital San Juan de Dios</strong><small>El Primero de Chile</small></span>
         </a>
-        <a href="{{ url('/') }}" class="portal-back"><i class="mdi mdi-arrow-left" aria-hidden="true"></i> Volver al portal</a>
+        <a href="{{ '/' }}" class="portal-back"><i class="mdi mdi-arrow-left" aria-hidden="true"></i> Volver al portal</a>
     </header>
     <main class="login-main">
         <div class="login-shell">
@@ -34,7 +34,7 @@
                 @if ($errors->any())
                     <div class="login-error" role="alert"><i class="mdi mdi-alert-circle-outline" aria-hidden="true"></i><span>{{ $errors->first() }}</span></div>
                 @endif
-                <form method="POST" action="{{ route('iniciarSesion') }}" id="clinical-login-form">
+                <form method="POST" action="{{ route('iniciarSesion', [], false) }}" id="clinical-login-form">
                     @csrf
                     <input type="hidden" name="location_status" value="unavailable">
                     <input type="hidden" name="latitude">
@@ -45,13 +45,12 @@
                         <div class="login-input"><i class="mdi mdi-card-account-details-outline" aria-hidden="true"></i><input type="text" value="{{ old('rut') }}" id="rut" name="rut" placeholder="Ej. 12345678-9" autocomplete="username" autocapitalize="characters" spellcheck="false" required oninput="formatearRutSoloGuion(this)" @if($errors->has('rut')) aria-invalid="true" @endif></div>
                     </div>
                     <div class="login-field">
-                        <div class="login-label-row"><label for="password">Contraseña</label><a href="{{ route('recuperarContrasena') }}">¿Olvidaste tu contraseña?</a></div>
+                        <div class="login-label-row"><label for="password">Contraseña</label><a href="{{ route('recuperarContrasena', [], false) }}">¿Olvidaste tu contraseña?</a></div>
                         <div class="login-input"><i class="mdi mdi-lock-outline" aria-hidden="true"></i><input type="password" name="password" id="password" placeholder="Ingresa tu contraseña" autocomplete="current-password" required><button type="button" id="password-addon" aria-label="Mostrar contraseña" aria-controls="password" aria-pressed="false"><i class="mdi mdi-eye-outline" aria-hidden="true"></i></button></div>
                     </div>
                     <button class="login-submit" type="submit">Iniciar sesión <i class="mdi mdi-arrow-right" aria-hidden="true"></i></button>
                     <div class="login-account-note"><i class="mdi mdi-shield-account-outline" aria-hidden="true"></i><p>Tu cuenta es <strong>personal e intransferible</strong>. Protege tus credenciales y la información de los pacientes.</p></div>
-                    <p class="login-audit-note">Se registra la IP del equipo al ingresar. Si autorizas al navegador, también se registra tu ubicación para la auditoría del acceso.</p>
-                    <p id="login-location-status" class="login-location-status" role="status" aria-live="polite"></p>
+                    <p id="login-location-status" class="login-location-status" hidden></p>
                 </form>
             </section>
         </div>

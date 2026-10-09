@@ -1,44 +1,28 @@
 <template>
-<div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="text-center py-4 py-sm-5">
-                   
-                    <div class="mb-5">
-                        <a href="#">
-                            <img src="" alt="" height="30" class="me-1"><span class="logo-txt text-white font-size-22">Recuperación de contraseña</span>
-                        </a>
-                    </div>
-                    
-                    <h3 class="text-white mt-5">
-                        Para restablecer su contraseña, 
-                        por favor ingrese la dirección de correo electrónico asociada a su cuenta.
-                        Se enviará un clave de acceso temporal a su correo,  para continuar con el proceso de recuperación.
-                    </h3>
-                    
-                    <div class="mb-3">
-                        <div class="row d-flex justify-content-center">
-                            <div class="col-md-5">
-                                <div class="mb-1">
-                                    <label class="form-label text-white font-size-16">Email</label>
-                                    <input type="email" v-model="email_recuperacion" class="form-control" id="email_recuperacion" name="email_recuperacion" placeholder="Ingrese email">
-                                    <span v-if="errores.email_recuperacion" class="text-white font-size-14">* {{ errores.email_recuperacion }}</span>
-                                    <span v-if="respuesta.respuesta" class="text-white font-size-15">* {{ respuesta.respuesta }}</span>
-                                </div>
-                                <div class="mt-3">
-                                    <button v-if="!estadoRegistro" class="btn btn-primary w-100 waves-effect waves-light" @click="solicitarCodigo">Solicitar clave</button>
-                                    <button type="button" class="btn btn-primary waves-effect" v-if="estadoRegistro">
-                                        <i class="bx bx-hourglass bx-spin font-size-16 align-middle me-2"></i> 
-                                        Solicitando clave de acceso...
-                                    </button>
-                                </div>  
-                            </div>                        
-                        </div>
-                    </div>
-                       
-                </div>
-            </div>
-            <!-- end col -->
+  <section class="login-shell recovery-shell" aria-labelledby="recovery-title">
+    <div class="login-form-panel">
+      <span class="login-icon" aria-hidden="true"><i class="mdi mdi-lock-reset"></i></span>
+      <span class="recovery-label">CUENTA INSTITUCIONAL</span>
+      <h2 id="recovery-title">Recupera tu contraseña</h2>
+      <p class="login-subtitle">Ingresa el correo asociado a tu cuenta. Te enviaremos una clave temporal para que puedas recuperar el acceso.</p>
+      <form @submit.prevent="solicitarCodigo">
+        <div class="login-field">
+          <label for="email_recuperacion">Correo electrónico</label>
+          <div class="login-input"><i class="mdi mdi-email-outline" aria-hidden="true"></i><input type="email" v-model.trim="email_recuperacion" id="email_recuperacion" name="email_recuperacion" placeholder="nombre@ejemplo.cl" autocomplete="email" required :disabled="estadoRegistro" :aria-invalid="!!errores.email_recuperacion" aria-describedby="recovery-feedback"></div>
         </div>
+        <div id="recovery-feedback" aria-live="polite">
+          <p v-if="errores.email_recuperacion" class="login-error" role="alert">{{ errores.email_recuperacion }}</p>
+          <p v-if="respuesta.respuesta" class="recovery-success" role="status">{{ respuesta.respuesta }} Te llevaremos al inicio de sesión.</p>
+        </div>
+        <button class="login-submit" type="submit" :disabled="estadoRegistro || !!respuesta.respuesta">
+          <template v-if="estadoRegistro">Enviando solicitud...</template>
+          <template v-else>Solicitar clave temporal <i class="mdi mdi-arrow-right" aria-hidden="true"></i></template>
+        </button>
+      </form>
+      <a href="/login" class="recovery-back"><i class="mdi mdi-arrow-left" aria-hidden="true"></i> Volver a iniciar sesión</a>
+      <div class="login-account-note recovery-help"><i class="mdi mdi-lifebuoy" aria-hidden="true"></i><p>Si no tienes acceso a tu correo, comunícate con soporte al <strong>242234</strong>.</p></div>
+    </div>
+  </section>
 </template>
 <script>
 import { defineComponent } from 'vue';
@@ -59,6 +43,7 @@ export default defineComponent({
     },
     methods: {
         solicitarCodigo(){
+            if (this.estadoRegistro || this.respuesta.respuesta) return;
             this.estadoRegistro = true
             this.errores = {}
             this.respuesta = {}
@@ -71,7 +56,7 @@ export default defineComponent({
             if(numeroDeErrores==0){
                 var data = new FormData();
                 data.append('email', this.email_recuperacion)
-                axios.post('api/enviar-codigo', data)
+                axios.post('/api/enviar-codigo', data)
                 .then(response => {
                    
                     this.estadoRegistro = false
@@ -79,7 +64,7 @@ export default defineComponent({
                     this.respuesta.respuesta = response.data.respuesta
                     if (redirectUrl) {
                         setTimeout(() => {
-                            window.location.href = redirectUrl;
+                            window.location.href = '/login';
                         }, 5000);
                         
                     } else if(response.data=='no encontrado'){
@@ -114,9 +99,7 @@ export default defineComponent({
     watch:{
 
     },
-    mounted() {
-        this.getAuthUser()
-    }
+
 })
 </script>
 

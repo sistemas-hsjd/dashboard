@@ -76,9 +76,13 @@ class AuthController extends Controller
 
             if($user->update_password==0){
                 //return 'cambiar contraseña';
-                return redirect()->route('cambiarContrasena')->with('token', $plainTextToken);
+                return redirect()->route('cambiarContrasena')
+                    ->setTargetUrl(route('cambiarContrasena', [], false))
+                    ->with('token', $plainTextToken);
             }else{
-                return redirect()->route('misSistemas')->with('token', $plainTextToken);
+                return redirect()->route('misSistemas')
+                    ->setTargetUrl(route('misSistemas', [], false))
+                    ->with('token', $plainTextToken);
             }
         }
 
