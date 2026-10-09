@@ -14,6 +14,7 @@ use App\Models\UserPabellon;
 use App\Models\UserNotificacion;
 use App\Models\UserHospitalizados;
 use App\Models\UserRce;
+use App\Services\LoginLocationUserDetails;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use DB;
@@ -41,7 +42,9 @@ class AuthController extends Controller
             $user = Auth::guard('generales')->user();
             $hasLocation = ($location['location_status'] ?? '') === 'success';
 
-            DB::table('login_locations')->insert([
+            $userDetails = app(LoginLocationUserDetails::class)->forUserId((int) $user->getAuthIdentifier());
+
+            DB::table('login_locations')->insert(array_merge($userDetails, [
                 'user_id' => $user->getAuthIdentifier(),
                 'ip_address' => $request->ip(),
                 'latitude' => $hasLocation ? $location['latitude'] : null,
@@ -49,7 +52,7 @@ class AuthController extends Controller
                 'accuracy_meters' => $hasLocation ? $location['accuracy_meters'] : null,
                 'location_status' => $location['location_status'] ?? 'unavailable',
                 'logged_in_at' => now(),
-            ]);
+            ]));
 
 
             // Generar token manualmente con expiración
