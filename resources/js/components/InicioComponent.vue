@@ -210,24 +210,25 @@ export default {
 @media (max-width: 767px) { .staff-section-heading .staff-greeting { order: 4; flex: 0 0 100%; text-align: center; padding: 0; } }
 
 .staff-support .staff-card-image { height: 64px; flex-basis: 64px; }
-.staff-support .staff-card-image img { height: 64px; }
+.staff-support .staff-card-image img { height: 64px; object-fit: contain; padding: 4px 8px; background: #f5f8fc; }
 .staff-support .staff-card-body { padding: 8px 11px; }
 .staff-support .staff-card-badge { margin-bottom: 4px; font-size: 9px; }
 .staff-support .staff-card-body .card-title { margin-bottom: 4px; }
 .staff-support .staff-card-body .card-text { font-size: 11px; line-height: 1.4; margin-bottom: 5px !important; }
 .staff-support .staff-card-body .text-primary { color: #43586a !important; }
-.staff-support .staff-card-actions { padding-top: 6px; }
+.staff-support .staff-card-actions { padding-top: 8px; }
+.staff-support .staff-access { height: 28px; min-width: 92px; justify-content: center; line-height: 1; }
 
-.staff-section { --staff-accent: #258674; --staff-soft: #e5f3ee; margin-bottom: 22px; }
-.staff-section + .staff-support { margin-top: 36px; }
+.staff-section { --staff-accent: #258674; --staff-soft: #e5f3ee; margin-bottom: 0; }
+.staff-section + .staff-support { margin-top: 24px; padding-top: 20px; border-top: 1px solid #d5e1e9; }
 .staff-support { --staff-accent: #5866ac; --staff-soft: #eceef9; }
-.staff-section-heading { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.staff-section-heading { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
 .staff-section-icon { display: grid; place-items: center; width: 38px; height: 38px; flex-shrink: 0; border-radius: 14px; background: var(--staff-soft); color: var(--staff-accent); font-size: 25px; }
 .staff-section-heading h2 { margin: 0 0 4px; color: #253e52; font-size: 18px; font-weight: 700; }
 .staff-section-heading p { margin: 0; color: #526779; font-size: 12px; }
-.staff-count { margin-left: auto; padding: 5px 10px; border-radius: 20px; background: var(--staff-soft); color: var(--staff-accent); font-size: 11px; font-weight: 600; white-space: nowrap; }
-.staff-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
-.staff-card { display: flex; flex-direction: column; overflow: hidden; border: 1px solid #d5e1e9; border-radius: 16px; background: #fff; box-shadow: 0 2px 6px #294d7005; }
+.staff-count { margin-left: auto; padding: 5px 10px; border: 1px solid color-mix(in srgb, var(--staff-accent) 15%, transparent); border-radius: 20px; background: var(--staff-soft); color: var(--staff-accent); font-size: 11px; font-weight: 600; white-space: nowrap; }
+.staff-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.staff-card { display: flex; flex-direction: column; overflow: hidden; border: 1px solid #d5e1e9; border-radius: 12px; background: #fff; box-shadow: 0 2px 8px #294d7008; }
 .staff-card-image { height: 88px; flex: 0 0 88px; overflow: hidden; background: var(--staff-soft); }
 .staff-card-image img { display: block; width: 100%; height: 88px; object-fit: cover; }
 .staff-card-body { flex: 1; display: flex; flex-direction: column; padding: 10px 12px; border-left: 3px solid var(--staff-accent); }
@@ -240,7 +241,7 @@ export default {
 .staff-access:focus-visible { outline: 3px solid #245d83; outline-offset: 3px; }
 .staff-unavailable { font-size: 12px; color: #526779; }
 .staff-card-body .card-text { margin-bottom: 7px !important; }
-@media (min-width: 1600px) { .staff-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+@media (min-width: 1600px) { .staff-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); } .staff-support .staff-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 @media (max-width: 1199px) { .staff-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 767px) { .staff-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; } .staff-section-heading { flex-wrap: wrap; } }
 @media (max-width: 575px) { .staff-grid { grid-template-columns: 1fr; } .staff-section-heading h2 { font-size: 16px; } .staff-count { margin-left: 58px; } }
