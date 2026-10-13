@@ -1,14 +1,13 @@
 <template>
   <section class="access-audit">
-    <div class="audit-heading"><div><h1>Registro de accesos</h1><p>IP, usuario, unidades y ubicación registrada al iniciar sesión. Horarios de Chile.</p></div><button type="button" class="btn btn-outline-primary btn-sm" @click="reload">Actualizar</button></div>
+    <div class="audit-heading"><div><h1>Registro de accesos</h1><p>IP, usuario, unidades y sistema operativo registrado al iniciar sesión. Horarios de Chile.</p></div><button type="button" class="btn btn-outline-primary btn-sm" @click="reload">Actualizar</button></div>
     <div class="audit-filters">
       <label>Desde<input v-model="from" type="date" class="form-control form-control-sm" @change="reload"></label>
       <label>Hasta<input v-model="to" type="date" class="form-control form-control-sm" @change="reload"></label>
       <label>Estado de ubicación<select v-model="status" class="form-select form-select-sm" @change="reload"><option value="">Todos</option><option v-for="(label, key) in statuses" :key="key" :value="key">{{ label }}</option></select></label>
     </div>
-    <p class="audit-note">Sin coordenadas: consulta el estado para saber si faltó HTTPS, se denegó el permiso o el navegador no pudo obtener la ubicación.</p>
     <p v-if="error" class="alert alert-danger" role="alert">{{ error }}</p>
-    <div class="table-responsive"><table ref="table" class="display audit-table" style="width:100%"><thead><tr><th>ID</th><th>Fecha</th><th>Nombre completo</th><th>RUN</th><th>Unidades</th><th>IP</th><th>Estado</th><th>Latitud</th><th>Longitud</th><th>Precisión (m)</th><th>Mapa</th></tr></thead></table></div>
+    <div class="table-responsive"><table ref="table" class="display audit-table" style="width:100%"><thead><tr><th>ID</th><th>Fecha</th><th>Nombre completo</th><th>RUN</th><th>Unidades</th><th>IP</th><th>Estado</th><th>Sistema operativo</th></tr></thead></table></div>
   </section>
 </template>
 <script>
@@ -37,12 +36,7 @@ export default {
         {data: 'nombre_completo', defaultContent: '', render: text}, {data: 'rut', defaultContent: '', render: text},
         {data: 'unidades', orderable: false, render: value => text.display(value === null ? 'Pendiente' : (value || []).map(unit => unit.nombre).join(', ') || 'Sin unidades')},
         {data: 'ip_address', render: text}, {data: 'location_status', render: value => text.display(statuses[value] || value)},
-        {data: 'latitude', defaultContent: '—'}, {data: 'longitude', defaultContent: '—'}, {data: 'accuracy_meters', defaultContent: '—'},
-        {data: null, orderable: false, searchable: false, render: row => {
-          if (row.latitude === null || row.longitude === null) return '—';
-          const lat = Number(row.latitude), lon = Number(row.longitude);
-          return Number.isFinite(lat) && Number.isFinite(lon) ? `<a href="https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=16/${lat}/${lon}" target="_blank" rel="noopener noreferrer">Ver mapa</a>` : '—';
-        }}
+        {data: 'operating_system', defaultContent: 'Sin registro', render: text}
       ],
       language: {search: 'Buscar:', lengthMenu: 'Mostrar _MENU_ registros', info: '_START_ a _END_ de _TOTAL_ registros', infoEmpty: 'Sin registros', infoFiltered: '(de _MAX_ registros)', emptyTable: 'No hay accesos registrados', zeroRecords: 'No se encontraron resultados', processing: 'Cargando...', paginate: {first: 'Primero', last: 'Último', next: 'Siguiente', previous: 'Anterior'}}
     });

@@ -32,13 +32,13 @@ class LoginLocationController extends Controller
         $term = trim($input['search']['value'] ?? '');
         if ($term !== '') {
             $query->where(function ($search) use ($term) {
-                foreach (['nombre_completo', 'rut', 'ip_address', 'location_status', 'unidades'] as $column) {
+                foreach (['nombre_completo', 'rut', 'ip_address', 'location_status', 'unidades', 'operating_system'] as $column) {
                     $search->orWhere($column, 'like', '%' . $term . '%');
                 }
             });
         }
         $filtered = (clone $query)->count();
-        $columns = [0 => 'id', 1 => 'logged_in_at', 2 => 'nombre_completo', 3 => 'rut', 5 => 'ip_address', 6 => 'location_status', 7 => 'latitude', 8 => 'longitude', 9 => 'accuracy_meters'];
+        $columns = [0 => 'id', 1 => 'logged_in_at', 2 => 'nombre_completo', 3 => 'rut', 5 => 'ip_address', 6 => 'location_status', 7 => 'operating_system'];
         $column = $columns[$input['order'][0]['column'] ?? 1] ?? 'logged_in_at';
         $query->orderBy($column, $input['order'][0]['dir'] ?? 'desc');
         if ($column !== 'id') $query->orderByDesc('id');

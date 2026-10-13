@@ -50,6 +50,7 @@ class AuthController extends Controller
             ]), [
                 'user_id' => $user->getAuthIdentifier(),
                 'ip_address' => $request->ip(),
+                'operating_system' => app(\App\Services\LoginOperatingSystem::class)->detect($request->userAgent()),
                 'latitude' => $hasLocation ? $location['latitude'] : null,
                 'longitude' => $hasLocation ? $location['longitude'] : null,
                 'accuracy_meters' => $hasLocation ? $location['accuracy_meters'] : null,
