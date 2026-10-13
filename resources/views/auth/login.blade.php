@@ -44,9 +44,10 @@
                         <label for="rut">RUN</label>
                         <div class="login-input"><i class="mdi mdi-card-account-details-outline" aria-hidden="true"></i><input type="text" value="{{ old('rut') }}" id="rut" name="rut" placeholder="Ej. 12345678-9" autocomplete="username" autocapitalize="characters" spellcheck="false" required oninput="formatearRutSoloGuion(this)" @if($errors->has('rut')) aria-invalid="true" @endif></div>
                     </div>
-                    <div class="login-field">
-                        <div class="login-label-row"><label for="password">Contraseña</label><a href="{{ route('recuperarContrasena', [], false) }}">¿Olvidaste tu contraseña?</a></div>
+                    <div class="login-field login-password-field">
+                        <label for="password">Contraseña</label>
                         <div class="login-input"><i class="mdi mdi-lock-outline" aria-hidden="true"></i><input type="password" name="password" id="password" placeholder="Ingresa tu contraseña" autocomplete="current-password" required><button type="button" id="password-addon" aria-label="Mostrar contraseña" aria-controls="password" aria-pressed="false"><i class="mdi mdi-eye-outline" aria-hidden="true"></i></button></div>
+                        <div class="login-label-row"><a href="{{ route('recuperarContrasena', [], false) }}">¿Olvidaste tu contraseña?</a></div>
                     </div>
                     <button class="login-submit" type="submit">Iniciar sesión <i class="mdi mdi-arrow-right" aria-hidden="true"></i></button>
                     <div class="login-account-note"><i class="mdi mdi-shield-account-outline" aria-hidden="true"></i><p>Tu cuenta es <strong>personal e intransferible</strong>. Protege tus credenciales y la información de los pacientes.</p></div>

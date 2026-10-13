@@ -25,6 +25,10 @@ body.hospital-login { margin: 0; min-height: 100vh; min-height: 100dvh; display:
 .login-form-panel h2 { font-size: 24px; font-weight: 700; letter-spacing: -.5px; margin: 0 0 8px; }
 .login-subtitle { color: #6d8192; font-size: 12px; margin: 0 0 24px; line-height: 1.6; }
 .login-field { margin-bottom: 18px; }
+.login-password-field { display: grid; grid-template-columns: 1fr auto; column-gap: 10px; align-items: baseline; }
+.login-password-field > label { grid-column: 1; grid-row: 1; }
+.login-password-field > .login-input { grid-column: 1 / -1; grid-row: 2; }
+.login-password-field > .login-label-row { grid-column: 2; grid-row: 1; }
 .login-field label { font-size: 12px; font-weight: 600; margin-bottom: 7px; }
 .login-label-row { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
 .login-label-row a { color: #267c9a; font-size: 11px; text-decoration: none; }
