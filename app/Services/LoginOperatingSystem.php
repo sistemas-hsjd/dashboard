@@ -7,6 +7,30 @@ class LoginOperatingSystem
     public function detect(?string $userAgent): string
     {
         $agent = $userAgent ?? '';
+        if (preg_match('/Windows Phone(?: OS)? ([\d.]+)/i', $agent, $match)) {
+            return 'Windows Phone '.$match[1];
+        }
+        if (preg_match('/Windows NT ([\d.]+)/i', $agent, $match)) {
+            return 'Windows '.([
+                '10.0' => '10 / 11', '6.3' => '8.1', '6.2' => '8',
+                '6.1' => '7', '6.0' => 'Vista', '5.1' => 'XP',
+            ][$match[1]] ?? 'NT '.$match[1]);
+        }
+        if (preg_match('/Android ([\d.]+)/i', $agent, $match)) {
+            if (preg_match('/Android 10; K\)/i', $agent)) {
+                return 'Android (versión no disponible)';
+            }
+            return 'Android '.$match[1].' (reportado)';
+        }
+        if (preg_match('/(?:iPhone|iPad|iPod).*?OS ([\d_]+)/i', $agent, $match)) {
+            return 'iOS / iPadOS '.str_replace('_', '.', $match[1]);
+        }
+        if (preg_match('/CrOS \S+ ([\d.]+)/i', $agent, $match)) {
+            return 'ChromeOS '.$match[1].' (reportado)';
+        }
+        if (!preg_match('/Mobile/i', $agent) && preg_match('/Mac OS X ([\d_.]+)/i', $agent, $match)) {
+            return 'macOS '.str_replace('_', '.', $match[1]).' (reportado)';
+        }
         foreach ([
             'Windows Phone' => '/Windows Phone/i',
             'Android' => '/Android/i',
