@@ -19,7 +19,7 @@ class ApplicationController extends Controller
             // En caso de proxies, puede contener múltiples IPs
             return explode(',', $_SERVER['HTTP_X_FORWARDED_FOR'])[0];
         } else {
-            return $_SERVER['REMOTE_ADDR'];
+            return request()->ip();
         }
     }
 }

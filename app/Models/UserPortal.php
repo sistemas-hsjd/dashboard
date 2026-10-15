@@ -46,7 +46,7 @@ class UserPortal extends Authenticatable
     }
 
     public function setPasswordAttribute($value){
-        $this->attributes['password'] = bcrypt($value);
+        $this->attributes['password'] = Hash::isHashed($value) ? $value : Hash::make($value);
     }
 
     public function misSistemas(){
