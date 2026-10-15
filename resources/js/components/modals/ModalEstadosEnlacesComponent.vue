@@ -204,7 +204,7 @@ export default {
                 meses: '',
             };
 
-            axios.get('api/get-enlaces', { params: params })
+            axios.get('/api/get-enlaces', { params: params })
             .then(response => {
                 // console.log('desde la tabla de enlaces: ',response.data)
                 $('#tabla_enlaces').DataTable({
@@ -323,7 +323,7 @@ export default {
             var params = {
                 meses: '',
             };
-            axios.get('api/get-sistemas', { params: params })
+            axios.get('/api/get-sistemas', { params: params })
             .then(response => {
                 // console.log('desde la tabla de sistemas: ',response.data)
                 $('#tabla_sistemas').DataTable({
@@ -414,7 +414,7 @@ export default {
             });
     },
     initFiltrosPopups() {
-        axios.get('api/get-popups')
+        axios.get('/api/get-popups')
         .then(response => {
             console.log('desde la tabla de popups: ',response.data)
             $('#tabla_popups').DataTable({
@@ -472,7 +472,7 @@ export default {
         data.append('id', id)
         data.append('cat', cat)
         data.append('enlace', enlace)
-        axios.post('api/desactivar-enlaces', data)
+        axios.post('/api/desactivar-enlaces', data)
         .then(response => {
             //this.estadoRegistro = false
             console.log(response.data)
@@ -489,7 +489,7 @@ export default {
         var data = new FormData()  
         data.append('id', id)
         data.append('sistema', sistema)
-        axios.post('api/desactivar-sistema', data)
+        axios.post('/api/desactivar-sistema', data)
         .then(response => {
             //this.estadoRegistro = false
             console.log(response.data)
@@ -503,7 +503,7 @@ export default {
         });
     },
     changeEstadoPopup(id, estado){
-        axios.post('api/actualizar-popup', {
+        axios.post('/api/actualizar-popup', {
             id: id,
             popup: estado
         })

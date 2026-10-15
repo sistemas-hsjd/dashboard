@@ -42,6 +42,9 @@
                 @include('layouts.footer')           
             </div>
             <!-- end main content-->
+            @if (Auth::check() && Auth::user()->id_perfil == 1)
+                <modal-estados-enlaces-component></modal-estados-enlaces-component>
+            @endif
         </div>
     </div>
     <!-- END layout-wrapper -->

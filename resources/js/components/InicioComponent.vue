@@ -99,7 +99,6 @@
       </div>
     </section>
     <modalCrearCuentaComponent></modalCrearCuentaComponent>
-    <modalEstadosEnlacesComponent></modalEstadosEnlacesComponent>
     <modalDesarrolloComponent></modalDesarrolloComponent>
     <modalNewSoporteComponent></modalNewSoporteComponent>
     <ModalUciComponent></ModalUciComponent>
@@ -112,7 +111,6 @@
 import modalDesarrolloComponent from './modals/ModalDesarrolloComponent.vue';
 import modalNewSoporteComponent from './modals/modalNewSoporteComponent.vue';
 import modalCrearCuentaComponent from './modals/ModalCrearCuentaComponent.vue';
-import ModalEstadosEnlacesComponent from './modals/ModalEstadosEnlacesComponent.vue';
 import ModalUciComponent from './modals/ModalUciComponent.vue';
 import PopupComponent  from './elements/PopupComponent.vue';
 // import TourNuevoMenu  from './elements/TourNuevoMenuCompoent.vue';
@@ -122,7 +120,6 @@ export default {
     components: {
         modalDesarrolloComponent,
         modalCrearCuentaComponent,
-        ModalEstadosEnlacesComponent,
         ModalUciComponent,
         modalNewSoporteComponent,
         PopupComponent,
