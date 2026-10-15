@@ -40,6 +40,7 @@ class ContentSecurityPolicy
 
         $policy = collect($directives)->map(fn ($sources, $directive) => $directive.' '.implode(' ', $sources))->implode('; ');
         $response->headers->set('Content-Security-Policy', $policy);
+        $response->headers->set('X-Frame-Options', 'SAMEORIGIN');
 
         return $response;
     }
