@@ -15,4 +15,9 @@ class LoginLocation extends Model
     {
         return $this->belongsTo(UserPortal::class, 'user_id');
     }
+
+    public function siveaUser()
+    {
+        return $this->belongsTo(UserSivea::class, 'rut', 'rut');
+    }
 }

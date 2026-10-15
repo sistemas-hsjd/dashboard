@@ -38,12 +38,23 @@ class LoginLocationController extends Controller
             });
         }
         $filtered = (clone $query)->count();
-        $columns = [0 => 'id', 1 => 'logged_in_at', 2 => 'nombre_completo', 3 => 'rut', 5 => 'ip_address', 6 => 'location_status', 7 => 'operating_system'];
+        $columns = [0 => 'id', 1 => 'logged_in_at', 2 => 'nombre_completo', 3 => 'rut', 6 => 'ip_address', 7 => 'location_status', 8 => 'operating_system'];
         $column = $columns[$input['order'][0]['column'] ?? 1] ?? 'logged_in_at';
         $query->orderBy($column, $input['order'][0]['dir'] ?? 'desc');
         if ($column !== 'id') $query->orderByDesc('id');
-        $rows = $query->skip($input['start'] ?? 0)->take($input['length'] ?? 25)->get()->map(function ($row) {
-            $data = $row->toArray();
+        $rows = $query->skip($input['start'] ?? 0)->take($input['length'] ?? 25)->get();
+        $estamentosDisponibles = true;
+        try {
+            $rows->load('siveaUser.estamento');
+        } catch (\Throwable $exception) {
+            report($exception);
+            $estamentosDisponibles = false;
+        }
+        $rows = $rows->map(function ($row) use ($estamentosDisponibles) {
+            $data = $row->attributesToArray();
+            $data['estamento'] = $estamentosDisponibles
+                ? ($row->siveaUser?->estamento?->tx_descripcion ?? 'Sin estamento')
+                : 'No disponible';
             $data['logged_in_at'] = $row->logged_in_at?->timezone('America/Santiago')->format('d-m-Y H:i:s');
             return $data;
         });

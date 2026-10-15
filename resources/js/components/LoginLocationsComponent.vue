@@ -1,13 +1,13 @@
 <template>
   <section class="access-audit">
-    <div class="audit-heading"><div><h1>Registro de accesos</h1><p>IP, usuario, unidades y sistema operativo registrado al iniciar sesión. Horarios de Chile.</p></div><button type="button" class="btn btn-outline-primary btn-sm" @click="reload">Actualizar</button></div>
+    <div class="audit-heading"><div><h1>Registro de accesos</h1><p>IP, usuario, unidades y sistema operativo registrado al iniciar sesión. Estamento actual según SIVEA. Horarios de Chile.</p></div><button type="button" class="btn btn-outline-primary btn-sm" @click="reload">Actualizar</button></div>
     <div class="audit-filters">
       <label>Desde<input v-model="from" type="date" class="form-control form-control-sm" @change="reload"></label>
       <label>Hasta<input v-model="to" type="date" class="form-control form-control-sm" @change="reload"></label>
       <label>Estado de ubicación<select v-model="status" class="form-select form-select-sm" @change="reload"><option value="">Todos</option><option v-for="(label, key) in statuses" :key="key" :value="key">{{ label }}</option></select></label>
     </div>
     <p v-if="error" class="alert alert-danger" role="alert">{{ error }}</p>
-    <div class="table-responsive"><table ref="table" class="display audit-table" style="width:100%"><thead><tr><th>ID</th><th>Fecha</th><th>Nombre completo</th><th>RUN</th><th>Unidades</th><th>IP</th><th>Estado</th><th>Sistema operativo</th></tr></thead></table></div>
+    <div class="table-responsive"><table ref="table" class="display audit-table" style="width:100%"><thead><tr><th>ID</th><th>Fecha</th><th>Nombre completo</th><th>RUN</th><th>Unidades</th><th>Estamento</th><th>IP</th><th>Estado</th><th>Sistema operativo</th></tr></thead></table></div>
   </section>
 </template>
 <script>
@@ -35,6 +35,7 @@ export default {
         {data: 'id'}, {data: 'logged_in_at', render: text},
         {data: 'nombre_completo', defaultContent: '', render: text}, {data: 'rut', defaultContent: '', render: text},
         {data: 'unidades', orderable: false, render: value => text.display(value === null ? 'Pendiente' : (value || []).map(unit => unit.nombre).join(', ') || 'Sin unidades')},
+        {data: 'estamento', orderable: false, searchable: false, defaultContent: 'Sin estamento', render: text},
         {data: 'ip_address', render: text}, {data: 'location_status', render: value => text.display(statuses[value] || value)},
         {data: 'operating_system', defaultContent: 'Sin registro', render: text}
       ],
