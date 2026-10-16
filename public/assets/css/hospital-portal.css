@@ -114,8 +114,8 @@ body.hospital-portal[data-layout="horizontal"] .page-content { flex: 1 0 auto; m
 /* Use the available width for the signed-in systems view. */
 body.hospital-portal[data-layout="horizontal"] .page-content > .container-fluid:has(.staff-portal) { max-width: 1680px; width: 100%; }
 
-.hospital-guest-ip { display: flex; align-items: center; gap: 8px; padding: 5px 12px; border: 1px solid #0b5e86; border-radius: 24px; background: #0b5e86; color: #fff; white-space: nowrap; }
-.hospital-guest-ip .mdi { font-size: 20px; color: #fff; }
+.hospital-guest-ip { display: flex; align-items: center; gap: 8px; padding: 5px 12px; border: 1px solid #b8d9ed; border-radius: 24px; background: #edf6fb; color: #245d83; white-space: nowrap; }
+.hospital-guest-ip .mdi { font-size: 20px; color: #237da4; }
 .hospital-guest-ip span { font-size: 12px; font-weight: 600; }
-.hospital-guest-ip strong { color: #fff; font-size: 16px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.hospital-guest-ip strong { color: #111827; font-size: 16px; font-weight: 700; font-variant-numeric: tabular-nums; }
 @media (max-width: 767px) { .hospital-guest-ip { gap: 5px; padding: 5px 9px; } .hospital-guest-ip span { display: none; } .hospital-guest-ip strong { font-size: 14px; } }
