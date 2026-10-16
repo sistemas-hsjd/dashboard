@@ -3,6 +3,8 @@
 <html lang="es-cl">
 
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta property="csp-nonce" nonce="{{ request()->attributes->get('csp_nonce') }}">
     <title>cambiar contraseña </title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +18,7 @@
      <link rel="stylesheet" href="assets/css/preloader.min.css">
     <link rel="stylesheet" href="assets/css/icons.min.css">
       <link rel="stylesheet" href="assets/css/app.min.css">
+      <link rel="stylesheet" href="assets/css/hospital-login.css">
     <!-- preloader css -->
 </head>
 
@@ -25,7 +28,7 @@
     <div class="swiper-container preview-thumb">
         <div class="swiper-wrapper">
             <div class="swiper-slide">
-                <div class="slide-bg" style="background-image: url(./assets/images/hsjd.jpg);"></div>
+                <div class="slide-bg portal-password-background"></div>
             </div>
         </div>
     </div>
@@ -56,7 +59,6 @@
 <!-- /Right-bar -->
   
 {{-- <script src="assets/js/app.js"></script> --}}
-<script src="assets/js/sweetalert2.js"></script>
 <!-- JAVASCRIPT -->
 
 

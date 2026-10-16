@@ -74,3 +74,5 @@ a:focus-visible, button:focus-visible { outline: 3px solid #267c9a; outline-offs
 .recovery-back:hover { text-decoration: underline; }
 .recovery-help { margin-top: 22px; }
 .recovery-success { padding: 12px; background: #edf8f2; border: 1px solid #c5e5d3; border-radius: 9px; color: #27634b; font-size: 12px; line-height: 1.6; }
+
+.portal-password-background { background-image: url(../images/hsjd.jpg); }

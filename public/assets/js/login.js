@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    $('#rut').on('input', function () { formatearRutSoloGuion(this); });
     $('#password-addon').on('click', function() {
         const input = $('#password');
         const type = input.attr('type') === 'password' ? 'text' : 'password';

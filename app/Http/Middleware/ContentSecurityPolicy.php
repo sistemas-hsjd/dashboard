@@ -4,18 +4,22 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Vite;
 use Symfony\Component\HttpFoundation\Response;
 
 class ContentSecurityPolicy
 {
     public function handle(Request $request, Closure $next): Response
     {
+        $nonce = base64_encode(random_bytes(24));
+        $request->attributes->set('csp_nonce', $nonce);
+        Vite::useCspNonce($nonce);
         $response = $next($request);
         $directives = [
             'default-src' => ["'self'"],
-            // Existing Blade event handlers still require inline scripts.
-            'script-src' => ["'self'", "'unsafe-inline'"],
-            'style-src' => ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
+            'script-src' => ["'self'", "'nonce-{$nonce}'"],
+            'script-src-attr' => ["'none'"],
+            'style-src' => ["'self'", "'nonce-{$nonce}'", 'https://fonts.googleapis.com'],
             'img-src' => ["'self'", 'data:', 'blob:'],
             'font-src' => ["'self'", 'data:', 'https://fonts.gstatic.com'],
             'connect-src' => ["'self'"],
@@ -42,6 +46,9 @@ class ContentSecurityPolicy
         $response->headers->set('Content-Security-Policy', $policy);
         $response->headers->set('X-Frame-Options', 'SAMEORIGIN');
         $response->headers->set('X-Content-Type-Options', 'nosniff');
+        if ($request->isSecure()) {
+            $response->headers->set('Strict-Transport-Security', 'max-age=31536000');
+        }
 
         return $response;
     }

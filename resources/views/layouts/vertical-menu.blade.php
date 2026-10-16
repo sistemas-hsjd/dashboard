@@ -81,8 +81,8 @@
                     {{-- <a class="dropdown-item" href="apps-contacts-profile.php"><i class="mdi mdi-face-profile font-size-16 align-middle me-1"></i> Perfil</a>
                     <a class="dropdown-item" href="auth-lock-screen.php"><i class="mdi mdi-lock font-size-16 align-middle me-1"></i> Desbloquear </a> --}}
                     {{-- <div class="dropdown-divider"></div> --}}
-                    <a class="dropdown-item" id="enlace_logout" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="mdi mdi-logout font-size-16 align-middle me-1"></i> Cerrar sesión</a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    <a class="dropdown-item" id="enlace_logout" href="{{ route('logout') }}"><i class="mdi mdi-logout font-size-16 align-middle me-1"></i> Cerrar sesión</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" hidden>
                         {{ csrf_field() }}
                     </form>
                 </div>

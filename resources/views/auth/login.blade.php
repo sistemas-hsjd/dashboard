@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta property="csp-nonce" nonce="{{ request()->attributes->get('csp_nonce') }}">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Acceso al Portal de Aplicaciones Hospitalarias del Hospital San Juan de Dios">
@@ -8,7 +10,7 @@
     <link rel="shortcut icon" href="{{ asset('assets/images/small/favicon.ico') }}">
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/css/hospital-login.css') }}?v={{ filemtime(public_path('assets/css/hospital-login.css')) }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/hospital-login.css') }}?v={{ substr(hash_file('sha256', public_path('assets/css/hospital-login.css')), 0, 12) }}" rel="stylesheet">
 </head>
 <body class="hospital-login">
     <header class="login-header">
@@ -42,7 +44,7 @@
                     <input type="hidden" name="accuracy_meters">
                     <div class="login-field">
                         <label for="rut">RUN</label>
-                        <div class="login-input"><i class="mdi mdi-card-account-details-outline" aria-hidden="true"></i><input type="text" value="{{ old('rut') }}" id="rut" name="rut" placeholder="Ej. 12345678-9" autocomplete="username" autocapitalize="characters" spellcheck="false" required oninput="formatearRutSoloGuion(this)" @if($errors->has('rut')) aria-invalid="true" @endif></div>
+                        <div class="login-input"><i class="mdi mdi-card-account-details-outline" aria-hidden="true"></i><input type="text" value="{{ old('rut') }}" id="rut" name="rut" placeholder="Ej. 12345678-9" autocomplete="username" autocapitalize="characters" spellcheck="false" required @if($errors->has('rut')) aria-invalid="true" @endif></div>
                     </div>
                     <div class="login-field login-password-field">
                         <label for="password">Contraseña</label>
@@ -58,7 +60,7 @@
     </main>
     <footer class="login-footer">© {{ date('Y') }} Hospital San Juan de Dios <span>Unidad de Transformación Digital</span></footer>
     <script src="{{ asset('assets/libs/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('assets/js/login.js') }}?v={{ filemtime(public_path('assets/js/login.js')) }}"></script>
-    <script src="{{ asset('assets/js/login-location.js') }}?v={{ filemtime(public_path('assets/js/login-location.js')) }}"></script>
+    <script src="{{ asset('assets/js/login.js') }}?v={{ substr(hash_file('sha256', public_path('assets/js/login.js')), 0, 12) }}"></script>
+    <script src="{{ asset('assets/js/login-location.js') }}?v={{ substr(hash_file('sha256', public_path('assets/js/login-location.js')), 0, 12) }}"></script>
 </body>
 </html>

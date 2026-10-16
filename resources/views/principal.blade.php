@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="es_cl">
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta property="csp-nonce" nonce="{{ request()->attributes->get('csp_nonce') }}">
     <title>Portal de Aplicativos</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +11,6 @@
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/small/favicon.ico') }}">
     <!-- plugin css -->
-    <link href="{{ asset('assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css') }}" rel="stylesheet" type="text/css" />
     <!-- preloader css -->
     <link rel="stylesheet" href="{{ asset('assets/css/preloader.min.css') }}" type="text/css" />
     <!-- Bootstrap Css -->
@@ -19,7 +20,7 @@
     <!-- App Css-->
     <link href="{{ asset('assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/estilos.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/css/hospital-portal.css') }}?v={{ filemtime(public_path('assets/css/hospital-portal.css')) }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/hospital-portal.css') }}?v={{ substr(hash_file('sha256', public_path('assets/css/hospital-portal.css')), 0, 12) }}" rel="stylesheet" type="text/css" />
 </head>
 
 <body class="hospital-portal" data-topbar="light" data-layout="horizontal">
@@ -63,11 +64,9 @@
     <!-- pace js -->
     <script src="{{ asset('assets/libs/pace-js/pace.min.js') }}"></script>
     <!-- apexcharts -->
-    <script src="{{ asset('assets/libs/apexcharts/apexcharts.min.js') }}"></script>
     <!-- Plugins js-->
-    <script src="{{ asset('assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-world-mill-en.js') }}"></script>
     <script src="{{ asset('assets/js/app.js') }}"></script>
+    <script src="{{ asset('assets/js/portal-events.js') }}"></script>
     @vite('resources/js/app.js')
 </body>
 

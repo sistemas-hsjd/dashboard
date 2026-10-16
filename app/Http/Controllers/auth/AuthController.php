@@ -4,6 +4,7 @@ namespace App\Http\Controllers\auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -77,12 +78,10 @@ class AuthController extends Controller
 
             if($user->update_password==0){
                 //return 'cambiar contraseña';
-                return redirect()->route('cambiarContrasena')
-                    ->setTargetUrl(route('cambiarContrasena', [], false))
+                return (new RedirectResponse(route('cambiarContrasena', [], false)))
                     ->with('token', $plainTextToken);
             }else{
-                return redirect()->route('misSistemas')
-                    ->setTargetUrl(route('misSistemas', [], false))
+                return (new RedirectResponse(route('misSistemas', [], false)))
                     ->with('token', $plainTextToken);
             }
         }
@@ -115,7 +114,7 @@ class AuthController extends Controller
     public function logout(Request $request){
         Auth::logout();
         $request->session()->invalidate();
-        return redirect('/');
+        return new RedirectResponse('/');
     }
 
     public function changePasswordSistemas(Request $request){
@@ -180,7 +179,7 @@ class AuthController extends Controller
             $user_rce = UserRce::where('rut',$request->rut)->first();
 
            return response()->json([
-                'redirect' => route('misSistemas')
+                'redirect' => route('misSistemas', [], false)
             ]);
         }else{
             return 'cambio no realizado'; 
@@ -215,7 +214,7 @@ class AuthController extends Controller
             $message->from('sistemas.ssmoc@appminsal.cl','SJDigital');
         });
         return response()->json([
-            'redirect' => route('login'),
+            'redirect' => route('login', [], false),
             'respuesta' => 'Se ha enviado clave de acceso a su email'
         ]);
     }

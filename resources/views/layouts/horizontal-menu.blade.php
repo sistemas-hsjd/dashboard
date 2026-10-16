@@ -48,8 +48,8 @@
                 </button>
                     @if (Auth::user())
                     <div class="dropdown-menu dropdown-menu-end">
-                        <a class="dropdown-item" id="enlace_logout" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="mdi mdi-logout font-size-16 align-middle me-1"></i> Cerrar sesión</a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        <a class="dropdown-item" id="enlace_logout" href="{{ route('logout') }}"><i class="mdi mdi-logout font-size-16 align-middle me-1"></i> Cerrar sesión</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" hidden>
                             {{ csrf_field() }}
                         </form>
                     </div>
@@ -66,7 +66,7 @@
             <div class="collapse navbar-collapse" id="topnav-menu-content">
                 <ul class="navbar-nav hospital-navigation">
                     <li class="nav-item">
-                        <a class="nav-link hospital-nav-active" href="{{ Auth::user() ? route('misSistemas') : url('/') }}" id="topnav-dashboard" aria-current="page">
+                        <a class="nav-link hospital-nav-active" href="{{ Auth::user() ? route('misSistemas', [], false) : '/' }}" id="topnav-dashboard" aria-current="page">
                             <i class="mdi mdi-home-outline" aria-hidden="true"></i><span>Inicio</span>
                         </a>
                     </li>

@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta property="csp-nonce" nonce="{{ request()->attributes->get('csp_nonce') }}">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Recuperar contraseña | Hospital San Juan de Dios</title>
     <link rel="shortcut icon" href="{{ asset('assets/images/small/favicon.ico') }}">
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/css/hospital-login.css') }}?v={{ filemtime(public_path('assets/css/hospital-login.css')) }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/hospital-login.css') }}?v={{ substr(hash_file('sha256', public_path('assets/css/hospital-login.css')), 0, 12) }}" rel="stylesheet">
 </head>
 <body class="hospital-login">
     <header class="login-header">
