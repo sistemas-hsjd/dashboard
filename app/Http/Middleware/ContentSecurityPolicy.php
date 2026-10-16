@@ -13,10 +13,10 @@ class ContentSecurityPolicy
         $response = $next($request);
         $directives = [
             'default-src' => ["'self'"],
-            // Blade handlers and the Vue runtime compiler currently require these exceptions.
-            'script-src' => ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+            // Existing Blade event handlers still require inline scripts.
+            'script-src' => ["'self'", "'unsafe-inline'"],
             'style-src' => ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
-            'img-src' => ["'self'", 'data:', 'blob:', 'https:', 'http:'],
+            'img-src' => ["'self'", 'data:', 'blob:'],
             'font-src' => ["'self'", 'data:', 'https://fonts.gstatic.com'],
             'connect-src' => ["'self'"],
             'object-src' => ["'none'"],

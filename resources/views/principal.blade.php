@@ -25,7 +25,7 @@
 <body class="hospital-portal" data-topbar="light" data-layout="horizontal">
     <!-- Begin page -->
     <div id="layout-wrapper">
-        <div id="app">
+        <div id="portal-layout">
             @include('layouts.horizontal-menu') 
             <!-- ============================================================== -->
             <!-- Start right Content here -->
@@ -43,7 +43,7 @@
             </div>
             <!-- end main content-->
             @if (Auth::check() && Auth::user()->id_perfil == 1)
-                <modal-estados-enlaces-component></modal-estados-enlaces-component>
+                <div id="portal-admin-modals"></div>
             @endif
         </div>
     </div>
