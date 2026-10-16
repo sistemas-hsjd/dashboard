@@ -74,10 +74,10 @@ body.hospital-portal[data-layout="horizontal"] .page-content { flex: 1 0 auto; m
 @media (prefers-reduced-motion: reduce) { .hospital-portal .topnav .hospital-navigation > .nav-item > .nav-link { transition: none; } }
 /* IP centered in the main header for authenticated users. */
 .hospital-portal .navbar-header { position: relative; }
-.hospital-header-ip { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; justify-content: center; gap: 8px; padding: 3px 12px; border: 1px solid #c5deed; border-radius: 20px; background: #edf6fb; color: #304f66; white-space: nowrap; }
-.hospital-header-ip .mdi { font-size: 20px; color: #237da4; }
+.hospital-header-ip { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; justify-content: center; gap: 8px; padding: 3px 12px; border: 1px solid #0b5e86; border-radius: 20px; background: #0b5e86; color: #fff; white-space: nowrap; }
+.hospital-header-ip .mdi { font-size: 20px; color: #fff; }
 .hospital-header-ip span { font-size: 12px; font-weight: 600; }
-.hospital-header-ip strong { font-size: 16px; font-weight: 700; color: #111827; font-variant-numeric: tabular-nums; }
+.hospital-header-ip strong { font-size: 16px; font-weight: 700; color: #fff; font-variant-numeric: tabular-nums; }
 @media (min-width: 768px) and (max-width: 1199px) { .hospital-header-ip span { display: none; } .hospital-header-ip { left: 57%; } .hospital-portal #page-header-user-dropdown { max-width: 220px; } .hospital-portal #page-header-user-dropdown .span-ip { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .hospital-portal .logo-txt { font-size: 15px; } }
 @media (max-width: 767px) { .hospital-portal .navbar-header:has(.hospital-header-ip) { height: 88px; padding-bottom: 34px; } .hospital-portal:has(.hospital-header-ip) .topnav { margin-top: 88px; } .hospital-portal:has(.hospital-header-ip) { --portal-content-top: 112px; } .hospital-header-ip { bottom: 5px; } .hospital-portal #page-header-user-dropdown { max-width: 150px; } .hospital-portal #page-header-user-dropdown .span-ip { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } }
 /* Metallic blue title with a soft moving highlight. */
@@ -114,8 +114,15 @@ body.hospital-portal[data-layout="horizontal"] .page-content { flex: 1 0 auto; m
 /* Use the available width for the signed-in systems view. */
 body.hospital-portal[data-layout="horizontal"] .page-content > .container-fluid:has(.staff-portal) { max-width: 1680px; width: 100%; }
 
-.hospital-guest-ip { display: flex; align-items: center; gap: 8px; padding: 5px 12px; border: 1px solid #b8d9ed; border-radius: 24px; background: #edf6fb; color: #245d83; white-space: nowrap; }
-.hospital-guest-ip .mdi { font-size: 20px; color: #237da4; }
+.hospital-guest-ip { display: flex; align-items: center; gap: 8px; padding: 5px 12px; border: 1px solid #0b5e86; border-radius: 24px; background: #0b5e86; color: #fff; white-space: nowrap; }
+.hospital-guest-ip .mdi { font-size: 20px; color: #fff; }
 .hospital-guest-ip span { font-size: 12px; font-weight: 600; }
-.hospital-guest-ip strong { color: #111827; font-size: 16px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.hospital-guest-ip strong { color: #fff; font-size: 16px; font-weight: 700; font-variant-numeric: tabular-nums; }
 @media (max-width: 767px) { .hospital-guest-ip { gap: 5px; padding: 5px 9px; } .hospital-guest-ip span { display: none; } .hospital-guest-ip strong { font-size: 14px; } }
+
+/* Prominent IP indicators for guests and authenticated users. */
+.hospital-header-ip, .hospital-guest-ip { min-height: 38px; padding: 5px 14px; gap: 8px; border: 1px solid #0b5e86; background: #0b5e86; color: #fff; box-shadow: none; }
+.hospital-header-ip .mdi, .hospital-guest-ip .mdi { font-size: 21px; color: #fff; }
+.hospital-header-ip span, .hospital-guest-ip span { font-size: 12px; font-weight: 600; }
+.hospital-header-ip strong, .hospital-guest-ip strong { font-size: 17px; font-weight: 700; color: #fff; letter-spacing: normal; }
+@media (max-width: 767px) { .hospital-header-ip, .hospital-guest-ip { min-height: 36px; padding: 4px 12px; gap: 7px; } .hospital-header-ip strong, .hospital-guest-ip strong { font-size: 17px; } .hospital-header-ip .mdi, .hospital-guest-ip .mdi { font-size: 22px; } }
