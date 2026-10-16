@@ -1,4 +1,4 @@
-﻿.hospital-portal { background: #f3f8fb; color: #30485e; }
+.hospital-portal { background: #f3f8fb; color: #30485e; }
 .hospital-portal #page-topbar { background: #f7fbfd; border-bottom: 1px solid #d8e7f0; box-shadow: 0 3px 18px #274e7010; }
 .hospital-portal .navbar-header { max-width: 1600px; height: 54px; padding: 0 24px; margin: auto; }
 .hospital-portal .navbar-brand-box { width: auto; padding: 0; }
@@ -9,10 +9,6 @@
 .hospital-brand-copy small { color: #548cb1; font-size: 11px; letter-spacing: .2px; }
 .hospital-portal #page-header-user-dropdown { height: 34px; margin: 10px 0; padding: 0 14px; border: 1px solid #b8d9ed !important; border-radius: 24px; background: #eaf4fa !important; box-shadow: 0 0 0 5px #e5eff5; }
 .hospital-portal .span-ip { color: #4c8fba; font-size: 13px !important; }
-.hospital-portal #page-header-user-dropdown.hospital-ip-badge { height: 40px; margin: 7px 0; padding: 0 18px; background: #0b5e86 !important; border: 1px solid #084969 !important; box-shadow: 0 2px 6px #163b5526; }
-.hospital-portal #page-header-user-dropdown.hospital-ip-badge .span-ip { color: #fff; font-size: 16px !important; font-weight: 700 !important; font-variant-numeric: tabular-nums; }
-.hospital-portal #page-header-user-dropdown.hospital-ip-badge .mdi { font-size: 19px; margin-right: 4px; }
-@media (max-width: 575px) { .hospital-portal #page-header-user-dropdown.hospital-ip-badge { padding: 0 12px; } .hospital-portal #page-header-user-dropdown.hospital-ip-badge .span-ip { font-size: 14px !important; } }
 .hospital-portal .topnav { margin-top: 54px; background: #edf5fa; border-bottom: 1px solid #d4e4ef; box-shadow: none; }
 .hospital-portal .topnav > .container-fluid { max-width: 1600px; padding: 0 24px; }
 .hospital-portal .topnav .nav-link { padding: 18px 20px; font-size: 14px; font-weight: 500; color: #526177; }
@@ -117,3 +113,9 @@ body.hospital-portal[data-layout="horizontal"] .page-content { flex: 1 0 auto; m
 }
 /* Use the available width for the signed-in systems view. */
 body.hospital-portal[data-layout="horizontal"] .page-content > .container-fluid:has(.staff-portal) { max-width: 1680px; width: 100%; }
+
+.hospital-guest-ip { display: flex; align-items: center; gap: 8px; padding: 5px 12px; border: 1px solid #0b5e86; border-radius: 24px; background: #0b5e86; color: #fff; white-space: nowrap; }
+.hospital-guest-ip .mdi { font-size: 20px; color: #fff; }
+.hospital-guest-ip span { font-size: 12px; font-weight: 600; }
+.hospital-guest-ip strong { color: #fff; font-size: 16px; font-weight: 700; font-variant-numeric: tabular-nums; }
+@media (max-width: 767px) { .hospital-guest-ip { gap: 5px; padding: 5px 9px; } .hospital-guest-ip span { display: none; } .hospital-guest-ip strong { font-size: 14px; } }
