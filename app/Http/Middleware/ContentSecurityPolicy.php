@@ -15,9 +15,9 @@ class ContentSecurityPolicy
             'default-src' => ["'self'"],
             // Blade handlers and the Vue runtime compiler currently require these exceptions.
             'script-src' => ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
-            'style-src' => ["'self'", "'unsafe-inline'"],
+            'style-src' => ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
             'img-src' => ["'self'", 'data:', 'blob:', 'https:', 'http:'],
-            'font-src' => ["'self'", 'data:'],
+            'font-src' => ["'self'", 'data:', 'https://fonts.gstatic.com'],
             'connect-src' => ["'self'"],
             'object-src' => ["'none'"],
             'base-uri' => ["'self'"],
@@ -41,6 +41,7 @@ class ContentSecurityPolicy
         $policy = collect($directives)->map(fn ($sources, $directive) => $directive.' '.implode(' ', $sources))->implode('; ');
         $response->headers->set('Content-Security-Policy', $policy);
         $response->headers->set('X-Frame-Options', 'SAMEORIGIN');
+        $response->headers->set('X-Content-Type-Options', 'nosniff');
 
         return $response;
     }
