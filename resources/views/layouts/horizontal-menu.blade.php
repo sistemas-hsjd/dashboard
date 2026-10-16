@@ -60,8 +60,7 @@
         </div>
         @else
             <div class="hospital-guest-ip" aria-label="IP de tu equipo">
-                <i class="mdi mdi-lan-connect" aria-hidden="true"></i>
-                <span>IP de tu equipo</span>
+                <i class="mdi mdi-wifi" aria-hidden="true"></i>
                 <strong>{{ $ip }}</strong>
             </div>
         @endauth
