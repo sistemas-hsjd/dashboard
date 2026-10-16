@@ -36,7 +36,7 @@
         @endauth
         <div class="d-flex">
             <div class="dropdown d-inline-block">
-                <button type="button" class="btn header-item bg-soft-light border-start border-end" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button type="button" class="btn header-item bg-soft-light border-start border-end {{ Auth::guest() ? 'hospital-ip-badge' : '' }}" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="ms-1 fw-medium span-ip">
                         @if (Auth::user())
                             {{ Auth::user()->nombre }}

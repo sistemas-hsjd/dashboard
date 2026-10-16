@@ -79,9 +79,11 @@ class AuthController extends Controller
             if($user->update_password==0){
                 //return 'cambiar contraseña';
                 return (new RedirectResponse(route('cambiarContrasena', [], false)))
+                    ->setSession($request->session())
                     ->with('token', $plainTextToken);
             }else{
                 return (new RedirectResponse(route('misSistemas', [], false)))
+                    ->setSession($request->session())
                     ->with('token', $plainTextToken);
             }
         }
