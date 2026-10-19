@@ -46,4 +46,23 @@ class AuthenticationCompatibilityTest extends TestCase
     {
         $this->assertSame('php', config('session.serialization'));
     }
+
+    public function test_authenticated_login_redirect_stays_on_the_current_host(): void
+    {
+        app('url')->forceRootUrl('http://10.4.237.89');
+        $this->actingAs(new UserPortal(['id' => 1, 'id_perfil' => 1]), 'generales');
+
+        $response = $this->get('/login');
+
+        $response->assertStatus(302);
+        $this->assertSame('/inicio', $response->headers->get('Location'));
+    }
+
+    public function test_login_form_submits_to_the_current_host(): void
+    {
+        app('url')->forceRootUrl('http://10.4.237.89');
+
+        $this->get('/login')->assertOk()
+            ->assertSee('action="/iniciar-sesion"', false);
+    }
 }

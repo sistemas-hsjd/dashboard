@@ -123,18 +123,30 @@
                     </li>
                 </ul>
                 @php
+                    $sirehUrl = \App\Models\Enlace::where('estado', 1)->whereKey(39)->value('enlace');
                     $anexosUrl = config('services.anexos.url') ?: \App\Models\Enlace::where('estado', 1)
                         ->where('nombre', 'like', '%anexo%')->value('enlace');
                 @endphp
+                <div class="d-flex flex-wrap align-items-center gap-2 ms-lg-auto">
+                    @if ($sirehUrl)
+                        <a class="hospital-anexos ms-0" href="{{ $sirehUrl }}" target="_blank" rel="noopener noreferrer">
+                            <i class="mdi mdi-account-group-outline" aria-hidden="true"></i> SIREH
+                        </a>
+                    @else
+                        <button type="button" class="hospital-anexos ms-0" disabled title="El enlace SIREH no está disponible">
+                            <i class="mdi mdi-account-group-outline" aria-hidden="true"></i> SIREH
+                        </button>
+                    @endif
                 @if ($anexosUrl)
-                    <a class="hospital-anexos ms-lg-auto" href="{{ $anexosUrl }}" target="_blank" rel="noopener noreferrer">
+                    <a class="hospital-anexos ms-0" href="{{ $anexosUrl }}" target="_blank" rel="noopener noreferrer">
                         <i class="mdi mdi-phone-outline" aria-hidden="true"></i> Anexos Hospitalarios
                     </a>
                 @else
-                    <button type="button" class="hospital-anexos ms-lg-auto" data-bs-toggle="modal" data-bs-target="#modalAnexosHospitalarios">
+                    <button type="button" class="hospital-anexos ms-0" data-bs-toggle="modal" data-bs-target="#modalAnexosHospitalarios">
                         <i class="mdi mdi-phone-outline" aria-hidden="true"></i> Anexos Hospitalarios
                     </button>
                 @endif
+                </div>
             </div>
         </nav>
     </div>

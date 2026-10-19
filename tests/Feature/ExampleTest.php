@@ -21,6 +21,11 @@ class ExampleTest extends TestCase
         $response = $this->get('/');
 
         $response->assertStatus(200);
+        $response->assertDontSee('onclick=', false);
+        $response->assertDontSee('onchange=', false);
+        $response->assertDontSee('dashboard.init.js', false);
+        $response->assertDontSee('apexcharts.min.js', false);
+        $this->assertMatchesRegularExpression('/hospital-portal\.css\?v=[a-f0-9]{12}/', $response->getContent());
         $response->assertDontSee('id="topnav-admin"', false);
         $response->assertDontSee('<modal-estados-enlaces-component>', false);
     }
