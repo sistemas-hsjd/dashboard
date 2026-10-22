@@ -9,12 +9,17 @@
     <p v-if="error" class="alert alert-danger" role="alert">{{ error }}</p>
     <div class="table-responsive"><table ref="table" class="display audit-table" style="width:100%"><thead><tr><th>ID</th><th>Fecha</th><th>Nombre completo</th><th>RUN</th><th>Unidades</th><th>Estamento</th><th>IP</th><th>Estado</th><th>Sistema operativo</th></tr></thead></table></div>
   </section>
+  <ModalDesarrolloComponent />
+  <ModalNewSoporteComponent />
 </template>
 <script>
 import DataTable from 'datatables.net-dt';
 import 'datatables.net-dt/css/dataTables.dataTables.min.css';
+import ModalDesarrolloComponent from './modals/ModalDesarrolloComponent.vue';
+import ModalNewSoporteComponent from './modals/modalNewSoporteComponent.vue';
 const statuses = {success: 'Ubicación obtenida', denied: 'Permiso denegado', unavailable: 'No disponible', timeout: 'Tiempo agotado', unsupported: 'Navegador incompatible', insecure: 'Requiere HTTPS'};
 export default {
+  components: { ModalDesarrolloComponent, ModalNewSoporteComponent },
   data() { return {from: '', to: '', status: '', statuses, error: ''}; },
   mounted() {
     const text = DataTable.render.text();
