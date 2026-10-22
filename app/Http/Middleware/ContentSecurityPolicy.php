@@ -29,6 +29,11 @@ class ContentSecurityPolicy
             'frame-ancestors' => ["'self'"],
         ];
 
+        $cluster = config('broadcasting.connections.pusher.options.cluster');
+        if (is_string($cluster) && preg_match('/^[a-z0-9-]+$/', $cluster)) {
+            $directives['connect-src'][] = 'wss://ws-'.$cluster.'.pusher.com';
+        }
+
         // Allow only the configured Vite development server, and only locally.
         if (app()->environment('local') && is_file(public_path('hot'))) {
             $url = parse_url(trim(file_get_contents(public_path('hot'))));

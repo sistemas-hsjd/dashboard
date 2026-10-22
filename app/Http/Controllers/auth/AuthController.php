@@ -59,6 +59,13 @@ class AuthController extends Controller
                 'logged_in_at' => now(),
             ]));
 
+            try {
+                event(new \App\Events\LoginAccessRecorded());
+            } catch (\Throwable $exception) {
+                // A realtime outage must not prevent authentication or audit storage.
+                report($exception);
+            }
+
 
             // Generar token manualmente con expiración
             $plainTextToken = Str::random(64);

@@ -11,8 +11,9 @@
         "laravel/framework": "^13.0",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^3.0",
-        "symfony/process": "^7.4 || ^8.0",
-        "phpoffice/phpspreadsheet": "^4.3"
+        "phpoffice/phpspreadsheet": "^4.3",
+        "pusher/pusher-php-server": "^7.3",
+        "symfony/process": "^7.4 || ^8.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

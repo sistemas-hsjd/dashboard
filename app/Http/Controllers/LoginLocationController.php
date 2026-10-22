@@ -7,6 +7,16 @@ use Illuminate\Http\Request;
 
 class LoginLocationController extends Controller
 {
+    public function realtimeConfig(Request $request)
+    {
+        abort_unless((int) $request->user()->id_perfil === 1, 403);
+
+        return response()->json([
+            'key' => config('broadcasting.connections.pusher.key'),
+            'cluster' => config('broadcasting.connections.pusher.options.cluster'),
+        ]);
+    }
+
     public function index(Request $request)
     {
         abort_unless((int) $request->user()->id_perfil === 1, 403);

@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Broadcast;
 
+Broadcast::channel('login-accesses', function ($user) {
+    return (int) $user->id_perfil === 1;
+}, ['guards' => ['generales']]);
+
 /*
 |--------------------------------------------------------------------------
 | Broadcast Channels

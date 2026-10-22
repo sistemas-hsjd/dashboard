@@ -14,6 +14,7 @@
 </template>
 <script>
 import DataTable from 'datatables.net-dt';
+import Pusher from 'pusher-js';
 import 'datatables.net-dt/css/dataTables.dataTables.min.css';
 import ModalDesarrolloComponent from './modals/ModalDesarrolloComponent.vue';
 import ModalNewSoporteComponent from './modals/modalNewSoporteComponent.vue';
@@ -46,9 +47,41 @@ export default {
       ],
       language: {search: 'Buscar:', lengthMenu: 'Mostrar _MENU_ registros', info: '_START_ a _END_ de _TOTAL_ registros', infoEmpty: 'Sin registros', infoFiltered: '(de _MAX_ registros)', emptyTable: 'No hay accesos registrados', zeroRecords: 'No se encontraron resultados', processing: 'Cargando...', paginate: {first: 'Primero', last: 'Último', next: 'Siguiente', previous: 'Anterior'}}
     });
+    this.connectRealtime();
   },
-  beforeUnmount() { this.auditTable?.destroy(); },
-  methods: { reload() { this.auditTable?.ajax.reload(); } }
+  beforeUnmount() {
+    this.realtimeDisposed = true;
+    clearTimeout(this.realtimeReloadTimer);
+    this.pusher?.disconnect();
+    this.auditTable?.destroy();
+  },
+  methods: {
+    reload() { this.auditTable?.ajax.reload(); },
+    async connectRealtime() {
+      try {
+        const {data} = await axios.get('/registro-accesos/realtime');
+        if (this.realtimeDisposed || !data.key || !data.cluster) return;
+        this.pusher = new Pusher(data.key, {
+          cluster: data.cluster,
+          forceTLS: true,
+          enabledTransports: ['ws'],
+          disableStats: true,
+          channelAuthorization: {
+            endpoint: '/broadcasting/auth',
+            transport: 'ajax',
+            headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || ''}
+          }
+        });
+        this.pusher.subscribe('private-login-accesses').bind('login.recorded', () => {
+          clearTimeout(this.realtimeReloadTimer);
+          this.realtimeReloadTimer = setTimeout(() => this.auditTable?.ajax.reload(null, false), 300);
+        });
+        this.pusher.connection.bind('connected', () => this.auditTable?.ajax.reload(null, false));
+      } catch (error) {
+        console.error('No se pudo conectar el registro de accesos en tiempo real.', error);
+      }
+    }
+  }
 };
 </script>
 <style scoped>
