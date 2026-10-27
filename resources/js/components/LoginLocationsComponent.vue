@@ -40,7 +40,7 @@ export default {
           const now = Date.now();
           for (const row of response.data.data) {
             if (this.latestAccessId !== null && Number(row.id) > this.latestAccessId) {
-              this.highlightedAccesses.set(String(row.id), now + 3000);
+              this.highlightedAccesses.set(String(row.id), now + 8000);
             }
           }
           this.latestAccessId = Math.max(this.latestAccessId ?? 0, Number(response.data.latest_id) || 0);
@@ -122,5 +122,22 @@ export default {
 .audit-filters label { font-size: 12px; display: grid; gap: 5px; }
 .audit-table { font-size: 12px; }
 .audit-table :deep(td) { vertical-align: top; }
-.audit-table :deep(tr.access-new > td) { background-color: #d1fae5 !important; box-shadow: none !important; color: #14532d !important; }
+.audit-table :deep(tr.access-new > td) {
+  background-color: #d1fae5;
+  box-shadow: none !important;
+  color: #14532d !important;
+  font-weight: 600;
+  animation: new-access-pulse 1.6s ease-in-out infinite;
+}
+.audit-table :deep(tr.access-new > td:first-child) {
+  border-left: 4px solid #059669;
+  font-weight: 700;
+}
+@keyframes new-access-pulse {
+  0%, 100% { background-color: #d1fae5; }
+  50% { background-color: #ecfdf5; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .audit-table :deep(tr.access-new > td) { animation: none; }
+}
 </style>
