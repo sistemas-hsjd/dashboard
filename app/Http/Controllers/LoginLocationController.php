@@ -36,6 +36,7 @@ class LoginLocationController extends Controller
         ]);
         $query = LoginLocation::query();
         $total = (clone $query)->count();
+        $latestId = (clone $query)->max('id') ?? 0;
         if ($request->filled('status')) $query->where('location_status', $input['status']);
         if ($request->filled('from')) $query->where('logged_in_at', '>=', \Carbon\Carbon::parse($input['from'], 'America/Santiago')->startOfDay()->setTimezone(config('app.timezone')));
         if ($request->filled('to')) $query->where('logged_in_at', '<', \Carbon\Carbon::parse($input['to'], 'America/Santiago')->addDay()->startOfDay()->setTimezone(config('app.timezone')));
@@ -68,6 +69,6 @@ class LoginLocationController extends Controller
             $data['logged_in_at'] = $row->logged_in_at?->timezone('America/Santiago')->format('d-m-Y H:i:s');
             return $data;
         });
-        return response()->json(['draw' => (int) ($input['draw'] ?? 0), 'recordsTotal' => $total, 'recordsFiltered' => $filtered, 'data' => $rows]);
+        return response()->json(['draw' => (int) ($input['draw'] ?? 0), 'recordsTotal' => $total, 'recordsFiltered' => $filtered, 'latest_id' => $latestId, 'data' => $rows]);
     }
 }

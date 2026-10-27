@@ -23,18 +23,45 @@ export default {
   components: { ModalDesarrolloComponent, ModalNewSoporteComponent },
   data() { return {from: '', to: '', status: '', statuses, error: ''}; },
   mounted() {
+    this.latestAccessId = null;
+    this.highlightedAccesses = new Map();
+    this.highlightTimers = new Set();
+    this.latestRequestedDraw = 0;
     const text = DataTable.render.text();
     this.auditTable = new DataTable(this.$refs.table, {
       processing: true, serverSide: true, searchDelay: 400, pageLength: 25,
       lengthMenu: [10, 25, 50, 100], order: [[1, 'desc']], autoWidth: false,
       ajax: async (data, callback) => {
+        this.latestRequestedDraw = Number(data.draw);
         this.error = '';
         try {
           const response = await axios.get('/registro-accesos/data', {params: {...data, from: this.from || undefined, to: this.to || undefined, status: this.status || undefined}});
+          if (this.realtimeDisposed || Number(data.draw) !== this.latestRequestedDraw) return;
+          const now = Date.now();
+          for (const row of response.data.data) {
+            if (this.latestAccessId !== null && Number(row.id) > this.latestAccessId) {
+              this.highlightedAccesses.set(String(row.id), now + 3000);
+            }
+          }
+          this.latestAccessId = Math.max(this.latestAccessId ?? 0, Number(response.data.latest_id) || 0);
           callback(response.data);
         } catch (error) {
+          if (this.realtimeDisposed || Number(data.draw) !== this.latestRequestedDraw) return;
           this.error = error.response?.status === 403 ? 'No tienes permiso para consultar los accesos.' : 'No se pudieron cargar los datos. Revisa las fechas o intenta nuevamente.';
           callback({draw: data.draw, recordsTotal: 0, recordsFiltered: 0, data: []});
+        }
+      },
+      rowCallback: (row, data) => {
+        const id = String(data.id);
+        const remaining = (this.highlightedAccesses.get(id) || 0) - Date.now();
+        row.classList.toggle('access-new', remaining > 0);
+        if (remaining > 0) {
+          const timer = setTimeout(() => {
+            row.classList.remove('access-new');
+            this.highlightedAccesses.delete(id);
+            this.highlightTimers.delete(timer);
+          }, remaining);
+          this.highlightTimers.add(timer);
         }
       },
       columns: [
@@ -52,6 +79,8 @@ export default {
   beforeUnmount() {
     this.realtimeDisposed = true;
     clearTimeout(this.realtimeReloadTimer);
+    this.highlightTimers.forEach(timer => clearTimeout(timer));
+    this.highlightedAccesses.clear();
     this.pusher?.disconnect();
     this.auditTable?.destroy();
   },
@@ -93,4 +122,5 @@ export default {
 .audit-filters label { font-size: 12px; display: grid; gap: 5px; }
 .audit-table { font-size: 12px; }
 .audit-table :deep(td) { vertical-align: top; }
+.audit-table :deep(tr.access-new > td) { background-color: #d1fae5 !important; box-shadow: none !important; color: #14532d !important; }
 </style>
