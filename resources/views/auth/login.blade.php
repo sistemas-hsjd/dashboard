@@ -42,6 +42,8 @@
                     <input type="hidden" name="latitude">
                     <input type="hidden" name="longitude">
                     <input type="hidden" name="accuracy_meters">
+                    <input type="hidden" name="ua_platform">
+                    <input type="hidden" name="ua_platform_version">
                     <div class="login-field">
                         <label for="rut">RUN</label>
                         <div class="login-input"><i class="mdi mdi-card-account-details-outline" aria-hidden="true"></i><input type="text" value="{{ old('rut') }}" id="rut" name="rut" placeholder="Ej. 12345678-9" autocomplete="username" autocapitalize="characters" spellcheck="false" required @if($errors->has('rut')) aria-invalid="true" @endif></div>

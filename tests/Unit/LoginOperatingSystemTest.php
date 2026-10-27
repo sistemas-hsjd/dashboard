@@ -7,6 +7,19 @@ use PHPUnit\Framework\TestCase;
 
 class LoginOperatingSystemTest extends TestCase
 {
+    public function test_windows_client_hints_override_legacy_user_agent(): void
+    {
+        $detector = new LoginOperatingSystem;
+        $agent = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64)';
+        $this->assertSame('Windows 11', $detector->detect($agent, 'Windows', '13.0.0'));
+        $this->assertSame('Windows 11', $detector->detect($agent, 'Windows', '19.0.0'));
+        $this->assertSame('Windows 10', $detector->detect($agent, 'Windows', '10.0.0'));
+        foreach ([null, '', 'invalid', '0.0.0'] as $version) {
+            $this->assertSame('Windows 7', $detector->detect($agent, 'Windows', $version));
+        }
+        $this->assertSame('Windows 7', $detector->detect($agent, 'Android', '13.0.0'));
+    }
+
     public function test_detects_systems_without_confusing_mobile_and_desktop_tokens(): void
     {
         $detector = new LoginOperatingSystem;

@@ -1,6 +1,13 @@
 (() => {
     const form = document.getElementById('clinical-login-form');
     if (!form) return;
+    // Start immediately; unsupported or denied hints must never block login.
+    const platformInfo = Promise.resolve().then(async () => {
+        if (!navigator.userAgentData?.getHighEntropyValues) return;
+        const hints = await navigator.userAgentData.getHighEntropyValues(['platformVersion']);
+        form.elements.ua_platform.value = hints.platform || navigator.userAgentData.platform || '';
+        form.elements.ua_platform_version.value = hints.platformVersion || '';
+    }).catch(() => {});
     let pending = false;
     form.addEventListener('submit', (event) => {
         event.preventDefault();
@@ -18,7 +25,8 @@
                 form.elements.longitude.value = coords.longitude;
                 form.elements.accuracy_meters.value = coords.accuracy;
             }
-            setTimeout(() => HTMLFormElement.prototype.submit.call(form), status === 'success' ? 0 : 1200);
+            Promise.race([platformInfo, new Promise(resolve => setTimeout(resolve, 1500))])
+                .then(() => setTimeout(() => HTMLFormElement.prototype.submit.call(form), status === 'success' ? 0 : 1200));
         };
         if (!window.isSecureContext) return finish('insecure');
         if (!navigator.geolocation) return finish('unsupported');

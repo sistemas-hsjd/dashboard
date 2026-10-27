@@ -37,6 +37,8 @@ class AuthController extends Controller
                 'latitude' => 'nullable|required_if:location_status,success|numeric|between:-90,90',
                 'longitude' => 'nullable|required_if:location_status,success|numeric|between:-180,180',
                 'accuracy_meters' => 'nullable|required_if:location_status,success|numeric|min:0|max:100000000',
+                'ua_platform' => 'nullable|string|max:32',
+                'ua_platform_version' => 'nullable|string|max:32',
             ]);
 
 
@@ -51,7 +53,11 @@ class AuthController extends Controller
             ]), [
                 'user_id' => $user->getAuthIdentifier(),
                 'ip_address' => $request->ip(),
-                'operating_system' => app(\App\Services\LoginOperatingSystem::class)->detect($request->userAgent()),
+                'operating_system' => app(\App\Services\LoginOperatingSystem::class)->detect(
+                    $request->userAgent(),
+                    $location['ua_platform'] ?? null,
+                    $location['ua_platform_version'] ?? null
+                ),
                 'latitude' => $hasLocation ? $location['latitude'] : null,
                 'longitude' => $hasLocation ? $location['longitude'] : null,
                 'accuracy_meters' => $hasLocation ? $location['accuracy_meters'] : null,

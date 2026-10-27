@@ -4,8 +4,14 @@ namespace App\Services;
 
 class LoginOperatingSystem
 {
-    public function detect(?string $userAgent): string
+    public function detect(?string $userAgent, ?string $platform = null, ?string $platformVersion = null): string
     {
+        // Client Hints take precedence over legacy or compatibility-mode UA tokens.
+        if ($platform === 'Windows' && preg_match('/^\d{1,3}(?:\.\d{1,5}){0,3}$/D', $platformVersion ?? '')) {
+            $major = (int) explode('.', $platformVersion)[0];
+            if ($major >= 13) return 'Windows 11';
+            if ($major >= 1) return 'Windows 10';
+        }
         $agent = $userAgent ?? '';
         if (preg_match('/Windows Phone(?: OS)? ([\d.]+)/i', $agent, $match)) {
             return 'Windows Phone '.$match[1];
