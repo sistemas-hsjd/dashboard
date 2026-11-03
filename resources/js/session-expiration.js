@@ -43,6 +43,34 @@ if (lifetime > 0) {
     let warningOpen = false;
     let expired = false;
     const stopClinicalBridge = installClinicalSessionBridge(lifetime);
+    const heartbeatUrl = document.querySelector('meta[name="session-heartbeat-url"]').content;
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+    const activityInterval = Math.min(15000, lifetime * 1000 / 4);
+    const activityEvents = ['click', 'pointermove', 'pointerdown', 'keydown', 'input', 'scroll', 'wheel'];
+    let activityPending = false;
+    let lastActivityAttempt = -Infinity;
+
+    async function registerPortalActivity(event) {
+        if (!event.isTrusted || document.visibilityState !== 'visible' || expired || activityPending) return;
+        // Once the deadline has passed, activity must not revive an expired session.
+        if (Date.now() >= deadline) { expire(); return; }
+        if (Date.now() - lastActivityAttempt < activityInterval) return;
+        lastActivityAttempt = Date.now();
+        activityPending = true;
+        try {
+            await axios.post(heartbeatUrl, {}, {
+                timeout: 10000,
+                headers: { 'X-CSRF-TOKEN': csrfToken, Accept: 'application/json' },
+            });
+            // The response interceptor updates the countdown only after server confirmation.
+        } catch {
+            // Connection failures do not renew the timer; 401/419 trigger expiration.
+        } finally { activityPending = false; }
+    }
+
+    for (const type of activityEvents) {
+        document.addEventListener(type, registerPortalActivity, { passive: true, capture: true });
+    }
 
     function updateHeaderCounter() {
         const seconds = Math.max(0, Math.ceil((deadline - Date.now()) / 1000));
@@ -73,6 +101,9 @@ if (lifetime > 0) {
         if (expired) return;
         expired = true;
         stopClinicalBridge();
+        for (const type of activityEvents) {
+            document.removeEventListener(type, registerPortalActivity, true);
+        }
         warningOpen = false;
         sessionDialog.fire({
             icon: 'info',
