@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { installClinicalSessionBridge } from './clinical-session-bridge';
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import '../css/session-expiration.css';
@@ -40,6 +41,7 @@ if (lifetime > 0) {
     let deadline;
     let warningOpen = false;
     let expired = false;
+    const stopClinicalBridge = installClinicalSessionBridge(lifetime);
 
     function updateHeaderCounter() {
         const seconds = Math.max(0, Math.ceil((deadline - Date.now()) / 1000));
@@ -69,6 +71,7 @@ if (lifetime > 0) {
     async function expire() {
         if (expired) return;
         expired = true;
+        stopClinicalBridge();
         warningOpen = false;
         sessionDialog.fire({
             icon: 'info',

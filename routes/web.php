@@ -25,6 +25,11 @@ Route::middleware(['guest'])->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
+    Route::post('/session/heartbeat', function (\Illuminate\Http\Request $request) {
+        $request->session()->put('portal_last_activity_at', time());
+
+        return response()->noContent()->header('Cache-Control', 'no-store');
+    })->name('session.heartbeat');
     Route::post('/session/extend', fn () => response()->json(['extended' => true]))->name('session.extend');
     Route::get('/registro-accesos/realtime', [\App\Http\Controllers\LoginLocationController::class, 'realtimeConfig']);
     Route::get('/registro-accesos', [\App\Http\Controllers\LoginLocationController::class, 'index'])->name('loginLocations.index');

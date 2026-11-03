@@ -1,7 +1,14 @@
 /.phpunit.cache
 /node_modules
-/docs
-/tests
+/docs/*
+!/docs/clinical-session-heartbeat.md
+/tests/*
+!/tests/Feature/
+/tests/Feature/*
+!/tests/Feature/SessionExpirationTest.php
+!/tests/js/
+/tests/js/*
+!/tests/js/clinical-session-bridge.test.js
 /public/build
 /public/hot
 /public/storage
