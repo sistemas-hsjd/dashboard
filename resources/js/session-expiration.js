@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { installClinicalSessionBridge } from './clinical-session-bridge';
-import Swal from 'sweetalert2';
+// The default "all" bundle injects an inline stylesheet blocked by our CSP.
+import Swal from 'sweetalert2/dist/sweetalert2.esm.js';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import '../css/session-expiration.css';
 
