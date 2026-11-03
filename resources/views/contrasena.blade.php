@@ -4,6 +4,7 @@
 
 <head>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @include('layouts.session-expiration')
     <meta property="csp-nonce" nonce="{{ request()->attributes->get('csp_nonce') }}">
     <title>cambiar contraseña </title>
     <meta charset="utf-8"/>

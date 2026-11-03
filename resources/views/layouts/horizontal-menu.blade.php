@@ -49,8 +49,8 @@
                 </button>
                     @if (Auth::user())
                     <div class="dropdown-menu dropdown-menu-end">
-                        <a class="dropdown-item" id="enlace_logout" href="{{ route('logout') }}"><i class="mdi mdi-logout font-size-16 align-middle me-1"></i> Cerrar sesión</a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" hidden>
+                        <a class="dropdown-item" id="enlace_logout" href="{{ route('logout', [], false) }}"><i class="mdi mdi-logout font-size-16 align-middle me-1"></i> Cerrar sesión</a>
+                        <form id="logout-form" action="{{ route('logout', [], false) }}" method="POST" hidden>
                             {{ csrf_field() }}
                         </form>
                     </div>

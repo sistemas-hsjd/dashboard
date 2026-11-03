@@ -77,6 +77,28 @@ class DashboardController extends Controller
             $query->where('estado', 1);
         }])->where('estado', 1)->get();
 
+        // In local development, portal links must stay on the Laragon host.
+        if (app()->environment('local')) {
+            $localPortalUrl = function ($url) {
+                if (! is_string($url) || parse_url(trim($url), PHP_URL_HOST) !== '10.4.237.89') {
+                    return $url;
+                }
+
+                $parts = parse_url(trim($url));
+
+                return request()->getSchemeAndHttpHost().($parts['path'] ?? '/')
+                    .(isset($parts['query']) ? '?'.$parts['query'] : '')
+                    .(isset($parts['fragment']) ? '#'.$parts['fragment'] : '');
+            };
+
+            foreach ($categorias as $categoria) {
+                $categoria->enlace = $localPortalUrl($categoria->enlace);
+                foreach ($categoria->enlaces as $enlace) {
+                    $enlace->enlace = $localPortalUrl($enlace->enlace);
+                }
+            }
+        }
+
         return [
             "categorias" => $categorias,
             "ip" => $ip

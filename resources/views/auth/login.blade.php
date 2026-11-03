@@ -2,6 +2,9 @@
 <html lang="es">
 <head>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @if (request()->query('session_expired') === '1')
+        <meta name="session-expired" content="true">
+    @endif
     <meta property="csp-nonce" nonce="{{ request()->attributes->get('csp_nonce') }}">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -64,5 +67,6 @@
     <script src="{{ asset('assets/libs/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/js/login.js') }}?v={{ substr(hash_file('sha256', public_path('assets/js/login.js')), 0, 12) }}"></script>
     <script src="{{ asset('assets/js/login-location.js') }}?v={{ substr(hash_file('sha256', public_path('assets/js/login-location.js')), 0, 12) }}"></script>
+    @vite('resources/js/session-expiration.js')
 </body>
 </html>

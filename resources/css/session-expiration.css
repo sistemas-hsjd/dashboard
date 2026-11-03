@@ -1,0 +1,100 @@
+.swal2-container.session-dialog-container {
+    z-index: 20000;
+    padding: 24px;
+    background: rgba(15, 35, 50, .55);
+    backdrop-filter: blur(4px);
+}
+
+.swal2-popup.session-dialog {
+    width: 460px;
+    max-width: 100%;
+    padding: 32px 28px 28px;
+    border: 1px solid #e1e9ef;
+    border-radius: 20px;
+    background: #fff;
+    color: #243b4d;
+    box-shadow: 0 24px 80px rgba(12, 32, 48, .24);
+    font-family: inherit;
+}
+
+.session-dialog .swal2-icon {
+    margin: 0 auto 20px;
+    width: 60px;
+    height: 60px;
+    font-size: 12px;
+}
+
+.session-dialog .swal2-warning {
+    border-color: #f1c979;
+    background: #fff9ed;
+    color: #b77b19;
+}
+
+.session-dialog .session-dialog-title {
+    padding: 0;
+    color: #243b4d;
+    font-size: 23px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -.4px;
+}
+
+.session-dialog .session-dialog-content {
+    margin: 14px 0 0;
+    padding: 0;
+    color: #5d7080;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.session-dialog-content p { margin: 0; }
+
+.session-dialog-timer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    margin: 20px 0;
+    padding: 16px;
+    border: 1px solid #dce8ef;
+    border-radius: 12px;
+    background: #f3f8fb;
+}
+
+.session-dialog-timer strong {
+    color: #245b78;
+    font-size: 42px;
+    line-height: 1.2;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 2px;
+}
+
+.session-dialog-timer span { color: #637a89; font-size: 12px; }
+.session-dialog-content .session-dialog-hint { font-size: 13px; }
+.session-dialog .swal2-actions { width: 100%; margin: 24px 0 0; }
+
+.session-dialog-confirm {
+    width: 100%;
+    min-height: 46px;
+    padding: 12px 20px;
+    border: 0;
+    border-radius: 10px;
+    background: #176579;
+    color: #fff;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .15s;
+}
+
+.session-dialog-confirm:hover { background: #104d5d; }
+.session-dialog-confirm:focus-visible { outline: 3px solid #80b9d1; outline-offset: 3px; }
+.session-dialog-confirm:disabled { opacity: .65; cursor: wait; }
+
+@media (max-width: 480px) {
+    .swal2-container.session-dialog-container { padding: 16px; }
+    .swal2-popup.session-dialog { padding: 28px 20px 24px; }
+    .session-dialog .session-dialog-title { font-size: 21px; }
+}

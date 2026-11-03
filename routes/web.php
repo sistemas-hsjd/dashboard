@@ -25,6 +25,7 @@ Route::middleware(['guest'])->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
+    Route::post('/session/extend', fn () => response()->json(['extended' => true]))->name('session.extend');
     Route::get('/registro-accesos/realtime', [\App\Http\Controllers\LoginLocationController::class, 'realtimeConfig']);
     Route::get('/registro-accesos', [\App\Http\Controllers\LoginLocationController::class, 'index'])->name('loginLocations.index');
     Route::get('/registro-accesos/data', [\App\Http\Controllers\LoginLocationController::class, 'data'])->name('loginLocations.data');

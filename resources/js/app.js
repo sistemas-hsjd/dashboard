@@ -1,4 +1,5 @@
 import './bootstrap';
+import './session-expiration';
 import { createApp, h } from 'vue';
 import { createRouter, createWebHistory, RouterView } from 'vue-router';
 import Routes from './routes.js';
