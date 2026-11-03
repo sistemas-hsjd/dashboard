@@ -41,8 +41,24 @@ if (lifetime > 0) {
     let warningOpen = false;
     let expired = false;
 
+    function updateHeaderCounter() {
+        const seconds = Math.max(0, Math.ceil((deadline - Date.now()) / 1000));
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        const time = [
+            ...(hours > 0 ? [String(hours).padStart(2, '0')] : []),
+            String(minutes).padStart(2, '0'),
+            String(seconds % 60).padStart(2, '0'),
+        ].join(':');
+        document.querySelectorAll('[data-session-counter]').forEach(counter => {
+            counter.textContent = time;
+            counter.closest('.session-header-counter')?.classList.toggle('session-header-counter-warning', seconds * 1000 <= warningTime);
+        });
+    }
+
     function renew(seconds) {
         deadline = Date.now() + seconds * 1000;
+        updateHeaderCounter();
         try { localStorage.setItem(storageKey, String(deadline)); } catch {}
         if (warningOpen) {
             warningOpen = false;
@@ -97,6 +113,7 @@ if (lifetime > 0) {
     window.addEventListener('storage', event => {
         if (event.key === storageKey && Number(event.newValue) > deadline && !expired) {
             deadline = Number(event.newValue);
+            updateHeaderCounter();
             if (warningOpen) {
                 warningOpen = false;
                 Swal.close();
@@ -106,6 +123,7 @@ if (lifetime > 0) {
 
     function tick() {
         if (expired) return;
+        updateHeaderCounter();
         const remaining = deadline - Date.now();
         if (remaining <= 0) { expire(); return; }
         if (remaining <= warningTime && !warningOpen) {

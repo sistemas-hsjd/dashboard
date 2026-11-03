@@ -1,3 +1,35 @@
+.session-header-counter {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: 10px;
+    padding: 5px 9px;
+    border: 1px solid #dce8ef;
+    border-radius: 8px;
+    background: #f3f8fb;
+    color: #245b78;
+    font-size: 12px;
+    line-height: 1.4;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.session-header-counter [data-session-counter] {
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+
+.session-header-counter.session-header-counter-warning {
+    background: #fff7e8;
+    border-color: #efcd90;
+    color: #8a5c12;
+}
+
+@media (max-width: 575px) {
+    .session-header-label { display: none; }
+    .session-header-counter { margin-left: 5px; padding: 4px 6px; }
+}
+
 .swal2-container.session-dialog-container {
     z-index: 20000;
     padding: 24px;

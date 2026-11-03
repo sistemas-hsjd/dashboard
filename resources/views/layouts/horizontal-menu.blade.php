@@ -41,6 +41,7 @@
                     <span class="ms-1 fw-medium span-ip">
                         @if (Auth::user())
                             {{ Auth::user()->nombre }}
+                            @include('layouts.session-counter')
                              <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                         @else
                            <i class="mdi mdi-wifi" aria-hidden="true"></i> {{ $ip }}

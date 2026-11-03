@@ -74,6 +74,7 @@
                 @endif
                     
                     <span class="d-none d-xl-inline-block ms-1 fw-medium">{{ Auth::user()->nombre.' '.Auth::user()->paterno.' '.Auth::user()->materno }}</span>
+                    @include('layouts.session-counter')
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
