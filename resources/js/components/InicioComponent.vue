@@ -1,23 +1,21 @@
 <template>
   <div class="staff-portal">
+    <p v-if="user?.nombre" class="staff-greeting">{{ saludo }}, <strong>{{ user.nombre }}</strong></p>
     <section class="staff-section" aria-labelledby="localSystemsTitle">
       <div class="staff-section-heading staff-local-heading">
         <span class="staff-section-icon" aria-hidden="true"><i class="mdi mdi-hospital-building"></i></span>
-        <div><h2 id="localSystemsTitle">Sistemas Locales</h2><p>Accede a tus aplicaciones clínicas y administrativas.</p></div>
-        <p v-if="user?.nombre" class="staff-greeting">
-          <span>{{ saludo }}</span>, <strong>{{ user.nombre }}</strong>
-        </p>
+        <div><h2 id="localSystemsTitle">Sistemas locales</h2><p>Accede a tus aplicaciones clínicas y administrativas.</p></div>
         <span class="staff-count">{{ sistemas.length }} sistemas</span>
       </div>
       <div class="staff-grid">
         <article v-for="sistema in sistemas" :key="sistema.id" class="staff-card">
           <div class="staff-card-image"><img :src="`assets/images/img-portal/${sistema.img}`" :alt="sistema.tx_descripcion" loading="lazy"></div>
           <div class="staff-card-body">
-            <span class="staff-card-badge">Sistema local</span>
+            
             <div class="staff-title-row">
               <h3>{{ sistema.tx_descripcion }}</h3>
             <div class="staff-inline-actions">
-              <button v-if="sistema.id === 10000000" type="button" class="staff-access" @click="abrirAcess()">Ingresar <i class="mdi mdi-arrow-right" aria-hidden="true"></i></button>
+              <button v-if="Number(sistema.id) === 10000000" type="button" class="staff-access" @click="abrirAcess()">Ingresar <i class="mdi mdi-arrow-right" aria-hidden="true"></i></button>
               <a v-else-if="localUrl(sistema)" class="staff-access" :href="localUrl(sistema)" target="_blank" rel="noopener noreferrer" :aria-label="`Ingresar a ${sistema.tx_descripcion} (nueva pestaña)`">Ingresar <i class="mdi mdi-arrow-top-right" aria-hidden="true"></i></a>
               <span v-else class="staff-unavailable">Acceso no disponible</span>
             </div>
@@ -29,60 +27,59 @@
     </section>
     <section class="staff-section staff-support" aria-labelledby="supportSystemsTitle">
       <div class="staff-section-heading">
-        <span class="staff-section-icon" aria-hidden="true"><i class="mdi mdi-lifebuoy"></i></span>
+        <span class="staff-section-icon" aria-hidden="true"><i class="mdi mdi-layers-triple-outline"></i></span>
         <div><h2 id="supportSystemsTitle">Plataformas de apoyo</h2><p>Herramientas de apoyo para la atención hospitalaria.</p></div>
-        <span class="staff-count">{{ sistemasDefaults.length }} plataformas</span>
       </div>
       <div class="staff-grid">
         <article v-for="sistema in sistemasDefaults" :key="sistema.id" class="staff-card">
           <div class="staff-card-image"><img :src="`assets/images/img-portal/${sistema.img}`" :alt="sistema.tx_descripcion" loading="lazy"></div>
           <div class="staff-card-body">
-            <span class="staff-card-badge">{{ sistema.estado == 0 && [24, 20].includes(Number(sistema.id)) ? 'Contingencia' : 'Plataforma de apoyo' }}</span>
-                   <template v-if="sistema.estado == 0 && sistema.id === 24">
+            
+                   <template v-if="sistema.estado == 0 && Number(sistema.id) === 24">
                       <h4 class="card-title">TracKare de Contingencia</h4>
                        <p class="card-text mb-0 text-danger">Soporte: <strong>{{ sistema.encargado?.telefono }}</strong>.</p>
                     </template>
-                    <template v-else-if="sistema.estado == 0 && sistema.id === 20">
+                    <template v-else-if="sistema.estado == 0 && Number(sistema.id) === 20">
                       <h4 class="card-title">Laboratorio Clínico Contingencia <br>User:LABO Pass: Labo1234</h4>
                     </template>
-                    <template v-else-if="sistema.id === 24 || sistema.id === 28">
+                    <template v-else-if="Number(sistema.id) === 24 || Number(sistema.id) === 28">
                         <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
                         <p class="card-text mb-0 text-primary">Soporte: <strong>{{ sistema.encargado?.telefono }}</strong>.</p>
                     </template>
-                    <template v-else-if="sistema.id === 20 || sistema.id === 29">
+                    <template v-else-if="Number(sistema.id) === 20 || Number(sistema.id) === 29">
                           <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
                           <p class="card-text mb-0 text-primary">Soporte: <strong>{{ sistema.encargado?.email }}</strong>.</p>
                   
-                        <template v-if="sistema.id === 20">
+                        <template v-if="Number(sistema.id) === 20">
                         <p class="card-text mb-0 text-danger">
                           <strong>(Exámenes hasta el 07-julio-2026)</strong>.
                         </p>
                       </template>
 
-                      <template v-if="sistema.id === 29">
+                      <template v-if="Number(sistema.id) === 29">
                         <p class="card-text mb-0 text-danger">
                           <strong>(Exámenes desde el 08-julio-2026)</strong>.
                         </p>
                       </template>
                       
                     </template>
-                    <template v-else-if="sistema.id === 19">
+                    <template v-else-if="Number(sistema.id) === 19">
                           <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
                           <p class="card-text mb-0 text-primary">Soporte: <strong>{{ sistema.encargado?.telefono }}</strong>.</p>
                     </template>
-                    <template v-else-if="sistema.id === 22">
+                    <template v-else-if="Number(sistema.id) === 22">
                           <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
                           <p class="card-text mb-0 text-primary">Soporte: <strong>{{ sistema.encargado?.telefono }}</strong>.</p>
                     </template>
-                    <template v-else-if="sistema.id === 23">
+                    <template v-else-if="Number(sistema.id) === 23">
                           <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
                           <p class="card-text mb-0 text-primary">Soporte: <strong>{{ sistema.encargado?.telefono }}</strong>.</p>
                     </template>
-                    <template v-else-if="sistema.id === 25">
+                    <template v-else-if="Number(sistema.id) === 25">
                           <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
                           <p class="card-text mb-0 text-primary">Soporte: <strong>{{ sistema.encargado?.telefono }}</strong>.</p>
                     </template>
-                    <!-- <template v-else-if="sistema.id === 29">
+                    <!-- <template v-else-if="Number(sistema.id) === 29">
                           <h4 class="card-title">{{ sistema.tx_descripcion }}</h4>
                           <p class="card-text mb-0 text-primary">Soporte: (Exámenes desde el 08-julio-2026)<strong>{{ sistema.encargado?.telefono }}</strong>.</p>
                     </template> -->
@@ -193,51 +190,88 @@ export default {
 </script>
 
 <style scoped>
-.staff-title-row { display: grid; grid-template-columns: minmax(0, 1fr) 92px; align-items: center; gap: 10px; min-height: 40px; }
-.staff-card-body .staff-title-row h3 { min-width: 0; margin: 0; overflow-wrap: anywhere; }
-.staff-inline-actions { display: flex; align-items: center; justify-content: flex-end; }
-.staff-inline-actions .staff-access { width: 92px; height: 28px; justify-content: center; padding: 0 10px; line-height: 1; white-space: nowrap; }
-.staff-local-description { margin: 6px 0 0; }
-
-.staff-local-heading { position: relative; }
-.staff-section-heading .staff-greeting { position: absolute; left: 50%; transform: translateX(-50%); max-width: 40%; text-align: center; color: #33495e; font-size: 15px; line-height: 1.3; }
-.staff-greeting span { color: #237d70; font-weight: 600; }
-.staff-greeting strong { color: #253e52; text-transform: capitalize; }
-@media (max-width: 1199px) { .staff-section-heading .staff-greeting { position: static; transform: none; flex: 1; max-width: none; padding: 0 10px; } }
-@media (max-width: 767px) { .staff-section-heading .staff-greeting { order: 4; flex: 0 0 100%; text-align: center; padding: 0; } }
-
-.staff-support .staff-card-body { display: grid; grid-template-columns: minmax(0, 1fr) 92px; align-content: start; column-gap: 10px; padding: 18px 28px; }
-.staff-support .staff-card-badge { grid-column: 1 / -1; justify-self: start; letter-spacing: normal; }
-.staff-support .staff-card-body .card-title { grid-column: 1; grid-row: 2; align-self: center; min-width: 0; margin: 0; line-height: 1.3; letter-spacing: normal; overflow-wrap: break-word; }
-.staff-support .staff-card-body .card-text { grid-column: 1 / -1; font-size: 12px; line-height: 1.4; letter-spacing: normal; margin: 4px 0 0 !important; }
-.staff-support .staff-card-body .text-primary { color: #43586a !important; }
-.staff-support .staff-card-actions { grid-column: 2; grid-row: 2; align-self: center; margin: 0; padding: 0; border: 0; }
-.staff-support .staff-access { height: 28px; min-width: 92px; justify-content: center; line-height: 1; }
-
-.staff-section { --staff-accent: #258674; --staff-soft: #e5f3ee; margin-bottom: 0; }
-.staff-section + .staff-support { margin-top: 48px; padding-top: 32px; border-top: 1px solid #d5e1e9; }
-.staff-support { --staff-accent: #5866ac; --staff-soft: #eceef9; }
-.staff-section-heading { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-.staff-section-icon { display: grid; place-items: center; width: 38px; height: 38px; flex-shrink: 0; border-radius: 14px; background: var(--staff-soft); color: var(--staff-accent); font-size: 25px; }
-.staff-section-heading h2 { margin: 0 0 4px; color: #253e52; font-size: 18px; font-weight: 700; }
-.staff-section-heading p { margin: 0; color: #526779; font-size: 12px; }
-.staff-count { margin-left: auto; padding: 5px 10px; border: 1px solid color-mix(in srgb, var(--staff-accent) 15%, transparent); border-radius: 20px; background: var(--staff-soft); color: var(--staff-accent); font-size: 11px; font-weight: 600; white-space: nowrap; }
-.staff-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
-.staff-card { display: flex; flex-direction: column; overflow: hidden; border: 1px solid #d5e1e9; border-radius: 12px; background: #fff; box-shadow: 0 2px 8px #294d7008; }
-.staff-card-image { height: 88px; flex: 0 0 88px; overflow: hidden; background: var(--staff-soft); }
-.staff-card-image img { display: block; width: 100%; height: 88px; object-fit: cover; }
-.staff-card-body { flex: 1; display: flex; flex-direction: column; padding: 18px 28px; border-left: 3px solid var(--staff-accent); }
-.staff-card-badge { align-self: flex-start; padding: 2px 7px; margin-bottom: 5px; background: var(--staff-soft); color: var(--staff-accent); border-radius: 20px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .3px; }
-.staff-card-body h3, .staff-card-body .card-title { font-size: 14px; line-height: 1.4; color: #111827; font-weight: 700; margin: 0 0 5px; }
-.staff-card-body p { font-size: 12px; line-height: 1.6; color: #43586a; overflow-wrap: anywhere; }
-.staff-card-actions { display: flex; justify-content: flex-end; margin-top: auto; padding-top: 7px; border-top: 1px solid #e3eaf0; }
-.staff-access { display: inline-flex; gap: 8px; align-items: center; background: var(--staff-accent); border: 0; border-radius: 20px; color: #fff; padding: 5px 12px; font-size: 12px; font-weight: 700; }
-.staff-access:hover { color: #fff; filter: brightness(.9); }
-.staff-access:focus-visible { outline: 3px solid #245d83; outline-offset: 3px; }
-.staff-unavailable { font-size: 12px; color: #526779; }
-.staff-card-body .card-text { margin-bottom: 7px !important; }
-@media (min-width: 1600px) { .staff-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
-@media (max-width: 1199px) { .staff-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-@media (max-width: 767px) { .staff-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; } .staff-section-heading { flex-wrap: wrap; } }
-@media (max-width: 575px) { .staff-grid { grid-template-columns: 1fr; } .staff-section-heading h2 { font-size: 16px; } .staff-count { margin-left: 58px; } }
+.staff-portal {
+  --staff-accent: #208675;
+  --staff-soft: #e1efed;
+  color: #0c193f;
+  padding: 4px 0 28px;
+}
+.staff-greeting { margin: 0 8px 48px; text-align: right; font-size: 20px; line-height: 1.5; }
+.staff-greeting strong { font-weight: 700; text-transform: capitalize; }
+.staff-section-heading { display: flex; align-items: center; gap: 20px; margin: 0 8px 34px; }
+.staff-section-icon { display: grid; place-items: center; flex: 0 0 62px; height: 62px; border-radius: 18px; background: var(--staff-soft); color: var(--staff-accent); font-size: 34px; }
+.staff-section-heading h2 { margin: 0 0 3px; color: #0c193f; font-size: clamp(24px, 2.1vw, 32px); line-height: 1.2; font-weight: 700; }
+.staff-section-heading p { margin: 0; color: #59667f; font-size: 18px; line-height: 1.5; }
+.staff-count { margin-left: auto; padding: 7px 17px; border: 1px solid #bfddd7; border-radius: 24px; background: var(--staff-soft); color: var(--staff-accent); font-size: 17px; font-weight: 600; white-space: nowrap; }
+.staff-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 19px 13px; }
+.staff-card { display: flex; align-items: center; gap: 20px; min-width: 0; min-height: 150px; padding: 18px; border: 1px solid #cdd4e1; border-radius: 14px; background: #ffffffb3; transition: border-color .18s, box-shadow .18s; }
+.staff-card:hover { border-color: var(--staff-accent); box-shadow: 0 4px 16px #15284b0a; }
+.staff-card-image { position: relative; flex: 0 0 38%; max-width: 107px; height: 110px; overflow: hidden; border-radius: 12px; background: #e1eaed; }
+.staff-card-image::after { position: absolute; inset: 0; content: ''; background: #648b9420; pointer-events: none; }
+.staff-card-image img { display: block; width: 100%; height: 100%; object-fit: cover; filter: saturate(.45); }
+.staff-card-body { display: flex; flex: 1; flex-direction: column; align-items: flex-start; min-width: 0; padding: 0; border: 0; }
+.staff-title-row { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; width: 100%; }
+.staff-card-body h3, .staff-card-body .card-title { margin: 0; color: #0c193f; font-size: clamp(16px, 1.3vw, 20px); line-height: 1.25; font-weight: 700; overflow-wrap: anywhere; }
+.staff-inline-actions, .staff-card-actions { display: flex; justify-content: flex-start; margin: 0; padding: 0; border: 0; }
+.staff-access { display: inline-flex; align-items: center; gap: 8px; padding: 3px 0; border: 0; border-radius: 3px; background: transparent; color: var(--staff-accent); font-size: 18px; font-weight: 500; line-height: 1.3; text-decoration: none; }
+.staff-access .mdi { font-size: 21px; }
+.staff-access:hover { color: var(--staff-accent); text-decoration: underline; }
+.staff-access:focus-visible { outline: 2px solid var(--staff-accent); outline-offset: 4px; }
+.staff-card { position: relative; }
+.staff-access { cursor: pointer; }
+.staff-access::after { content: ''; position: absolute; inset: 0; z-index: 1; border-radius: 14px; cursor: pointer; }
+.staff-card:focus-within { outline: 2px solid var(--staff-accent); outline-offset: 3px; }
+.staff-card { position: relative; }
+.staff-access { cursor: pointer; }
+.staff-access::after { content: ''; position: absolute; inset: 0; z-index: 1; border-radius: 14px; cursor: pointer; }
+.staff-card:focus-within { outline: 2px solid var(--staff-accent); outline-offset: 3px; }
+.staff-unavailable { color: #59667f; font-size: 13px; }
+.staff-local-description { margin: 6px 0 0; color: #59667f; font-size: 13px; }
+.staff-support { --staff-accent: #61559b; --staff-soft: #e9e9f2; margin-top: 54px; padding-top: 36px; border-top: 1px solid #d7ddea; }
+.staff-support .staff-card { min-height: 174px; gap: 20px; padding: 20px 17px; }
+.staff-support .staff-card-image { height: 124px; }
+.staff-support .staff-card-body { gap: 8px; }
+.staff-card-body .card-text { margin: 0 !important; color: #59667f !important; font-size: 16px; line-height: 1.4; overflow-wrap: anywhere; }
+.staff-card-body .card-text strong { font-weight: 500; }
+.staff-card-body .card-text.text-danger { color: #b14343 !important; font-size: 13px; }
+/* Compact desktop layout keeps the application groups within easier reach. */
+.staff-portal { padding: 0 0 16px; }
+.staff-greeting { margin: 0 0 16px; font-size: 16px; }
+.staff-section-heading { gap: 12px; margin: 0 0 16px; }
+.staff-section-icon { flex-basis: 44px; height: 44px; border-radius: 12px; font-size: 26px; }
+.staff-section-heading h2 { font-size: clamp(22px, 1.6vw, 26px); }
+.staff-section-heading p { font-size: 14px; }
+.staff-count { padding: 5px 12px; font-size: 14px; }
+.staff-grid { gap: 12px; }
+.staff-card, .staff-support .staff-card { min-height: 112px; gap: 12px; padding: 12px; }
+.staff-card-image, .staff-support .staff-card-image { flex-basis: 30%; max-width: 80px; height: 80px; }
+.staff-title-row { gap: 8px; }
+.staff-card-body h3, .staff-card-body .card-title { font-size: clamp(14px, 1vw, 16px); }
+.staff-access { font-size: 14px; }
+.staff-access .mdi { font-size: 18px; }
+.staff-support { margin-top: 22px; padding-top: 18px; }
+.staff-support .staff-card-body { gap: 5px; }
+.staff-card-body .card-text { font-size: 13px; }
+@media (max-width: 1199px) {
+  .staff-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+@media (max-width: 991px) {
+  .staff-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .staff-greeting { margin-bottom: 30px; font-size: 17px; }
+  .staff-section-heading { gap: 14px; margin-bottom: 24px; }
+  .staff-section-heading p { font-size: 15px; }
+  .staff-card-body h3, .staff-card-body .card-title { font-size: 18px; }
+}
+@media (max-width: 575px) {
+  .staff-grid { grid-template-columns: 1fr; gap: 14px; }
+  .staff-section-heading { flex-wrap: wrap; margin-left: 0; margin-right: 0; gap: 12px; }
+  .staff-section-heading > div { flex: 1; min-width: 0; }
+  .staff-section-icon { flex-basis: 48px; height: 48px; font-size: 28px; border-radius: 14px; }
+  .staff-section-heading h2 { font-size: 23px; }
+  .staff-count { margin-left: 60px; font-size: 14px; }
+  .staff-card, .staff-support .staff-card { min-height: 144px; padding: 16px; }
+  .staff-card-image, .staff-support .staff-card-image { flex-basis: 100px; height: 110px; }
+  .staff-support { margin-top: 32px; padding-top: 28px; }
+}
+@media (prefers-reduced-motion: reduce) { .staff-card { transition: none; } }
 </style>

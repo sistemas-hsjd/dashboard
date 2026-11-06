@@ -32,6 +32,10 @@ body.hospital-portal[data-layout="horizontal"] .page-content { flex: 1 0 auto; m
 .hospital-card-button { display: inline-flex; align-items: center; gap: 7px; border: 0; border-radius: 20px; padding: 5px 13px; background: var(--card-accent); color: #fff; font-size: 12px; font-weight: 700; box-shadow: 0 2px 6px #203b4926; }
 .hospital-card-button:hover { color: #fff; filter: brightness(.92); }
 .hospital-card-button:focus-visible { outline: 3px solid #245d83; outline-offset: 3px; }
+.hospital-card { position: relative; }
+.hospital-card-button { cursor: pointer; }
+.hospital-card-button::after { content: ''; position: absolute; inset: 0; z-index: 2; border-radius: 17px; cursor: pointer; }
+.hospital-card:focus-within { outline: 3px solid #245d83; outline-offset: 3px; }
 .hospital-portal .footer { position: static; height: auto; min-height: 44px; background: #fff; border-top: 1px solid #e2eaf0; padding: 8px 24px; color: #758397; font-size: 12px; }
 .hospital-portal .footer > .container-fluid { max-width: 1600px; margin: auto; padding: 0; }
 @media (max-width: 1199px) { .hospital-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .hospital-portal .topnav .nav-link { padding-left: 12px; padding-right: 12px; font-size: 13px; } }

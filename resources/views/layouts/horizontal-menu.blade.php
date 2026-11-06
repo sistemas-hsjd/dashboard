@@ -89,7 +89,7 @@
                     @if (Auth::user())
                         <li class="nav-item dropdown" id="menu-nuevo">
                             <button type="button" class="nav-link dropdown-toggle arrow-none" id="topnav-development" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="mdi mdi-code-tags" aria-hidden="true"></i><span>Solicitar Nuevo Desarrollo</span><i class="mdi mdi-chevron-down hospital-nav-chevron" aria-hidden="true"></i>
+                                <i class="mdi mdi-code-tags" aria-hidden="true"></i><span>Gestion de Requerimientos</span><i class="mdi mdi-chevron-down hospital-nav-chevron" aria-hidden="true"></i>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="topnav-development">
                                 <a href="{{ url('http://10.4.237.75/formulario/' . Auth::user()->rut) }}" class="dropdown-item" target="_blank" rel="noopener noreferrer">
