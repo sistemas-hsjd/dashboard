@@ -1,10 +1,10 @@
 <template>
   <div class="staff-portal">
-    <p v-if="user?.nombre" class="staff-greeting">{{ saludo }}, <strong>{{ user.nombre }}</strong></p>
     <section class="staff-section" aria-labelledby="localSystemsTitle">
       <div class="staff-section-heading staff-local-heading">
         <span class="staff-section-icon" aria-hidden="true"><i class="mdi mdi-hospital-building"></i></span>
         <div><h2 id="localSystemsTitle">Sistemas locales</h2><p>Accede a tus aplicaciones clínicas y administrativas.</p></div>
+        <span v-if="user?.nombre" class="staff-greeting">{{ saludo }}, <strong>{{ user.nombre }}</strong></span>
         <span class="staff-count">{{ sistemas.length }} sistemas</span>
       </div>
       <div class="staff-grid">
@@ -236,7 +236,10 @@ export default {
 .staff-card-body .card-text.text-danger { color: #b14343 !important; font-size: 13px; }
 /* Compact desktop layout keeps the application groups within easier reach. */
 .staff-portal { padding: 0 0 16px; }
-.staff-greeting { margin: 0 0 16px; font-size: 16px; }
+.staff-greeting { flex: 1; margin: 0; padding-right: 18%; text-align: center; font-size: 16px; overflow-wrap: anywhere; }
+.staff-local-heading .staff-count { margin-left: 0; }
+.staff-local-heading > .staff-count:last-child { margin-left: auto; }
+.staff-local-heading .staff-greeting + .staff-count:last-child { margin-left: 0; }
 .staff-section-heading { gap: 12px; margin: 0 0 16px; }
 .staff-section-icon { flex-basis: 44px; height: 44px; border-radius: 12px; font-size: 26px; }
 .staff-section-heading h2 { font-size: clamp(22px, 1.6vw, 26px); }
@@ -257,7 +260,8 @@ export default {
 }
 @media (max-width: 991px) {
   .staff-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .staff-greeting { margin-bottom: 30px; font-size: 17px; }
+  .staff-local-heading { flex-wrap: wrap; }
+  .staff-local-heading .staff-greeting { flex-basis: 100%; margin: 0; padding-right: 0; text-align: left; font-size: 15px; }
   .staff-section-heading { gap: 14px; margin-bottom: 24px; }
   .staff-section-heading p { font-size: 15px; }
   .staff-card-body h3, .staff-card-body .card-title { font-size: 18px; }
