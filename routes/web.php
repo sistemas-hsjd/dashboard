@@ -25,6 +25,7 @@ Route::middleware(['guest'])->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/usuarios', [\App\Http\Controllers\PortalUserController::class, 'index'])->name('portalUsers.index');
     Route::post('/session/heartbeat', function (\Illuminate\Http\Request $request) {
         $request->session()->put('portal_last_activity_at', time());
 

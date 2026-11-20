@@ -127,15 +127,16 @@ export default {
   box-shadow: none !important;
   color: #14532d !important;
   font-weight: 600;
-  animation: new-access-pulse 1.6s ease-in-out infinite;
+  animation: new-access-vibration 1.6s linear infinite;
 }
 .audit-table :deep(tr.access-new > td:first-child) {
   border-left: 4px solid #059669;
   font-weight: 700;
 }
-@keyframes new-access-pulse {
-  0%, 100% { background-color: #d1fae5; }
-  50% { background-color: #ecfdf5; }
+@keyframes new-access-vibration {
+  0%, 30%, 100% { transform: translateX(0); }
+  3%, 9%, 15%, 21%, 27% { transform: translateX(-2px); }
+  6%, 12%, 18%, 24% { transform: translateX(2px); }
 }
 @media (prefers-reduced-motion: reduce) {
   .audit-table :deep(tr.access-new > td) { animation: none; }
